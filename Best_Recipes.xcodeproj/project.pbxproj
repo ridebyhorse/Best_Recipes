@@ -9,21 +9,41 @@
 /* Begin PBXBuildFile section */
 		CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */; };
 		CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */; };
-		CB6C630F2C315E5E00CEE6BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630E2C315E5E00CEE6BF /* ViewController.swift */; };
-		CB6C63122C315E5E00CEE6BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63102C315E5E00CEE6BF /* Main.storyboard */; };
 		CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63132C315E5F00CEE6BF /* Assets.xcassets */; };
 		CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63152C315E5F00CEE6BF /* LaunchScreen.storyboard */; };
+		CB6C63242C316E9600CEE6BF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63232C316E9600CEE6BF /* TabBarController.swift */; };
+		CB6C63262C316F9300CEE6BF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63252C316F9300CEE6BF /* HomeViewController.swift */; };
+		CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */; };
+		CB6C632A2C3172BE00CEE6BF /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */; };
+		CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */; };
+		CB6C632E2C3173E700CEE6BF /* CreateRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */; };
+		CB6C63342C317A2100CEE6BF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63332C317A2100CEE6BF /* StorageService.swift */; };
+		CB6C63362C317A3200CEE6BF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63352C317A3200CEE6BF /* Recipe.swift */; };
+		CB6C63382C317EB400CEE6BF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63372C317EB400CEE6BF /* CustomFont.swift */; };
+		CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63202C316BD200CEE6BF /* Poppins-Bold.ttf */; };
+		CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */; };
+		CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CB6C63072C315E5E00CEE6BF /* Best_Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Best_Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CB6C630E2C315E5E00CEE6BF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CB6C63112C315E5E00CEE6BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB6C63132C315E5F00CEE6BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB6C63162C315E5F00CEE6BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB6C63182C315E5F00CEE6BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		CB6C63202C316BD200CEE6BF /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		CB6C63232C316E9600CEE6BF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		CB6C63252C316F9300CEE6BF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeViewController.swift; sourceTree = "<group>"; };
+		CB6C63332C317A2100CEE6BF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		CB6C63352C317A3200CEE6BF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		CB6C63372C317EB400CEE6BF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +76,65 @@
 		CB6C63092C315E5E00CEE6BF /* Best_Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */,
-				CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */,
-				CB6C630E2C315E5E00CEE6BF /* ViewController.swift */,
-				CB6C63102C315E5E00CEE6BF /* Main.storyboard */,
+				CB6C632F2C31793D00CEE6BF /* App */,
+				CB6C63312C3179CD00CEE6BF /* Model */,
+				CB6C63302C3179BF00CEE6BF /* Controller */,
+				CB6C63322C317A0900CEE6BF /* Service */,
+				CB6C631E2C316BB500CEE6BF /* Font */,
 				CB6C63132C315E5F00CEE6BF /* Assets.xcassets */,
 				CB6C63152C315E5F00CEE6BF /* LaunchScreen.storyboard */,
 				CB6C63182C315E5F00CEE6BF /* Info.plist */,
 			);
 			path = Best_Recipes;
+			sourceTree = "<group>";
+		};
+		CB6C631E2C316BB500CEE6BF /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C63372C317EB400CEE6BF /* CustomFont.swift */,
+				CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */,
+				CB6C63202C316BD200CEE6BF /* Poppins-Bold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		CB6C632F2C31793D00CEE6BF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */,
+				CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CB6C63302C3179BF00CEE6BF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C63232C316E9600CEE6BF /* TabBarController.swift */,
+				CB6C63252C316F9300CEE6BF /* HomeViewController.swift */,
+				CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */,
+				CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */,
+				CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */,
+				CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CB6C63312C3179CD00CEE6BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C63352C317A3200CEE6BF /* Recipe.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CB6C63322C317A0900CEE6BF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C63332C317A2100CEE6BF /* StorageService.swift */,
+				CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,8 +196,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */,
+				CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */,
 				CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */,
-				CB6C63122C315E5E00CEE6BF /* Main.storyboard in Resources */,
+				CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +209,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB6C630F2C315E5E00CEE6BF /* ViewController.swift in Sources */,
+				CB6C63262C316F9300CEE6BF /* HomeViewController.swift in Sources */,
+				CB6C63242C316E9600CEE6BF /* TabBarController.swift in Sources */,
+				CB6C632A2C3172BE00CEE6BF /* NotificationViewController.swift in Sources */,
 				CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */,
+				CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */,
+				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
+				CB6C63382C317EB400CEE6BF /* CustomFont.swift in Sources */,
 				CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */,
+				CB6C63342C317A2100CEE6BF /* StorageService.swift in Sources */,
+				CB6C632E2C3173E700CEE6BF /* CreateRecipeViewController.swift in Sources */,
+				CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */,
+				CB6C63362C317A3200CEE6BF /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CB6C63102C315E5E00CEE6BF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CB6C63112C315E5E00CEE6BF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CB6C63152C315E5F00CEE6BF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -218,7 +290,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -275,7 +347,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -297,9 +369,9 @@
 				INFOPLIST_FILE = Best_Recipes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,9 +379,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MariaNesterova.Best-Recipes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -325,9 +400,9 @@
 				INFOPLIST_FILE = Best_Recipes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,9 +410,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MariaNesterova.Best-Recipes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
