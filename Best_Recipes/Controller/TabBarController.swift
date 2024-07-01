@@ -13,20 +13,20 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         generateTabBar()
     }
-
+    
     private func generateTabBar() {
         viewControllers = [
-            generateVC(viewController: HomeViewController(), title: "Get amazing recipes for cooking", image: .home.withRenderingMode(.alwaysOriginal), selectedImage: .homeActive.withRenderingMode(.alwaysOriginal)),
-            generateVC(viewController: BookmarkViewController(), title: "Saved recipes", image: .bookmark.withRenderingMode(.alwaysOriginal), selectedImage: .bookmarkActive.withRenderingMode(.alwaysOriginal)),
-            generateVC(viewController: CreateRecipeViewController(), title: "Create recipe", image: .createRecipe.withRenderingMode(.alwaysOriginal), selectedImage: .createRecipe.withRenderingMode(.alwaysOriginal)),
-            generateVC(viewController: NotificationViewController(), title: "Recent notifications", image: .notification.withRenderingMode(.alwaysOriginal), selectedImage: .notificationActive.withRenderingMode(.alwaysOriginal)),
-            generateVC(viewController: ProfileViewController(), title: "My profile", image: .profile.withRenderingMode(.alwaysOriginal), selectedImage: .profileActive.withRenderingMode(.alwaysOriginal))
+            generateVC(viewController: HomeViewController(), title: "Get amazing recipes for cooking", image: UIImage(imageLiteralResourceName: "Home"), selectedImage: UIImage(imageLiteralResourceName: "Home-active")),
+            generateVC(viewController: BookmarkViewController(), title: "Saved recipes", image: UIImage(imageLiteralResourceName: "Bookmark"), selectedImage: UIImage(imageLiteralResourceName: "Bookmark-active")),
+            generateVC(viewController: CreateRecipeViewController(), title: "Create recipe", image: UIImage(imageLiteralResourceName: "CreateRecipe"), selectedImage: UIImage(imageLiteralResourceName: "CreateRecipe")),
+            generateVC(viewController: NotificationViewController(), title: "Recent notifications", image: UIImage(imageLiteralResourceName: "Notification"), selectedImage: UIImage(imageLiteralResourceName: "Notification-active")),
+            generateVC(viewController: ProfileViewController(), title: "My profile", image: UIImage(imageLiteralResourceName: "Profile"), selectedImage: UIImage(imageLiteralResourceName: "Profile-active"))
         ]
     }
 
-    private func generateVC(viewController: UIViewController, title: String, image: UIImage?, selectedImage: UIImage?) -> UINavigationController {
-        viewController.tabBarItem.image = image
-        viewController.tabBarItem.selectedImage = selectedImage
+    private func generateVC(viewController: UIViewController, title: String, image: UIImage, selectedImage: UIImage) -> UINavigationController {
+        viewController.tabBarItem.image = image.withRenderingMode(.alwaysOriginal)
+        viewController.tabBarItem.selectedImage = selectedImage.withRenderingMode(.alwaysOriginal)
         viewController.navigationItem.title = title
         return UINavigationController(rootViewController: viewController)
     }
