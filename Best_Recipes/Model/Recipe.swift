@@ -7,23 +7,31 @@
 
 import Foundation
 
-struct Recipe: Codable {
-    let id: Int
+struct RecipeData: Decodable {
+    var recipes: [Recipe]
+}
+
+struct Recipe: Decodable {
+    var rating: String {
+        String(format: "%.1f", spoonacularScore / 20.0)
+    }
+    private let id: Int
     let title: String
-    let cuisines: [String]
-    let dishTypes: [String]
-    let readyInMinutes: Int
-    let veryPopular: Bool
-    let aggregateLikes: Int
-    let creditsText: String
-    let extendedIngredients: [Ingridient]
-    let analyzedInstructions: [Instruction]
+    let countries: [String]
+    let categories: [String]
+    let cookingTime: Int
+    let isTrending: Bool
+    let reviewsCount: Int
+    let author: String
+    private let spoonacularScore: Double
+    let ingredients: [Ingridient]?
+    let instructions: [Instruction]
     
-    struct Ingridient: Codable {
+    struct Ingridient: Decodable {
         var imageLink: String {
-            "https://img.spoonacular.com/ingredients_100x100/" + image
+            "https://img.spoonacular.com/ingredients_100x100/" + (image ?? "")
         }
-        let image: String
+        let image: String?
         let originalName: String
         let amount: Double
         let unit: String
@@ -33,12 +41,24 @@ struct Recipe: Codable {
         }
     }
     
-    struct Instruction: Codable {
-        let step: [InstructionStep]
+    struct Instruction: Decodable {
+        let steps: [InstructionStep]
     }
     
-    struct InstructionStep: Codable {
+    struct InstructionStep: Decodable {
         let number: Int
         let step: String
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id, title, spoonacularScore
+        case countries = "cuisines"
+        case categories = "dishTypes"
+        case cookingTime = "readyInMinutes"
+        case isTrending = "veryPopular"
+        case reviewsCount = "aggregateLikes"
+        case author = "sourceName"
+        case ingredients = "extendedIngredients"
+        case instructions = "analyzedInstructions"
     }
 }
