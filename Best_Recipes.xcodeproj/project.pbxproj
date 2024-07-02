@@ -42,6 +42,7 @@
 		CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63202C316BD200CEE6BF /* Poppins-Bold.ttf */; };
 		CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */; };
 		CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */; };
+		D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		CB6C63352C317A3200CEE6BF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		CB6C63372C317EB400CEE6BF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				CB6C63232C316E9600CEE6BF /* TabBarController.swift */,
+				D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */,
 				CB6C63252C316F9300CEE6BF /* HomeViewControllers.swift */,
 				CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */,
 				CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */,
@@ -345,6 +348,7 @@
 				CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */,
 				CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */,
 				6E4CBCF92C3364A8008D19FE /* ReusableView.swift in Sources */,
+				D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */,
 				6E4CBCC42C334830008D19FE /* CollectionCell.swift in Sources */,
 				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
 				6E4CBD042C33761A008D19FE /* HomePresenterImpl.swift in Sources */,
