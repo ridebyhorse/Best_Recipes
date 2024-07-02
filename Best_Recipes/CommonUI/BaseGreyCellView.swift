@@ -1,5 +1,5 @@
 //
-//  IngridientView.swift
+//  BaseGreyCellView.swift
 //  Best_Recipes
 //
 //  Created by Natalia on 01.07.2024.
@@ -7,12 +7,11 @@
 
 import UIKit
 
-class IngridientView: UIView {
-
-    private let imageView: UIImageView = {
-        let view = UIImageView()
-        return view
-    }()
+class BaseGreyCellView: UIView {
+    
+    private var buttonAction: (() -> Void)?
+    
+    private let imageView = UIImageView()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -22,7 +21,6 @@ class IngridientView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "200g"
         label.textColor = .darkGreyApp
         label.font = .custom(font: .regular, size: 14)
         return label
@@ -32,7 +30,7 @@ class IngridientView: UIView {
         let button = UIButton()
         button.addTarget(
             self,
-            action: #selector(buttonAction),
+            action: #selector(buttonTapped),
             for: .touchUpInside
         )
         return button
@@ -47,7 +45,7 @@ class IngridientView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        configureView()
+       // configureView()
         addSubviews()
         setConstraints()
     }
@@ -56,14 +54,45 @@ class IngridientView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureView() {
+    func configureView(
+        image: UIImage,
+        title: String,
+        description: String,
+        buttonImage: UIImage,
+        buttonColor: UIColor,
+        buttonAction: @escaping () -> Void
+    ) {
         backgroundColor = .greyApp
         layer.cornerRadius = 15
         
-        imageView.image = UIImage(named: "Ingredients")
-        titleLabel.text = "Fish"
-        descriptionLabel.text = "200g"
-        button.setImage(UIImage(named: "Checkbox"), for: .normal)
+        imageView.image = image 
+        titleLabel.text = title
+        descriptionLabel.text = description 
+        
+        configureButton(
+            image: buttonImage,
+            color: buttonColor,
+            action: buttonAction
+        )
+    }
+    
+    func configureButton(
+        image: UIImage? = nil,
+        color: UIColor? = nil,
+        action: (() -> Void)? = nil
+    ) {
+        if let image = image {
+            button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+        
+        if let color = color {
+            button.tintColor = color
+        }
+        
+        if let action = action { 
+            self.buttonAction = action
+        }
+        
     }
     
     private func addSubviews() {
@@ -80,8 +109,7 @@ class IngridientView: UIView {
         button.snp.makeConstraints { $0.width.height.equalTo(23) }
     }
     
-    
-    @objc private func buttonAction() {
-        
+    @objc private func buttonTapped() {
+        buttonAction?()
     }
 }

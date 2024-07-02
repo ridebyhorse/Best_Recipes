@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		6EF366CA2C31E3E0008D6DAC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF366C92C31E3E0008D6DAC /* SnapKit */; };
 		6EF366CF2C31E40F008D6DAC /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF366CE2C31E40F008D6DAC /* AlamofireImage */; };
-		B90922632C32918800528467 /* SnapKit-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = B90922602C32918800528467 /* SnapKit-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B90922652C32963600528467 /* RecipeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90922642C32963600528467 /* RecipeDetailController.swift */; };
 		B90922682C32968B00528467 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90922672C32968B00528467 /* RecipeView.swift */; };
 		B909226A2C329E0500528467 /* NumberedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90922692C329E0500528467 /* NumberedView.swift */; };
 		B909226C2C32DDD900528467 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B909226B2C32DDD900528467 /* RatingView.swift */; };
-		B90922702C32FC5900528467 /* IngridientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B909226F2C32FC5900528467 /* IngridientView.swift */; };
+		B90922702C32FC5900528467 /* BaseGreyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B909226F2C32FC5900528467 /* BaseGreyCellView.swift */; };
 		B90922722C330D3A00528467 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90922712C330D3A00528467 /* MockData.swift */; };
+		B920F4D12C34078500A65994 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B920F4D02C34078500A65994 /* IngredientCell.swift */; };
+		B920F4D32C3430FD00A65994 /* IngredientsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B920F4D22C3430FD00A65994 /* IngredientsTableView.swift */; };
 		CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */; };
 		CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */; };
 		CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63132C315E5F00CEE6BF /* Assets.xcassets */; };
@@ -41,7 +42,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B90922632C32918800528467 /* SnapKit-Dynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,8 +53,10 @@
 		B90922672C32968B00528467 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		B90922692C329E0500528467 /* NumberedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedView.swift; sourceTree = "<group>"; };
 		B909226B2C32DDD900528467 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
-		B909226F2C32FC5900528467 /* IngridientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientView.swift; sourceTree = "<group>"; };
+		B909226F2C32FC5900528467 /* BaseGreyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGreyCellView.swift; sourceTree = "<group>"; };
 		B90922712C330D3A00528467 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		B920F4D02C34078500A65994 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
+		B920F4D22C3430FD00A65994 /* IngredientsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsTableView.swift; sourceTree = "<group>"; };
 		CB6C63072C315E5E00CEE6BF /* Best_Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Best_Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,11 +102,20 @@
 			children = (
 				B90922642C32963600528467 /* RecipeDetailController.swift */,
 				B90922672C32968B00528467 /* RecipeView.swift */,
+				B920F4D22C3430FD00A65994 /* IngredientsTableView.swift */,
 				B909226B2C32DDD900528467 /* RatingView.swift */,
 				B90922692C329E0500528467 /* NumberedView.swift */,
-				B909226F2C32FC5900528467 /* IngridientView.swift */,
+				B920F4D02C34078500A65994 /* IngredientCell.swift */,
 			);
 			path = RecipeDetail;
+			sourceTree = "<group>";
+		};
+		B920F4CF2C34075C00A65994 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				B909226F2C32FC5900528467 /* BaseGreyCellView.swift */,
+			);
+			path = CommonUI;
 			sourceTree = "<group>";
 		};
 		CB6C62FE2C315E5E00CEE6BF = {
@@ -127,6 +138,7 @@
 		CB6C63092C315E5E00CEE6BF /* Best_Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				B920F4CF2C34075C00A65994 /* CommonUI */,
 				CB6C632F2C31793D00CEE6BF /* App */,
 				CB6C63312C3179CD00CEE6BF /* Model */,
 				CB6C63302C3179BF00CEE6BF /* Controller */,
@@ -210,7 +222,6 @@
 			packageProductDependencies = (
 				6EF366C92C31E3E0008D6DAC /* SnapKit */,
 				6EF366CE2C31E40F008D6DAC /* AlamofireImage */,
-				B90922602C32918800528467 /* SnapKit-Dynamic */,
 			);
 			productName = Best_Recipes;
 			productReference = CB6C63072C315E5E00CEE6BF /* Best_Recipes.app */;
@@ -278,11 +289,13 @@
 				CB6C632A2C3172BE00CEE6BF /* NotificationViewController.swift in Sources */,
 				CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */,
 				CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */,
-				B90922702C32FC5900528467 /* IngridientView.swift in Sources */,
+				B90922702C32FC5900528467 /* BaseGreyCellView.swift in Sources */,
 				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
 				CB6C63382C317EB400CEE6BF /* CustomFont.swift in Sources */,
 				CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */,
 				CB6C63342C317A2100CEE6BF /* StorageService.swift in Sources */,
+				B920F4D12C34078500A65994 /* IngredientCell.swift in Sources */,
+				B920F4D32C3430FD00A65994 /* IngredientsTableView.swift in Sources */,
 				B90922682C32968B00528467 /* RecipeView.swift in Sources */,
 				B909226C2C32DDD900528467 /* RatingView.swift in Sources */,
 				B90922722C330D3A00528467 /* MockData.swift in Sources */,
@@ -540,11 +553,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6EF366CD2C31E40F008D6DAC /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
-		};
-		B90922602C32918800528467 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6EF366C82C31E3E0008D6DAC /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

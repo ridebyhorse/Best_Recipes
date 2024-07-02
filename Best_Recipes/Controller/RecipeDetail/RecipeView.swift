@@ -60,14 +60,7 @@ final class RecipeView: UIView {
         return stack
     }()
     
-    private let ingredientsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Ingredients"
-        label.font = .custom(font: .bold, size: 20)
-        return label
-    }()
-    
-    private let ingredientsView = IngridientView()
+    private(set) var ingredientsTableView = IngredientsTableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,10 +68,23 @@ final class RecipeView: UIView {
         addSubviews()
         makeConstraints()
         backgroundColor = .white
+        
+        #warning("remove this")
+        setList(of: [
+        "Place eggs in a saucepan and cover with cold water.", "Bring water to a boil and immediately remove from heat.", "Cover and let eggs stand in hot water for 10 to 12 minutes.", "Remove from hot water, cool, peel, and chop.", "Place chopped eggs in a bowl.", "Add chopped tomatoes, corns, lettuce, and any other vegitable of your choice.", "Stir in mayonnaise, green onion, and mustard.", "Season with paprika, salt, and pepper.", "Stir and serve on your favorite bread or crackers."
+        
+        ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setList(of items: [String]) {
+        for (number, text) in items.enumerated() {
+            let numberedItem = NumberedView(number: "\(number + 1)", text: text)
+            instructionsStack.addArrangedSubview(numberedItem)
+        }
     }
     
     private func addSubviews() {
@@ -96,9 +102,7 @@ final class RecipeView: UIView {
         
         contentView.addSubview(instructionsLabel)
         contentView.addSubview(instructionsStack)
-        
-        contentView.addSubview(ingredientsLabel)
-        contentView.addSubview(ingredientsView)
+        contentView.addSubview(ingredientsTableView)
     }
     
     private func makeConstraints() {
@@ -125,21 +129,9 @@ final class RecipeView: UIView {
         instructionsStack.snp.makeConstraints { $0.top.equalTo(instructionsLabel.snp.bottom).offset(16) }
         instructionsStack.snp.makeConstraints { $0.trailing.equalToSuperview().offset(-19) }
         instructionsStack.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-        
-        ingredientsLabel.snp.makeConstraints { $0.top.equalTo(instructionsStack.snp.bottom).offset(16) }
-        ingredientsLabel.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-        
-        ingredientsView.snp.makeConstraints { $0.height.equalTo(76) }
-        ingredientsView.snp.makeConstraints { $0.top.equalTo(ingredientsLabel.snp.bottom).offset(16) }
-        ingredientsView.snp.makeConstraints { $0.trailing.bottom.equalToSuperview().offset(-19) }
-        ingredientsView.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-        
-    }
-    
-    func setList(of items: [String]) {
-        for (number, text) in items.enumerated() {
-            let numberedItem = NumberedView(number: "\(number + 1)", text: text)
-            instructionsStack.addArrangedSubview(numberedItem)
-        }
+
+        ingredientsTableView.snp.makeConstraints { $0.top.equalTo(instructionsStack.snp.bottom).offset(16) }
+        ingredientsTableView.snp.makeConstraints { $0.trailing.bottom.equalToSuperview().offset(-19) }
+        ingredientsTableView.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
     }
 }
