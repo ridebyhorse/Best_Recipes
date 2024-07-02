@@ -26,24 +26,18 @@ final class IngredientCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell() {
-#warning("configureCell")
-        guard
-            let image = UIImage(named: "Ingredients"),
-            let buttonImage = UIImage(named: "Checkbox")
-        else { return }
-        
+    func configureCell(ingredintName: String, amount: String, image: UIImage?) {
         ingredientView.configureView(
             image: image,
-            title: "Fish",
-            description: "200g",
-            buttonImage: buttonImage, 
+            title: ingredintName,
+            description: amount,
+            buttonImage: UIImage(named: "Checkbox"),
             buttonColor: .black,
             buttonAction: checkboxTapped)
     }
     
     private func checkboxTapped() {
-        #warning("save choice")
+#warning("save choice")
         isChecked.toggle()
         let buttonColor: UIColor = isChecked ? UIColor(resource: .redApp) : .black
         ingredientView.configureButton(color: buttonColor)

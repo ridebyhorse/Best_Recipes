@@ -101,11 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				B90922642C32963600528467 /* RecipeDetailController.swift */,
-				B90922672C32968B00528467 /* RecipeView.swift */,
-				B920F4D22C3430FD00A65994 /* IngredientsTableView.swift */,
-				B909226B2C32DDD900528467 /* RatingView.swift */,
-				B90922692C329E0500528467 /* NumberedView.swift */,
-				B920F4D02C34078500A65994 /* IngredientCell.swift */,
+				B9B9E10C2C347B2A003E5439 /* View */,
 			);
 			path = RecipeDetail;
 			sourceTree = "<group>";
@@ -116,6 +112,18 @@
 				B909226F2C32FC5900528467 /* BaseGreyCellView.swift */,
 			);
 			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		B9B9E10C2C347B2A003E5439 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B909226B2C32DDD900528467 /* RatingView.swift */,
+				B90922692C329E0500528467 /* NumberedView.swift */,
+				B920F4D02C34078500A65994 /* IngredientCell.swift */,
+				B90922672C32968B00528467 /* RecipeView.swift */,
+				B920F4D22C3430FD00A65994 /* IngredientsTableView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		CB6C62FE2C315E5E00CEE6BF = {

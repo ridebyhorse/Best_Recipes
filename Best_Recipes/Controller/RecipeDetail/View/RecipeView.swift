@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 final class RecipeView: UIView {
     
@@ -16,7 +15,6 @@ final class RecipeView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "How to make Tasty Fish (point & Kill)"
         label.numberOfLines = .zero
         label.font = .custom(font: .bold, size: 24)
         return label
@@ -24,7 +22,6 @@ final class RecipeView: UIView {
     
     private let imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Onboarding1")
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         return view
@@ -34,7 +31,6 @@ final class RecipeView: UIView {
     
     private let reviewsLabel: UILabel = {
         let label = UILabel()
-        label.text = "(300 Reviews)"
         label.textColor = .darkGreyApp
         label.font = .custom(font: .regular, size: 14)
         return label
@@ -68,19 +64,23 @@ final class RecipeView: UIView {
         addSubviews()
         makeConstraints()
         backgroundColor = .white
-        
-        #warning("remove this")
-        setList(of: [
-        "Place eggs in a saucepan and cover with cold water.", "Bring water to a boil and immediately remove from heat.", "Cover and let eggs stand in hot water for 10 to 12 minutes.", "Remove from hot water, cool, peel, and chop.", "Place chopped eggs in a bowl.", "Add chopped tomatoes, corns, lettuce, and any other vegitable of your choice.", "Stir in mayonnaise, green onion, and mustard.", "Season with paprika, salt, and pepper.", "Stir and serve on your favorite bread or crackers."
-        
-        ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setList(of items: [String]) {
+    func configureView(title: String, steps: [String], ingredients: [Recipe.Ingridient]) {
+        titleLabel.text = title
+        ratingView.configureView(with: "4,5")
+        setList(of: steps)
+        ingredientsTableView.igredients = ingredients
+        
+        imageView.image = UIImage(named: "Onboarding1")
+        reviewsLabel.text = "(300 Reviews)"
+    }
+    
+    private func setList(of items: [String]) {
         for (number, text) in items.enumerated() {
             let numberedItem = NumberedView(number: "\(number + 1)", text: text)
             instructionsStack.addArrangedSubview(numberedItem)
@@ -88,7 +88,6 @@ final class RecipeView: UIView {
     }
     
     private func addSubviews() {
-        
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -106,32 +105,26 @@ final class RecipeView: UIView {
     }
     
     private func makeConstraints() {
-        
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         contentView.snp.makeConstraints { $0.edges.width.equalToSuperview() }
         
-        titleLabel.snp.makeConstraints { $0.top.equalToSuperview().offset(16) }
-        titleLabel.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-        titleLabel.snp.makeConstraints { $0.trailing.equalToSuperview().offset(-19) }
+        titleLabel.snp.makeConstraints { $0.top.equalToSuperview().inset(16) }
+        titleLabel.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(19) }
         
         imageView.snp.makeConstraints { $0.top.equalTo(titleLabel.snp.bottom).offset(20) }
-        imageView.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-        imageView.snp.makeConstraints { $0.trailing.equalToSuperview().offset(-19) }
+        imageView.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(19) }
         imageView.snp.makeConstraints { $0.height.equalTo(200) }
         
         ratingStack.snp.makeConstraints { $0.top.equalTo(imageView.snp.bottom).offset(20) }
-        ratingStack.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-        ratingStack.snp.makeConstraints { $0.trailing.equalToSuperview().offset(-19) }
+        ratingStack.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(19) }
         
-        instructionsLabel.snp.makeConstraints { $0.top.equalTo(ratingStack.snp.bottom).offset(16) }
-        instructionsLabel.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
+        instructionsLabel.snp.makeConstraints { $0.top.equalTo(ratingStack.snp.bottom).offset(13) }
+        instructionsLabel.snp.makeConstraints { $0.leading.equalToSuperview().inset(19) }
         
-        instructionsStack.snp.makeConstraints { $0.top.equalTo(instructionsLabel.snp.bottom).offset(16) }
-        instructionsStack.snp.makeConstraints { $0.trailing.equalToSuperview().offset(-19) }
-        instructionsStack.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
-
+        instructionsStack.snp.makeConstraints { $0.top.equalTo(instructionsLabel.snp.bottom).offset(8) }
+        instructionsStack.snp.makeConstraints { $0.trailing.leading.equalToSuperview().inset(19) }
+        
         ingredientsTableView.snp.makeConstraints { $0.top.equalTo(instructionsStack.snp.bottom).offset(16) }
-        ingredientsTableView.snp.makeConstraints { $0.trailing.bottom.equalToSuperview().offset(-19) }
-        ingredientsTableView.snp.makeConstraints { $0.leading.equalToSuperview().offset(19) }
+        ingredientsTableView.snp.makeConstraints { $0.trailing.bottom.leading.equalToSuperview().inset(19) }
     }
 }

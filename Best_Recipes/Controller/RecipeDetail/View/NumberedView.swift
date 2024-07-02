@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class NumberedView: UIView {
-
+    
     private let numberLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right

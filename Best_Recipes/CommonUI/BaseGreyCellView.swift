@@ -45,7 +45,6 @@ class BaseGreyCellView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-       // configureView()
         addSubviews()
         setConstraints()
     }
@@ -55,10 +54,10 @@ class BaseGreyCellView: UIView {
     }
     
     func configureView(
-        image: UIImage,
+        image: UIImage?,
         title: String,
         description: String,
-        buttonImage: UIImage,
+        buttonImage: UIImage?,
         buttonColor: UIColor,
         buttonAction: @escaping () -> Void
     ) {
@@ -92,7 +91,6 @@ class BaseGreyCellView: UIView {
         if let action = action { 
             self.buttonAction = action
         }
-        
     }
     
     private func addSubviews() {
@@ -106,7 +104,7 @@ class BaseGreyCellView: UIView {
     private func setConstraints() {
         contentStack.snp.makeConstraints { $0.edges.equalToSuperview().inset(16) }
         imageView.snp.makeConstraints { $0.width.equalTo(imageView.snp.height) }
-        button.snp.makeConstraints { $0.width.height.equalTo(23) }
+        button.snp.makeConstraints { $0.width.equalTo(23) }
     }
     
     @objc private func buttonTapped() {
