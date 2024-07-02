@@ -1,0 +1,63 @@
+{
+    "recipes": [
+        {
+            "id": 1,
+            "title": "Spaghetti Carbonara",
+            "cuisines": ["Italy"],
+            "dishTypes": ["Main Course"],
+            "readyInMinutes": 30,
+            "veryPopular": true,
+            "aggregateLikes": 200,
+            "sourceName": "Chef John",
+            "spoonacularScore": 80.0,
+            "extendedIngredients": [
+                {"image": "spaghetti.jpg", "originalName": "Spaghetti", "amount": 200, "unit": "g"},
+                {"image": "egg.jpg", "originalName": "Eggs", "amount": 4, "unit": "pcs"},
+                {"image": "bacon.jpg", "originalName": "Bacon", "amount": 150, "unit": "g"},
+                {"image": "parmesan.jpg", "originalName": "Parmesan Cheese", "amount": 50, "unit": "g"},
+                {"image": "pepper.jpg", "originalName": "Black Pepper", "amount": 1, "unit": "tsp"}
+            ],
+            "analyzedInstructions": [
+                {
+                    "steps": [
+                        {"number": 1, "step": "Boil the spaghetti according to package instructions."},
+                        {"number": 2, "step": "Fry the bacon until crispy."},
+                        {"number": 3, "step": "Beat the eggs and mix with grated Parmesan."},
+                        {"number": 4, "step": "Combine spaghetti with bacon and egg mixture."},
+                        {"number": 5, "step": "Season with black pepper and serve."}
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Chicken Curry",
+            "cuisines": ["India"],
+            "dishTypes": ["Main Course"],
+            "readyInMinutes": 45,
+            "veryPopular": false,
+            "aggregateLikes": 150,
+            "sourceName": "Chef Priya",
+            "spoonacularScore": 85.0,
+            "extendedIngredients": [
+                {"image": "chicken.jpg", "originalName": "Chicken Breast", "amount": 500, "unit": "g"},
+                {"image": "onion.jpg", "originalName": "Onions", "amount": 2, "unit": "pcs"},
+                {"image": "garlic.jpg", "originalName": "Garlic", "amount": 4, "unit": "cloves"},
+                {"image": "tomato.jpg", "originalName": "Tomatoes", "amount": 3, "unit": "pcs"},
+                {"image": "spices.jpg", "originalName": "Curry Powder", "amount": 2, "unit": "tbsp"}
+            ],
+            "analyzedInstructions": [
+                {
+                    "steps": [
+                        {"number": 1, "step": "Cut the chicken into small pieces."},
+                        {"number": 2, "step": "Chop the onions, garlic, and tomatoes."},
+                        {"number": 3, "step": "Fry the onions and garlic until golden brown."},
+                        {"number": 4, "step": "Add the chicken and cook until browned."},
+                        {"number": 5, "step": "Add tomatoes and curry powder, and simmer until chicken is cooked through."}
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
