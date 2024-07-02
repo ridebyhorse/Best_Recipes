@@ -88,9 +88,12 @@ extension IngredientsTableView: UITableViewDataSource {
         
 #warning("get ingredient image")
         if let ingredient = igredients?[indexPath.row] {
+            
+            let amount = String(format: "%.0f", ingredient.amount)
+            let ingredientsAmount = "\(amount) \(ingredient.unit)"
             cell.configureCell(
                 ingredintName: ingredient.originalName,
-                amount: String(format: "%.0f", ingredient.amount),
+                amount: ingredientsAmount,
                 image: UIImage(named: "Ingredients")
             )
         }

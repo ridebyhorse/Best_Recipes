@@ -11,9 +11,10 @@ final class RecipeDetailController: UIViewController {
     
     private let customView = RecipeView()
     
-    init(recipe: Recipe = MockData.mockRecipeData) {
+    init() {
         super.init(nibName: nil, bundle: nil)
         
+        guard let recipe = MockData.getMockRecipes()?.first else { return }
         configureView(with: recipe)
     }
     
@@ -25,20 +26,20 @@ final class RecipeDetailController: UIViewController {
         view = customView
     }
     
+    private func getRecipes() {
+        NetworkService.shared.fetchRecipes()
+    }
+    
     private func configureView(with recipe: Recipe) {
         var steps: [String] = []
-        recipe.analyzedInstructions.first?.step.forEach {
+        recipe.instructions.first?.steps.forEach {
             steps.append($0.step)
         }
         customView.configureView(
             title: recipe.title,
             steps: steps,
-            ingredients: recipe.extendedIngredients
+            ingredients: recipe.ingredients
         )
     }
 }
 
-@available(iOS 17.0, *) 
-#Preview {
-    RecipeDetailController(recipe: MockData.mockRecipeData)
-}
