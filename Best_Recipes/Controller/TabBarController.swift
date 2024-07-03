@@ -16,7 +16,7 @@ class TabBarViewController: UITabBarController {
     
     private func generateTabBar() {
         viewControllers = [
-            generateVC(viewController: HomeViewController(), title: "Get amazing recipes for cooking", image: UIImage(imageLiteralResourceName: "Home"), selectedImage: UIImage(imageLiteralResourceName: "Home-active")),
+            generateVC(viewController: HomeAssembly().build(), title: "Get amazing recipes for cooking", image: UIImage(imageLiteralResourceName: "Home"), selectedImage: UIImage(imageLiteralResourceName: "Home-active")),
             generateVC(viewController: BookmarkViewController(), title: "Saved recipes", image: UIImage(imageLiteralResourceName: "Bookmark"), selectedImage: UIImage(imageLiteralResourceName: "Bookmark-active")),
             generateVC(viewController: CreateRecipeViewController(), title: "Create recipe", image: UIImage(imageLiteralResourceName: "CreateRecipe"), selectedImage: UIImage(imageLiteralResourceName: "CreateRecipe")),
             generateVC(viewController: NotificationViewController(), title: "Recent notifications", image: UIImage(imageLiteralResourceName: "Notification"), selectedImage: UIImage(imageLiteralResourceName: "Notification-active")),
@@ -31,3 +31,4 @@ class TabBarViewController: UITabBarController {
         return UINavigationController(rootViewController: viewController)
     }
 }
+

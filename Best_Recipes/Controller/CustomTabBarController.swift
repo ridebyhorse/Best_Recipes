@@ -15,35 +15,29 @@ final class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         setValue(customTabBar, forKey: "tabBar")
-        //setupTabItems()
+        setupTabItems()
     }
     
-//    private func setupTabItems() {
-//        
-//        let homeVC = MainScreenController()
-//        homeVC.tabBarItem.image = UIImage(named: "Home")
-//        
-//        let favoritesVC = FavoritesController()
-//        favoritesVC.tabBarItem.image = UIImage(named: "Bookmark")
-//        
-//        let imageEmpty = MainScreenController()
-//        imageEmpty.tabBarItem.image = UIImage(named: "")
-//        
-//        let notificationVC = FavoritesController()
-//        notificationVC.tabBarItem.image = UIImage(named: "Notification")
-//        
-//        let profileVC = FavoritesController()
-//        profileVC.tabBarItem.image = UIImage(named: "Profile")
-//        
-//        setViewControllers([homeVC, favoritesVC, notificationVC, profileVC], animated: false)
-//        
-//    }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    private func setupTabItems() {
 
-        self.tabBar.itemPositioning = .centered
-        self.tabBar.itemSpacing = view.bounds.width / 5
-        self.view.layoutIfNeeded()
+        setViewControllers(generateTabBar(), animated: true)
+
+    }
+    private func generateTabBar() -> [UINavigationController] {
+        [
+            generateVC(viewController: HomeViewController(), title: "Get amazing recipes for cooking", image: UIImage(imageLiteralResourceName: "Home"), selectedImage: UIImage(imageLiteralResourceName: "Home-active")),
+            generateVC(viewController: BookmarkViewController(), title: "Saved recipes", image: UIImage(imageLiteralResourceName: "Bookmark"), selectedImage: UIImage(imageLiteralResourceName: "Bookmark-active")),
+            UINavigationController(),
+            generateVC(viewController: NotificationViewController(), title: "Recent notifications", image: UIImage(imageLiteralResourceName: "Notification"), selectedImage: UIImage(imageLiteralResourceName: "Notification-active")),
+            generateVC(viewController: ProfileViewController(), title: "My profile", image: UIImage(imageLiteralResourceName: "Profile"), selectedImage: UIImage(imageLiteralResourceName: "Profile-active"))
+        ]
+    }
+
+    private func generateVC(viewController: UIViewController, title: String, image: UIImage, selectedImage: UIImage) -> UINavigationController {
+        viewController.tabBarItem.image = image.withRenderingMode(.alwaysOriginal)
+        viewController.tabBarItem.selectedImage = selectedImage.withRenderingMode(.alwaysOriginal)
+        viewController.navigationItem.title = title
+        return UINavigationController(rootViewController: viewController)
     }
 }
 @available(iOS 17.0, *)
