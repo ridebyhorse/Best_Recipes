@@ -6,13 +6,12 @@
 //
 
 struct HomeViewModel {
-    struct TrandingNow {
-        let resepies: [RecipesCellViewModel]
-        let headerName: String
-        let seeAllHandler: () -> Void
-    }
-    
     let tandingNow: TrandingNow
-    
 }
 
+
+struct TrandingNow {
+    let resepies: [RecipesCellViewModel]
+    let headerName: String
+    let seeAllHandler: () -> Void
+}

@@ -18,13 +18,15 @@ extension UIImageView: Configurable {
         let cornerRadius: CGFloat
         
         init(
-            image: UIImage?,
+            image: UIImage? = nil,
             url: URL? = nil,
             renderingMode: UIImage.RenderingMode = .alwaysTemplate,
-            tintColor: UIColor?,
+            tintColor: UIColor? = nil,
             contenMode: UIImageView.ContentMode = .scaleAspectFill,
             size: CGSize? = nil,
-            cornerRadius: CGFloat = .zero
+            cornerRadius: CGFloat = .zero,
+            contentMode: UIView.ContentMode = .scaleAspectFit
+            
         ) {
             self.image = image
             self.url = url
@@ -47,6 +49,7 @@ extension UIImageView: Configurable {
         self.contentMode = model.contenMode
         self.clipsToBounds = true
         self.layer.cornerRadius = model.cornerRadius
+        self.contentMode = model.contenMode
         
         if let size = model.size {
             snp.remakeConstraints {

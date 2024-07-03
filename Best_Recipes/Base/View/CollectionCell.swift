@@ -36,29 +36,33 @@ class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
     ) {
         view.update(with: model)
         self.didSelectHandler = didSelectHandler
-        
-        if let height {
-            stackView.snp.remakeConstraints {
-                $0.height.equalTo(height)
-                $0.edges.equalToSuperview().inset(insets)
-            }
-        } else {
-            stackView.snp.updateConstraints {
-                $0.edges.equalToSuperview().inset(insets)
-            }
-        }
+//        
+//        if let height {
+//            stackView.snp.remakeConstraints {
+//                $0.height.equalTo(height)
+//                $0.edges.equalToSuperview().inset(insets)
+//            }
+//        } else {
+//            stackView.snp.updateConstraints {
+//                $0.edges.equalToSuperview().inset(insets)
+//            }
+//        }
+    
     }
     
     private func configure() {
         
         backgroundColor = .clear
         
-        contentView.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        stackView.addArrangedSubview(view)
-        
+//        contentView.addSubview(stackView)
+//        stackView.snp.makeConstraints {
+//            $0.edges.equalToSuperview()
+//        }
+//        stackView.addArrangedSubview(view)
+        contentView.addSubview(view)
+        view.snp.makeConstraints {
+                   $0.edges.equalToSuperview()
+               }
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(didSelect))
         tapGR.cancelsTouchesInView = false
         addGestureRecognizer(tapGR)
@@ -68,6 +72,4 @@ class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
     private func didSelect() {
         didSelectHandler?()
     }
-    
-    
 }
