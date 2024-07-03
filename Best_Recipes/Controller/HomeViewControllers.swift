@@ -12,6 +12,10 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+     let viewController = HomeViewController(), image = UIImage(imageLiteralResourceName: "Home"), selectedImage = UIImage(imageLiteralResourceName: "Home-active")
+        viewController.tabBarItem.image = image.withRenderingMode(.alwaysOriginal)
+        viewController.tabBarItem.selectedImage = selectedImage.withRenderingMode(.alwaysOriginal)
+        
         view.backgroundColor = .white
         NetworkService.shared.fetchRecipes()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

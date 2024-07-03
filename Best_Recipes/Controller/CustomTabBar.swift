@@ -19,7 +19,7 @@ final class CustomTabBar: UITabBar {
         super.init(frame: frame)
         
         setupTabBar()
-        setupPlusButton()  
+        setupPlusButton()
     }
     
     required init?(coder: NSCoder) {
@@ -30,14 +30,13 @@ final class CustomTabBar: UITabBar {
     
     private func setupTabBar() {
         tintColor = .red
-        unselectedItemTintColor = .black
     }
     
     private func setupPlusButton(){
         addSubview(plusButton)
         NSLayoutConstraint.activate([
             plusButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            plusButton.centerYAnchor.constraint(equalTo: topAnchor),
+            plusButton.centerYAnchor.constraint(equalTo: topAnchor, constant: -6),
             plusButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
             plusButton.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)
         ])
@@ -69,16 +68,16 @@ extension CustomTabBar {
     private func getTabBarPath() -> UIBezierPath {
         
         let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: 100, y: 0))
+        path.move(to: CGPoint(x: 0, y: -6))
+        path.addLine(to: CGPoint(x: 100, y: -6))
         
-        path.addArc(withCenter: CGPoint(x: frame.width / 2, y: 0),
-                    radius: 40,
+        path.addArc(withCenter: CGPoint(x: frame.width / 2, y: -6),
+                    radius: 35,
                     startAngle: .pi,
                     endAngle: .pi * 2,
                     clockwise: false)
         
-        path.addLine(to: CGPoint(x: frame.width, y: 0))
+        path.addLine(to: CGPoint(x: frame.width, y: -6))
         path.addLine(to: CGPoint(x: frame.width, y: frame.height))
         path.addLine(to: CGPoint(x: 0, y: frame.height))
         
