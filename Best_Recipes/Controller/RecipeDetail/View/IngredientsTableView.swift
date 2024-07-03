@@ -9,7 +9,7 @@ import UIKit
 
 final class IngredientsTableView: UITableView {
     
-    var igredients: [Recipe.Ingridient]?
+    var items: [IngredientViewModel]?
     
     private let ingredientsLabel: UILabel = {
         let label = UILabel()
@@ -74,7 +74,7 @@ extension IngredientsTableView: UITableViewDelegate {
 
 extension IngredientsTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        igredients?.count ?? 0
+        items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,13 +87,10 @@ extension IngredientsTableView: UITableViewDataSource {
         else { fatalError("configure IngredientCell fail") }
         
 #warning("get ingredient image")
-        if let ingredient = igredients?[indexPath.row] {
-            
-            let amount = String(format: "%.0f", ingredient.amount)
-            let ingredientsAmount = "\(amount) \(ingredient.unit)"
+        if let item = items?[indexPath.row] {
             cell.configureCell(
-                ingredintName: ingredient.originalName,
-                amount: ingredientsAmount,
+                ingredintName: item.title,
+                amount: item.amountAndUnit,
                 image: UIImage(named: "Ingredients")
             )
         }

@@ -70,14 +70,19 @@ final class RecipeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureView(title: String, steps: [String], ingredients: [Recipe.Ingridient]?) {
+    func configureView(
+        title: String,
+        steps: [String],
+        rating: String,
+        reviewsCount: String
+    ) {
         titleLabel.text = title
-        ratingView.configureView(with: "4,5")
         setList(of: steps)
-        ingredientsTableView.igredients = ingredients
-        
+        ratingView.configureView(with: rating)
+        reviewsLabel.text = "(\(reviewsCount) Reviews)"
+
+        #warning("to do")
         imageView.image = UIImage(named: "Onboarding1")
-        reviewsLabel.text = "(300 Reviews)"
     }
     
     private func setList(of items: [String]) {
