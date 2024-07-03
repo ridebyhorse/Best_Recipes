@@ -24,7 +24,6 @@ class TableCell<View: Configurable & UIView>: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         view.update(with: nil)
     }
     

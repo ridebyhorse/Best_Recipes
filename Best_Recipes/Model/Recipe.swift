@@ -15,7 +15,8 @@ struct Recipe: Decodable {
     var rating: String {
         String(format: "%.1f", spoonacularScore / 20.0)
     }
-    private let id: Int
+    
+    let id: Int
     let title: String
     let countries: [String]
     let categories: [String]
@@ -26,29 +27,7 @@ struct Recipe: Decodable {
     private let spoonacularScore: Double
     let ingredients: [Ingridient]?
     let instructions: [Instruction]
-    
-    struct Ingridient: Decodable {
-        var imageLink: String {
-            "https://img.spoonacular.com/ingredients_100x100/" + (image ?? "")
-        }
-        let image: String?
-        let originalName: String
-        let amount: Double
-        let unit: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case image, originalName, amount, unit
-        }
-    }
-    
-    struct Instruction: Decodable {
-        let steps: [InstructionStep]
-    }
-    
-    struct InstructionStep: Decodable {
-        let number: Int
-        let step: String
-    }
+    let image: URL?
     
     private enum CodingKeys: String, CodingKey {
         case id, title, spoonacularScore
@@ -60,5 +39,30 @@ struct Recipe: Decodable {
         case author = "sourceName"
         case ingredients = "extendedIngredients"
         case instructions = "analyzedInstructions"
+        case image = "image"
     }
+}
+
+struct Ingridient: Decodable {
+    var imageLink: String {
+        "https://img.spoonacular.com/ingredients_100x100/" + (image ?? "")
+    }
+    let image: String?
+    let originalName: String
+    let amount: Double
+    let unit: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case image, originalName, amount, unit
+    }
+}
+
+struct InstructionStep: Decodable {
+    let number: Int
+    let step: String
+}
+
+
+struct Instruction: Decodable {
+    let steps: [InstructionStep]
 }
