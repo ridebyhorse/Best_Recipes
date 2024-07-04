@@ -56,6 +56,8 @@
 		CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */; };
 		CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */; };
 		CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */; };
+		CBCB55352C37035D000BD3F1 /* APIKey.json in Resources */ = {isa = PBXBuildFile; fileRef = CBCB55342C37035D000BD3F1 /* APIKey.json */; settings = {ASSET_TAGS = (APIKey, ); }; };
+		CBCB55372C3703DD000BD3F1 /* KeyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */; };
 		CBE872B32C35C815005EB742 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE872B22C35C815005EB742 /* NetworkManager.swift */; };
 		CBEDCA142C34953500232A02 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA132C34953500232A02 /* DIContainer.swift */; };
 		CBEDCA1A2C3496BA00232A02 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA192C3496BA00232A02 /* StorageService.swift */; };
@@ -112,6 +114,8 @@
 		CB6C63372C317EB400CEE6BF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeTask.swift; sourceTree = "<group>"; };
+		CBCB55342C37035D000BD3F1 /* APIKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = APIKey.json; sourceTree = "<group>"; };
+		CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstant.swift; sourceTree = "<group>"; };
 		CBE872B22C35C815005EB742 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CBEDCA132C34953500232A02 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		CBEDCA192C3496BA00232A02 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
@@ -317,8 +321,6 @@
 			isa = PBXGroup;
 			children = (
 				B9B9E1142C347D26003E5439 /* RecipeDetail */,
-				CB6C63232C316E9600CEE6BF /* TabBarController.swift */,
-				CB6C63252C316F9300CEE6BF /* HomeViewControllers.swift */,
 				CBEDCA1C2C3496F400232A02 /* CustomTabBar.swift */,
 				CBEDCA1B2C3496F400232A02 /* CustomTabBarController.swift */,
 				CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */,
@@ -334,9 +336,11 @@
 		CB6C63312C3179CD00CEE6BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CBCB55342C37035D000BD3F1 /* APIKey.json */,
 				B9B9E11F2C348436003E5439 /* mockData.json */,
 				B9B9E11B2C347D54003E5439 /* MockData.swift */,
 				CB6C63352C317A3200CEE6BF /* Recipe.swift */,
+				CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,6 +388,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					APIKey,
+				);
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
@@ -423,6 +430,7 @@
 				CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */,
 				CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */,
 				CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */,
+				CBCB55352C37035D000BD3F1 /* APIKey.json in Resources */,
 				CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,8 +442,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB6C63262C316F9300CEE6BF /* HomeViewControllers.swift in Sources */,
-				CB6C63242C316E9600CEE6BF /* TabBarController.swift in Sources */,
 				B9B9E1152C347D26003E5439 /* IngredientCell.swift in Sources */,
 				B9B9E1182C347D26003E5439 /* RatingView.swift in Sources */,
 				6E4CBCC62C33493E008D19FE /* TableCell.swift in Sources */,
@@ -443,6 +449,7 @@
 				B9B9E1372C35AAD7003E5439 /* RecipeDetailPresenter.swift in Sources */,
 				CB6C632A2C3172BE00CEE6BF /* NotificationViewController.swift in Sources */,
 				B9B9E11A2C347D26003E5439 /* RecipeDetailController.swift in Sources */,
+				CBCB55372C3703DD000BD3F1 /* KeyConstant.swift in Sources */,
 				6E4CBCD02C334B5B008D19FE /* HomeProtocol.swift in Sources */,
 				B9B9E1392C35C185003E5439 /* RecipeDetailsAssembly.swift in Sources */,
 				6E4CBCC22C33480D008D19FE /* CustomView.swift in Sources */,
@@ -466,8 +473,6 @@
 				CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */,
 				6E4CBCBE2C33474E008D19FE /* Configurable.swift in Sources */,
 				6E4CBCCB2C334A55008D19FE /* UIView+Extension.swift in Sources */,
-
-				CB6C63342C317A2100CEE6BF /* StorageService.swift in Sources */,
 				B9B9E12D2C349F9D003E5439 /* BaseGreyCellView.swift in Sources */,
 				6E4CBCFD2C336A3E008D19FE /* HomeViewController.swift in Sources */,
 				0FEF0B232C34853700A5E0F2 /* CustomTabBar.swift in Sources */,
@@ -640,6 +645,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = APIKey;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MariaNesterova.Best-Recipes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -671,6 +677,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = APIKey;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MariaNesterova.Best-Recipes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

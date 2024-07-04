@@ -10,14 +10,18 @@ import Foundation
 class NetworkService {
     
     static let shared = NetworkService()
-    private let apiKeys = ["57a18417f2a547b29df04e67c6703ac8", "7e508b7b542c4f69abb41fdfb7e6868b"]
+    private let apiKeys = [KeyConstant.APIKeys.apiKey1, KeyConstant.APIKeys.apiKey2]
     private var currentApiKey = 0
     private let baseUrlString = "https://api.spoonacular.com/recipes/random?number=100&apiKey="
     private let searchByKeywordUrlStringStart = "https://api.spoonacular.com/food/search?query="
     private let searchByKeywordUrlStringEnd = "&number=10&apiKey="
     private let searchByIdUrlString = "https://api.spoonacular.com/recipes/informationBulk?ids="
 
-    private init() {}
+    private init() {
+        Task {
+            try await KeyConstant.loadAPIKeys()
+        }
+    }
     
     func fetchRecipes() async throws -> [Recipe] {
         let urlString = baseUrlString + apiKeys[currentApiKey]
