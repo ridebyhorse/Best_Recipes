@@ -336,8 +336,8 @@
 		CB6C63312C3179CD00CEE6BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CBCB55342C37035D000BD3F1 /* APIKey.json */,
 				B9B9E11F2C348436003E5439 /* mockData.json */,
+				6EC7D6F82C3749A00045313F /* MockRecipe.json */,
 				B9B9E11B2C347D54003E5439 /* MockData.swift */,
 				CB6C63352C317A3200CEE6BF /* Recipe.swift */,
 				CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */,
