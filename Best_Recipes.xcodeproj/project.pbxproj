@@ -83,6 +83,7 @@
 		6E4CBCFC2C336A3E008D19FE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6E4CBD012C336E73008D19FE /* BannerRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerRecipesView.swift; sourceTree = "<group>"; };
 		6E4CBD032C33761A008D19FE /* HomePresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenterImpl.swift; sourceTree = "<group>"; };
+		6EC7D6F82C3749A00045313F /* MockRecipe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockRecipe.json; sourceTree = "<group>"; };
 		6ED9989C2C34AFB3002675A5 /* HomeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssembly.swift; sourceTree = "<group>"; };
 		B9B9E10D2C347D26003E5439 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		B9B9E10E2C347D26003E5439 /* IngredientsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableView.swift; sourceTree = "<group>"; };
@@ -429,8 +430,8 @@
 				B9B9E1202C348436003E5439 /* mockData.json in Resources */,
 				CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */,
 				CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */,
+				6EC7D6F92C3749A00045313F /* MockRecipe.json in Resources */,
 				CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */,
-				CBCB55352C37035D000BD3F1 /* APIKey.json in Resources */,
 				CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

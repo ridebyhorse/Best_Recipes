@@ -29,10 +29,6 @@ final class HomeControllerImpl: UIViewController {
         super.viewDidLoad()
         configure()
         presenter?.viewDidLoad()
-        
-        print("aaaa")
-        
-        
     }
 }
 
@@ -64,13 +60,13 @@ private extension HomeControllerImpl {
   
     func updateCollection(with model: HomeViewModel) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+        
         snapshot.appendSections([.trendigHeader, .trendingNow, .popularCategoryHeader, .categories, .circeRecipe])
         snapshot.appendItems([model.tandingNow.header], toSection: .trendigHeader)
         snapshot.appendItems(model.tandingNow.resepies, toSection: .trendingNow)
         snapshot.appendItems([model.popularCategory.header], toSection: .popularCategoryHeader)
         snapshot.appendItems(model.popularCategory.categories, toSection: .categories)
         snapshot.appendItems(model.popularCategory.resepies, toSection: .circeRecipe)
-        
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
@@ -235,7 +231,7 @@ private extension HomeControllerImpl {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.3),
-            heightDimension: .fractionalHeight(0.3)
+            heightDimension: .fractionalHeight(0.25)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
