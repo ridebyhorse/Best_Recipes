@@ -22,6 +22,7 @@ final class RecipeView: UIView {
     
     private let imageView: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         return view
