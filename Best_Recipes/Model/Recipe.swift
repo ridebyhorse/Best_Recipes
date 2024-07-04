@@ -25,7 +25,8 @@ struct RecipeData: Decodable {
     var recipes: [Recipe]
 }
 
-struct Recipe: Decodable {
+struct Recipe: Codable{
+    var isFavorite: Bool = false
     var rating: Double
     let id: Int?
     let title: String
@@ -53,18 +54,18 @@ struct Recipe: Decodable {
     }
 }
 
-struct Ingridient: Decodable {
+struct Ingridient: Codable {
     var image: String?
     let originalName: String
     let amount: Double
     let unit: String
 }
 
-struct InstructionStep: Decodable {
+struct InstructionStep: Codable {
     let number: Int
     let step: String
 }
 
-struct Instruction: Decodable {
+struct Instruction: Codable {
     let steps: [InstructionStep]
 }
