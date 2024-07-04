@@ -17,16 +17,21 @@ final class HomePresenterImpl: HomePresenter {
     }
     
     func viewDidLoad() {
-        networkManager.fetchRecipes()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            let trendingRecipe = self?.networkManager.getTrendingRecipes()
-            let countries = self?.networkManager.getCountries()
-            let categories = self?.networkManager.getCategories()
-            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
+//        networkManager.fetchRecipes()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
+//            let trendingRecipe = self?.networkManager.getTrendingRecipes()
+//            let countries = self?.networkManager.getCountries()
+//            let categories = self?.networkManager.getCategories()
+//            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            let trendingRecipe = MockDatas.getMockRecipes()
+            let countries = ["Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE"]
+            let categories =  ["Breackfst", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
+            let recipeCategories = MockDatas.getMockRecipes()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
                 let recipe = self?.networkManager.getTrendingRecipes()
-                print(recipe)
+                
                 guard let self = self else  { return }
                 self.view?.update(
                     with: .init(
@@ -58,7 +63,7 @@ final class HomePresenterImpl: HomePresenter {
                         popularCategory:
                                 .init(
                                     resepies: createRecipeCellViewModel(with: recipeCategories!),
-                                    categories: categories!.map() { .init(headerName: $0, didSelect: {
+                                    categories: categories.map() { .init(headerName: $0, didSelect: {
                                         print(categories)
                                     })},
                                     header: .init(
@@ -72,7 +77,7 @@ final class HomePresenterImpl: HomePresenter {
                                         seeAllHandler: nil)),
                         country:
                                 .init(
-                                    country: countries!.map() { country in
+                                    country: countries.map() { country in
                                             .init(name: country, imageName: country, didSelect: { print(country)})
                                     },
                                     header: .init(
