@@ -61,9 +61,23 @@ class NetworkManager {
     }
     
     func getRecipesByKeyword(_ keyword: String) -> [Recipe] {
-        return UnsafeTask {
+        let searchedRecipes = UnsafeTask {
             await self.searchRecipes(byKeyword: keyword)
         }.get()
+        
+        for recipe in searchedRecipes {
+            if !recipes.contains(where: {$0.id == recipe.id}) {
+                recipes.append(recipe)
+            }
+        }
+        
+        return searchedRecipes
+    }
+    
+    func getRecipeById(_ id: Int) -> Recipe? {
+        guard let index = recipes.firstIndex(where: {$0.id == id}) else { return nil }
+        
+        return recipes[index]
     }
     
     private func searchRecipes(byKeyword keyword: String) async -> [Recipe] {
