@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol NetworkServiceProtocol {
-    var networkService: NetworkService { get }
+protocol NetworkManagerProtocol {
+    var networkManager: NetworkManager { get }
 }
 
 protocol StorageServiceProtocol {
@@ -20,26 +20,26 @@ protocol StorageServiceProtocol {
  Использование:
  
  в Presenter создаем typealias с протоколами нужных сервисов, например:
- - typealias Services = NetworkServiceProtocol & StorageServiceProtocol
- - let networkService: NetworkService
- - let storageService: NetworkService
+ - typealias Services = NetworkManagerProtocol & StorageServiceProtocol
+ - let networkManager: NetworkManager
+ - let storageService: StorageService
  
  Или если нужен, например, только сетевой сервис
- - typealias Services = NetworkServiceProtocol
- - let networkService: NetworkService
+ - typealias Services = NetworkManagerProtocol
+ - let networkManager: NetworkManager
  
  Далее в инициализации Presenterа инжектим typealias:
- - init(container: Services) { self.networkService = container.networkService }
+ - init(container: Services) { self.networkManager = container.networkManager }
  */
-final class DIContainer: NetworkServiceProtocol, StorageServiceProtocol {
+final class DIContainer: NetworkManagerProtocol, StorageServiceProtocol {
     
     static let shared = DIContainer()
     
-    let networkService: NetworkService
+    let networkManager: NetworkManager
     let storageService: StorageService
     
     private init() {
-        self.networkService = NetworkService.shared
+        self.networkManager = NetworkManager(networkService: NetworkService.shared)
         self.storageService = StorageService.shared
     }
 }

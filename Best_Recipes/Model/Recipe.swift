@@ -7,16 +7,28 @@
 
 import Foundation
 
+struct SearchResults: Decodable {
+    let searchResults: [SearchResult]
+}
+
+struct SearchResult: Decodable {
+    let name: String
+    let results: [Result]
+}
+
+struct Result: Decodable {
+    var id: Int?
+    let name: String
+}
+
 struct RecipeData: Decodable {
     var recipes: [Recipe]
 }
 
-struct Recipe: Decodable {
-    var rating: String {
-        String(format: "%.1f", spoonacularScore / 20.0)
-    }
-    
-    let id: Int
+struct Recipe: Codable{
+    var isFavorite: Bool = false
+    var rating: Double
+    let id: Int?
     let title: String
     let countries: [String]
     let categories: [String]
@@ -24,13 +36,12 @@ struct Recipe: Decodable {
     let isTrending: Bool
     let reviewsCount: Int
     let author: String
-    private let spoonacularScore: Double
     let ingredients: [Ingridient]?
     let instructions: [Instruction]
     let image: URL?
     
     private enum CodingKeys: String, CodingKey {
-        case id, title, spoonacularScore
+        case id, title, image
         case countries = "cuisines"
         case categories = "dishTypes"
         case cookingTime = "readyInMinutes"
@@ -39,30 +50,22 @@ struct Recipe: Decodable {
         case author = "sourceName"
         case ingredients = "extendedIngredients"
         case instructions = "analyzedInstructions"
-        case image = "image"
+        case rating = "spoonacularScore"
     }
 }
 
-struct Ingridient: Decodable {
-    var imageLink: String {
-        "https://img.spoonacular.com/ingredients_100x100/" + (image ?? "")
-    }
-    let image: String?
+struct Ingridient: Codable {
+    var image: String?
     let originalName: String
     let amount: Double
     let unit: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case image, originalName, amount, unit
-    }
 }
 
-struct InstructionStep: Decodable {
+struct InstructionStep: Codable {
     let number: Int
     let step: String
 }
 
-
-struct Instruction: Decodable {
+struct Instruction: Codable {
     let steps: [InstructionStep]
 }

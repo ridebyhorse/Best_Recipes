@@ -46,18 +46,21 @@
 		CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */; };
 		CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63132C315E5F00CEE6BF /* Assets.xcassets */; };
 		CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63152C315E5F00CEE6BF /* LaunchScreen.storyboard */; };
-		CB6C63242C316E9600CEE6BF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63232C316E9600CEE6BF /* TabBarController.swift */; };
-		CB6C63262C316F9300CEE6BF /* HomeViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63252C316F9300CEE6BF /* HomeViewControllers.swift */; };
 		CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */; };
 		CB6C632A2C3172BE00CEE6BF /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */; };
 		CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */; };
 		CB6C632E2C3173E700CEE6BF /* CreateRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */; };
-		CB6C63342C317A2100CEE6BF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63332C317A2100CEE6BF /* StorageService.swift */; };
 		CB6C63362C317A3200CEE6BF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63352C317A3200CEE6BF /* Recipe.swift */; };
 		CB6C63382C317EB400CEE6BF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C63372C317EB400CEE6BF /* CustomFont.swift */; };
 		CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63202C316BD200CEE6BF /* Poppins-Bold.ttf */; };
 		CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */; };
 		CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */; };
+		CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */; };
+		CBE872B32C35C815005EB742 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE872B22C35C815005EB742 /* NetworkManager.swift */; };
+		CBEDCA142C34953500232A02 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA132C34953500232A02 /* DIContainer.swift */; };
+		CBEDCA1A2C3496BA00232A02 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA192C3496BA00232A02 /* StorageService.swift */; };
+		CBEDCA1D2C3496F400232A02 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA1B2C3496F400232A02 /* CustomTabBarController.swift */; };
+		CBEDCA1E2C3496F400232A02 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA1C2C3496F400232A02 /* CustomTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,16 +104,19 @@
 		CB6C63182C315E5F00CEE6BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		CB6C63202C316BD200CEE6BF /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		CB6C63232C316E9600CEE6BF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		CB6C63252C316F9300CEE6BF /* HomeViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllers.swift; sourceTree = "<group>"; };
 		CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeViewController.swift; sourceTree = "<group>"; };
-		CB6C63332C317A2100CEE6BF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		CB6C63352C317A3200CEE6BF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		CB6C63372C317EB400CEE6BF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeTask.swift; sourceTree = "<group>"; };
+		CBE872B22C35C815005EB742 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		CBEDCA132C34953500232A02 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		CBEDCA192C3496BA00232A02 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		CBEDCA1B2C3496F400232A02 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		CBEDCA1C2C3496F400232A02 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +319,8 @@
 				B9B9E1142C347D26003E5439 /* RecipeDetail */,
 				CB6C63232C316E9600CEE6BF /* TabBarController.swift */,
 				CB6C63252C316F9300CEE6BF /* HomeViewControllers.swift */,
+				CBEDCA1C2C3496F400232A02 /* CustomTabBar.swift */,
+				CBEDCA1B2C3496F400232A02 /* CustomTabBarController.swift */,
 				CB6C63272C31727B00CEE6BF /* BookmarkViewController.swift */,
 				CB6C632D2C3173E700CEE6BF /* CreateRecipeViewController.swift */,
 				CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */,
@@ -336,8 +344,11 @@
 		CB6C63322C317A0900CEE6BF /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				CB6C63332C317A2100CEE6BF /* StorageService.swift */,
+				CBEDCA132C34953500232A02 /* DIContainer.swift */,
+				CBE872B22C35C815005EB742 /* NetworkManager.swift */,
+				CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */,
 				CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */,
+				CBEDCA192C3496BA00232A02 /* StorageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -436,8 +447,10 @@
 				B9B9E1392C35C185003E5439 /* RecipeDetailsAssembly.swift in Sources */,
 				6E4CBCC22C33480D008D19FE /* CustomView.swift in Sources */,
 				CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */,
+				CBEDCA1A2C3496BA00232A02 /* StorageService.swift in Sources */,
 				CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */,
 				6E4CBCF92C3364A8008D19FE /* ReusableView.swift in Sources */,
+				CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */,
 				6ED9989D2C34AFB3002675A5 /* HomeAssembly.swift in Sources */,
 				6E4CBCC42C334830008D19FE /* CollectionCell.swift in Sources */,
 				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
@@ -446,18 +459,21 @@
 				B9B9E1172C347D26003E5439 /* NumberedView.swift in Sources */,
 				B9B9E13C2C35C2A8003E5439 /* Builder.swift in Sources */,
 				6E4CBCF72C336332008D19FE /* HomeVIewModel.swift in Sources */,
+				CBE872B32C35C815005EB742 /* NetworkManager.swift in Sources */,
 				6E4CBCCD2C334A86008D19FE /* UIStackView + Extension.swift in Sources */,
 				B9B9E1162C347D26003E5439 /* IngredientsTableView.swift in Sources */,
 				CB6C63382C317EB400CEE6BF /* CustomFont.swift in Sources */,
 				CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */,
 				6E4CBCBE2C33474E008D19FE /* Configurable.swift in Sources */,
 				6E4CBCCB2C334A55008D19FE /* UIView+Extension.swift in Sources */,
+
 				CB6C63342C317A2100CEE6BF /* StorageService.swift in Sources */,
 				B9B9E12D2C349F9D003E5439 /* BaseGreyCellView.swift in Sources */,
 				6E4CBCFD2C336A3E008D19FE /* HomeViewController.swift in Sources */,
 				0FEF0B232C34853700A5E0F2 /* CustomTabBar.swift in Sources */,
 				0FEF0B262C3485CE00A5E0F2 /* CustomTabBarController.swift in Sources */,
 				CB6C632E2C3173E700CEE6BF /* CreateRecipeViewController.swift in Sources */,
+				CBEDCA1D2C3496F400232A02 /* CustomTabBarController.swift in Sources */,
 				6E4CBCFB2C3369CF008D19FE /* RecipesCellViewModel.swift in Sources */,
 				B9B9E1322C35A5A8003E5439 /* RecipeDetailProtocols.swift in Sources */,
 				CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */,
@@ -465,7 +481,9 @@
 				6E4CBCC92C3349B5008D19FE /* UIimageVIew + Extension.swift in Sources */,
 				B9B9E1192C347D26003E5439 /* RecipeView.swift in Sources */,
 				B9B9E11C2C347D54003E5439 /* MockData.swift in Sources */,
+				CBEDCA142C34953500232A02 /* DIContainer.swift in Sources */,
 				CB6C63362C317A3200CEE6BF /* Recipe.swift in Sources */,
+				CBEDCA1E2C3496F400232A02 /* CustomTabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
