@@ -8,61 +8,67 @@
 import Foundation
 
 class NetworkService {
+    
     static let shared = NetworkService()
-    private let apiKey = "57a18417f2a547b29df04e67c6703ac8"
+    private let apiKeys = [KeyConstant.APIKeys.apiKey1, KeyConstant.APIKeys.apiKey2]
+    private var currentApiKey = 0
     private let baseUrlString = "https://api.spoonacular.com/recipes/random?number=100&apiKey="
-    private var recipes = [Recipe]()
+    private let searchByKeywordUrlStringStart = "https://api.spoonacular.com/food/search?query="
+    private let searchByKeywordUrlStringEnd = "&number=10&apiKey="
+    private let searchByIdUrlString = "https://api.spoonacular.com/recipes/informationBulk?ids="
 
-    private init() {}
-    
-    func getTrendingRecipes() -> [Recipe] {
-        recipes.filter({ $0.isTrending})
+    private init() {
+        Task {
+            try await KeyConstant.loadAPIKeys()
+        }
     }
     
-    func getCategories() -> [String] {
-        var categories = [String]()
-        recipes.forEach({
-            categories += $0.categories
-        })
-        return Array(Set(categories))
-    }
-    
-    func getRecipeForCategory(_ category: String) -> [Recipe] {
-        recipes.filter({ $0.categories.contains(category) })
-    }
-    
-    func getCountries() -> [String] {
-        var countries = [String]()
-        recipes.forEach({
-            countries += $0.countries
-        })
-        return Array(Set(countries))
-    }
-    
-    func getRecipeForCountry(_ country: String) -> [Recipe] {
-        recipes.filter({ $0.countries.contains(country) })
-    }
-
-    private func fetchRecipes() async throws -> [Recipe] {
-        let urlString = baseUrlString + apiKey
-        
+    func fetchRecipes() async throws -> [Recipe] {
+        let urlString = baseUrlString + apiKeys[currentApiKey]
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
         }
-
         let (data, _) = try await URLSession.shared.data(from: url)
         let recipesResponse = try JSONDecoder().decode(RecipeData.self, from: data)
+        
         return recipesResponse.recipes
     }
     
-    func fetchRecipes() {
-        Task {
-            do {
-                let result = try await fetchRecipes()
-                recipes = result.filter({ $0.ingredients != nil })
-            } catch {
-                print("Ошибка при загрузке/поиске рецептов: \(error)")
+    func searchRecipes(byKeyword keyword: String) async throws -> [SearchResult] {
+        let urlString = searchByKeywordUrlStringStart + keyword + searchByKeywordUrlStringEnd + apiKeys[currentApiKey]
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let searchResponse = try JSONDecoder().decode(SearchResults.self, from: data)
+        
+        return searchResponse.searchResults
+    }
+    
+    func searchRecipes(byId id: [Int]) async throws -> [Recipe] {
+        var ids = ""
+        for (index, recipeId) in id.enumerated() {
+            if index < id.count - 1 {
+                ids += "\(recipeId),"
+            } else {
+                ids += "\(recipeId)"
             }
+        }
+        let urlString = searchByIdUrlString + ids + "&apiKey=" + apiKeys[currentApiKey]
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let recipesResponse = try JSONDecoder().decode([Recipe].self, from: data)
+        
+        return recipesResponse
+    }
+    
+    func switchCurrentApiKey() {
+        if currentApiKey < apiKeys.count - 1 {
+            currentApiKey += 1
+        } else {
+            currentApiKey = 0
         }
     }
     

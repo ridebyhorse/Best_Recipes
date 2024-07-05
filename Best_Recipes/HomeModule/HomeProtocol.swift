@@ -10,13 +10,12 @@ import UIKit
 protocol HomePresenter: AnyObject  {
     var view: (any HomeController)? { get }
     init(view: any HomeController)
+    func viewDidLoad()
 }
 
 protocol HomeController: Configurable {
     typealias Model = HomeViewModel
     var presenter: HomePresenter? { get }
-    
 }
-////////////
 
 

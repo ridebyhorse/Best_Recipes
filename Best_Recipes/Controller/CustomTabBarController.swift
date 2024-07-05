@@ -25,8 +25,8 @@ final class CustomTabBarController: UITabBarController {
     }
     private func generateTabBar() -> [UINavigationController] {
         [
-            generateVC(viewController: HomeViewController(), title: "Get amazing recipes for cooking", image: UIImage(imageLiteralResourceName: "Home"), selectedImage: UIImage(imageLiteralResourceName: "Home-active")),
-            generateVC(viewController: BookmarkViewController(), title: "Saved recipes", image: UIImage(imageLiteralResourceName: "Bookmark"), selectedImage: UIImage(imageLiteralResourceName: "Bookmark-active")),
+            generateVC(viewController: HomeAssembly().build(), title: "Get amazing recipes for cooking", image: UIImage(imageLiteralResourceName: "Home"), selectedImage: UIImage(imageLiteralResourceName: "Home-active")),
+            generateVC(viewController: RecipeDetailsAssembly().build(), title: "Saved recipes", image: UIImage(imageLiteralResourceName: "Bookmark"), selectedImage: UIImage(imageLiteralResourceName: "Bookmark-active")),
             UINavigationController(),
             generateVC(viewController: NotificationViewController(), title: "Recent notifications", image: UIImage(imageLiteralResourceName: "Notification"), selectedImage: UIImage(imageLiteralResourceName: "Notification-active")),
             generateVC(viewController: ProfileViewController(), title: "My profile", image: UIImage(imageLiteralResourceName: "Profile"), selectedImage: UIImage(imageLiteralResourceName: "Profile-active"))
