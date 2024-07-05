@@ -9,18 +9,18 @@ import Foundation
 
 enum KeyConstant {
     static func loadAPIKeys() async throws {
-        let request = NSBundleResourceRequest(tags: ["APIKeys"])
+        let request = NSBundleResourceRequest(tags: ["APIKey"])
         try await request.beginAccessingResources()
         
-        let url = Bundle.main.url(forResource: "APIKeys", withExtension: "json")!
+        let url = Bundle.main.url(forResource: "APIKey", withExtension: "json")!
         let data = try Data(contentsOf: url)
         
-        APIKeys.storage = try JSONDecoder().decode([String: String].self, from: data)
+        APIKey.storage = try JSONDecoder().decode([String: String].self, from: data)
         
         request.endAccessingResources()
     }
     
-    enum APIKeys {
+    enum APIKey {
         static fileprivate(set) var storage = [String: String]()
         
         static var apiKey1: String { storage["apiKey1"] ?? "" }

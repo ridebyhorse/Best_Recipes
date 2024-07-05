@@ -45,7 +45,7 @@ class StorageService {
     }
     
     func toggleFavorite(recipeId id: Int) {
-        var recipes = getRecipes(forKey: .favoriteRecipiesKey)
+        let recipes = getRecipes(forKey: .favoriteRecipiesKey)
         if recipes.contains(where: {$0.id == id}) {
             removeRecipe(forKey: .favoriteRecipiesKey, recipeId: id)
         } else {
@@ -94,7 +94,7 @@ class StorageService {
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(recipes)
-            userDefaults.set(recipes, forKey: key.rawValue)
+            userDefaults.set(data, forKey: key.rawValue)
         } catch {
             print("Error encoding recipes: \(error)")
         }
