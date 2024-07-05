@@ -17,38 +17,26 @@ final class HomePresenterImpl: HomePresenter {
     }
     
     func viewDidLoad() {
-        networkManager.fetchRecipes()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            let trendingRecipe = self?.networkManager.getTrendingRecipes()
-            let countries = self?.networkManager.getCountries()
-            let categories = self?.networkManager.getCategories()
-            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
+//        networkManager.fetchRecipes()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
+//            let trendingRecipe = self?.networkManager.getTrendingRecipes()
+//            let countries = self?.networkManager.getCountries()
+//            let categories = self?.networkManager.getCategories()
+//            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            let trendingRecipe = MockData.getMockRecipesMore()
+            let countries = ["Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE"]
+            let categories =  ["Breackfst", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
+            let recipeCategories = MockData.getMockRecipesMore()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
                 let recipe = self?.networkManager.getTrendingRecipes()
-                print(recipe)
+                
                 guard let self = self else  { return }
                 self.view?.update(
                     with: .init(
                         tandingNow: .init(
-                            resepies: trendingRecipe!.enumerated().map() { (index ,recipe) in
-                                    .init(
-                                        recipeid: recipe.id!,
-                                        raiting: recipe.rating,
-                                        recipeImage: recipe.image ?? URL(string: "https://img.taste.com.au/ir8lOyhk/w643-h428-cfill-q90/taste/2010/01/best-easy-pumpkin-soup-recipe-185570-1.jpg")!,
-                                        recipeName: recipe.title,
-                                        isFavorite: true,
-                                        avtorImage: "person",
-                                        avtorName: recipe.author,
-                                        coockingTime: recipe.cookingTime,
-                                        didSelect:  {
-                                            print(recipe.id)
-                                        },
-                                        favoriteHandler:  {
-                                            print(recipe.id)
-                                        }
-                                    )
-                            },
+                            resepies: createRecipeCellViewModel(with: trendingRecipe!),
                             header: .init(headerName: "Trending now 🔥",
                                           seeAllHandler: {
                                               print("Tapp Trending see all")
@@ -58,7 +46,7 @@ final class HomePresenterImpl: HomePresenter {
                         popularCategory:
                                 .init(
                                     resepies: createRecipeCellViewModel(with: recipeCategories!),
-                                    categories: categories!.map() { .init(headerName: $0, didSelect: {
+                                    categories: categories.map() { .init(headerName: $0, didSelect: {
                                         print(categories)
                                     })},
                                     header: .init(
@@ -72,7 +60,7 @@ final class HomePresenterImpl: HomePresenter {
                                         seeAllHandler: nil)),
                         country:
                                 .init(
-                                    country: countries!.map() { country in
+                                    country: countries.map() { country in
                                             .init(name: country, imageName: country, didSelect: { print(country)})
                                     },
                                     header: .init(

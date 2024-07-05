@@ -40,16 +40,16 @@ struct SeeAll: Hashable, Identifiable {
 
 struct PopularCategory {
     let resepies: [RecipesCellViewModel]
-    let categories: [Categories]
+    let categories: [Category]
     let header: SeeAll
 }
 
-struct Categories: Hashable, Identifiable {
+struct Category: Hashable, Identifiable {
     let id = UUID()
     let headerName: String
     let didSelect: (() -> Void)?
     
-    static func == (lhs: Categories, rhs: Categories) -> Bool {
+    static func == (lhs: Category, rhs: Category) -> Bool {
         lhs.id == rhs.id
     }
     func hash(into hasher: inout Hasher) {
