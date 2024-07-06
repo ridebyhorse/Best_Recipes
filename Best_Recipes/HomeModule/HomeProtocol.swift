@@ -9,8 +9,9 @@ import UIKit
 
 protocol HomePresenter: AnyObject  {
     var view: (any HomeController)? { get }
-    init(view: any HomeController)
+    init(view: any HomeController, coordinator: HomeCoordinator)
     func viewDidLoad()
+    var coordinator: HomeCoordinator? { get }
 }
 
 protocol HomeController: Configurable {

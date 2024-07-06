@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 class HomeAssembly {
-    func build() -> UIViewController {
+    
+    func build(coordinator: HomeCoordinator) -> UIViewController {
         let view = HomeControllerImpl()
-        let presenter  = HomePresenterImpl(view: view)
+        let presenter  = HomePresenterImpl(view: view, coordinator: coordinator)
         view.presenter = presenter
         return view
     }

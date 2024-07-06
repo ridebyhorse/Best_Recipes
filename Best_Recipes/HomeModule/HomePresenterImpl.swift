@@ -8,12 +8,16 @@
 import Foundation
 
 final class HomePresenterImpl: HomePresenter {
+    
     weak var view: (any HomeController)?
     var flowHandler: (() -> Void)?
     let networkManager = NetworkManager(networkService: NetworkService.shared)
     
-    init(view: any HomeController) {
+    var coordinator: HomeCoordinator?
+    
+    init(view: any HomeController, coordinator: HomeCoordinator) {
         self.view = view
+        self.coordinator = coordinator
     }
     
     func viewDidLoad() {
@@ -39,6 +43,7 @@ final class HomePresenterImpl: HomePresenter {
                             resepies: createRecipeCellViewModel(with: trendingRecipe!),
                             header: .init(headerName: "Trending now 🔥",
                                           seeAllHandler: {
+                                              self.coordinator?.goToDetail()
                                               print("Tapp Trending see all")
                                           }
                                          )

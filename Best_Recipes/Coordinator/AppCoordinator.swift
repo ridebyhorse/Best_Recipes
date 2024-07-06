@@ -1,0 +1,42 @@
+//
+//  AppCoordinator.swift
+//  Best_Recipes
+//
+//  Created by Natalia on 05.07.2024.
+//
+
+import Foundation
+import UIKit
+
+class AppCoordinator {
+    let window: UIWindow
+    
+    var childCoordinators = [CoordinatorProtocol]()
+    
+    var hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
+    
+    init(window: UIWindow) {
+        self.window = window
+    }
+    
+    func start() {
+        hasSeenOnboarding ? showMainFlow() :  showOnboarding()
+    }
+    
+    func showMainFlow() {
+        let mainCoordinator = MainCoordinator()
+        mainCoordinator.start()
+        window.rootViewController = mainCoordinator.rootViewController
+    }
+    
+    func showOnboarding() {
+        let onboardingCoordinator = OnboardingCoordinator()
+        childCoordinators = [onboardingCoordinator]
+        onboardingCoordinator.start()
+        window.rootViewController = onboardingCoordinator.rootViewController
+        onboardingCoordinator.flowCompletionHandler = { [weak self] in
+            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+            self?.showMainFlow()
+        }
+    }
+}
