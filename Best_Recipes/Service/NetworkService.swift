@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     
     static let shared = NetworkService()
-    private let apiKeys = [KeyConstant.APIKeys.apiKey1, KeyConstant.APIKeys.apiKey2]
+    private let apiKeys = [KeyConstant.APIKey.apiKey1, KeyConstant.APIKey.apiKey2]
     private var currentApiKey = 0
     private let baseUrlString = "https://api.spoonacular.com/recipes/random?number=100&apiKey="
     private let searchByKeywordUrlStringStart = "https://api.spoonacular.com/food/search?query="

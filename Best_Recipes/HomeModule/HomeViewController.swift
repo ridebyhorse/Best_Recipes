@@ -230,8 +230,8 @@ private extension HomeControllerImpl {
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.3),
-            heightDimension: .fractionalHeight(0.25)
+            widthDimension: .fractionalWidth(0.426),
+            heightDimension: .fractionalHeight(0.284)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)

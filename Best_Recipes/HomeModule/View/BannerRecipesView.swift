@@ -109,9 +109,10 @@ final class TimeCircleRecipesView: CustomView, Configurable {
         
         
         precipeImageView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.center.equalToSuperview()
-            make.width.height.equalTo(100)
+            //make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(self.snp.width).multipliedBy(0.78)
         }
         
         nameRecipeLabel.snp.makeConstraints { make in
@@ -127,6 +128,7 @@ final class TimeCircleRecipesView: CustomView, Configurable {
         super.layoutSubviews()
         precipeImageView.layer.cornerRadius = precipeImageView.frame.height / 2
         precipeImageView.clipsToBounds = true
+        print(self.frame)
     }
     
 }
