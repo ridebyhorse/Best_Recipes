@@ -124,8 +124,13 @@ private extension HomeControllerImpl {
 private extension HomeControllerImpl {
     
     func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        .init { sectionIndex, _ in
-            let sectionType = Section(rawValue: sectionIndex)!
+        .init { [weak self] sectionIndex, _ in
+            guard
+                let sectionType = Section(rawValue: sectionIndex),
+                let self = self else {
+                return nil
+            }
+            
             switch sectionType {
             case .trendigHeader:
                 return self.headerSetion()
@@ -230,9 +235,10 @@ private extension HomeControllerImpl {
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.426),
-            heightDimension: .fractionalHeight(0.284)
+            widthDimension: .fractionalWidth(0.433),
+            heightDimension: .fractionalHeight(0.287)
         )
+        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 0
@@ -250,6 +256,7 @@ private extension HomeControllerImpl {
         return section
     }
 }
+
 private extension HomeControllerImpl {
     private enum Section: Int, CaseIterable {
         case trendigHeader
@@ -259,10 +266,6 @@ private extension HomeControllerImpl {
         case circeRecipe
     }
 }
-
-
-
-
 
 extension HomeControllerImpl:  UICollectionViewDelegate {
        //    func collectionView(_ collectionView: UICollectinView, numberOfItemsInSection section: Int) -> Int {
@@ -291,8 +294,6 @@ extension HomeControllerImpl:  UICollectionViewDelegate {
         print(indexPath)
     }
 }
-
-
 
 
 @available(iOS 17.0, *)
