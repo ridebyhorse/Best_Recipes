@@ -21,9 +21,10 @@ final class HomeControllerImpl: UIViewController {
     var presenter: (any HomePresenter)?
     
     //MARK: - Private properties
-
+    private var isFirstLoad = true
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
+    private var selectedIndexPaths: [Int: IndexPath] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,13 @@ extension HomeControllerImpl: HomeController {
     
     func update(with model: HomeViewModel?) {
         updateCollection(with: model!)
+        
+        if !model!.popularCategory.resepies.isEmpty, isFirstLoad {
+            let indexPath = IndexPath(row: 0, section: Section.categories.rawValue)
+            selectedIndexPaths[Section.categories.rawValue] = indexPath
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            isFirstLoad = false
+        }
     }
 }
 
@@ -57,7 +65,7 @@ private extension HomeControllerImpl {
         }
     }
     
-  
+    
     func updateCollection(with model: HomeViewModel) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
         
@@ -81,42 +89,43 @@ private extension HomeControllerImpl {
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: String(describing: CategoryCell.self))
         collectionView.register(CircleRecipesCell.self, forCellWithReuseIdentifier: String(describing: CircleRecipesCell.self))
         collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
         //collectionView.dataSource = self
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return collectionView
     }
     
     private func createDataSource() -> UICollectionViewDiffableDataSource<Section, AnyHashable> {
-            return UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { collectionView, indexPath, item in
-                guard let sectionType = Section(rawValue: indexPath.section) else { return UICollectionViewCell()}
-                switch sectionType {
-                case .trendingNow:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerRecipesCell.self), for: indexPath) as! BannerRecipesCell
-                            if let recipeViewModel = item as? RecipesCellViewModel {
-                            cell.update(with: recipeViewModel, didSelectHandler: recipeViewModel.didSelect)
-                    }
-                return cell
-                case .trendigHeader, .popularCategoryHeader:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderRecipesCell.self), for: indexPath) as! HeaderRecipesCell
-                            if let seeAllViewModel = item as? SeeAll {
-                            cell.update(with: seeAllViewModel, didSelectHandler: nil)
-                    }
-                    return cell
-                case .categories:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCell.self), for: indexPath) as! CategoryCell
-                            if let seeAllViewModel = item as? Category {
-                            cell.update(with: seeAllViewModel, didSelectHandler: nil)
-                    }
-                    return cell
-                case .circeRecipe:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CircleRecipesCell.self), for: indexPath) as! CircleRecipesCell
-                            if let seeAllViewModel = item as? RecipesCellViewModel {
-                            cell.update(with: seeAllViewModel, didSelectHandler: nil)
-                    }
-                    return cell
+        return UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { collectionView, indexPath, item in
+            guard let sectionType = Section(rawValue: indexPath.section) else { return UICollectionViewCell()}
+            switch sectionType {
+            case .trendingNow:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerRecipesCell.self), for: indexPath) as! BannerRecipesCell
+                if let recipeViewModel = item as? RecipesCellViewModel {
+                    cell.update(with: recipeViewModel, didSelectHandler: recipeViewModel.didSelect)
                 }
+                return cell
+            case .trendigHeader, .popularCategoryHeader:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderRecipesCell.self), for: indexPath) as! HeaderRecipesCell
+                if let seeAllViewModel = item as? SeeAll {
+                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                }
+                return cell
+            case .categories:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCell.self), for: indexPath) as! CategoryCell
+                if let seeAllViewModel = item as? Category {
+                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                }
+                return cell
+            case .circeRecipe:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CircleRecipesCell.self), for: indexPath) as! CircleRecipesCell
+                if let seeAllViewModel = item as? RecipesCellViewModel {
+                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                }
+                return cell
             }
         }
+    }
     
 }
 
@@ -170,12 +179,12 @@ private extension HomeControllerImpl {
             heightDimension: .estimated(44)
         )
         
-//        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//            layoutSize: headerSize,
-//            elementKind: UICollectionView.elementKindSectionHeader,
-//            alignment: .top
-//        )
-//        section.boundarySupplementaryItems = [sectionHeader]
+        //        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+        //            layoutSize: headerSize,
+        //            elementKind: UICollectionView.elementKindSectionHeader,
+        //            alignment: .top
+        //        )
+        //        section.boundarySupplementaryItems = [sectionHeader]
         return section
     }
     
@@ -204,23 +213,23 @@ private extension HomeControllerImpl {
     func createCategorySection() -> NSCollectionLayoutSection {
         
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
+            widthDimension: .estimated(1),
             heightDimension: .fractionalHeight(1)
         )
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.25),
+            widthDimension: .estimated(100),
             heightDimension: .fractionalHeight(0.05)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 0
+        section.interGroupSpacing = 10
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
-
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 5)
+        
         return section
     }
     
@@ -244,15 +253,15 @@ private extension HomeControllerImpl {
         section.interGroupSpacing = 0
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
-       
         
         
-//        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//            layoutSize: headerSize,
-//            elementKind: UICollectionView.elementKindSectionHeader,
-//            alignment: .top
-//        )
-//        section.boundarySupplementaryItems = [sectionHeader]
+        
+        //        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+        //            layoutSize: headerSize,
+        //            elementKind: UICollectionView.elementKindSectionHeader,
+        //            alignment: .top
+        //        )
+        //        section.boundarySupplementaryItems = [sectionHeader]
         return section
     }
 }
@@ -268,32 +277,64 @@ private extension HomeControllerImpl {
 }
 
 extension HomeControllerImpl:  UICollectionViewDelegate {
-       //    func collectionView(_ collectionView: UICollectinView, numberOfItemsInSection section: Int) -> Int {
-//        switch sections[section] {
-//        case .trendingNow(model: let model, header: let header):
-//            return model.count
-//        }
-//    }
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        sections.count
-//    }
-//
-//
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        switch sections[indexPath.section] {
-//        case .trendingNow(model: let model, header: let header):
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerRecipesCell.self), for: indexPath) as! BannerRecipesCell
-//            cell.update(with: model[indexPath.row], didSelectHandler: model[indexPath.row].didSelect)
-//            return cell
-//        }
-//    }
-//
+    //    func collectionView(_ collectionView: UICollectinView, numberOfItemsInSection section: Int) -> Int {
+    //        switch sections[section] {
+    //        case .trendingNow(model: let model, header: let header):
+    //            return model.count
+    //        }
+    //    }
+    //
+    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    //        sections.count
+    //    }
+    //
+    //
+    //
+    //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    //        switch sections[indexPath.section] {
+    //        case .trendingNow(model: let model, header: let header):
+    //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerRecipesCell.self), for: indexPath) as! BannerRecipesCell
+    //            cell.update(with: model[indexPath.row], didSelectHandler: model[indexPath.row].didSelect)
+    //            return cell
+    //        }
+    //    }
+    //
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+        guard let section = Section(rawValue: indexPath.section) else { return }
+        switch section {
+        case .categories:
+            print(!selectedIndexPaths.isEmpty)
+            if !selectedIndexPaths.isEmpty {
+                print(!selectedIndexPaths.isEmpty)
+               
+            }
+            let indexPath = IndexPath(item: 0, section: Section.circeRecipe.rawValue)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            
+        default:
+            collectionView.deselectItem(at: indexPath, animated: false)
+        }
+        
+        if let previousIndexPath = selectedIndexPaths[section.rawValue], previousIndexPath != indexPath {
+            collectionView.deselectItem(at: previousIndexPath, animated: false)
+            selectedIndexPaths[section.rawValue] = indexPath
+        } else if let previousIndexPath = selectedIndexPaths[section.rawValue], previousIndexPath == indexPath {
+            return
+        } else {
+            selectedIndexPaths[section.rawValue] = indexPath
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        guard let section = Section(rawValue: indexPath.section) else {  return true }
+        switch section {
+        case .categories:
+            return indexPath != selectedIndexPaths[indexPath.section]
+        default: return true
+        }
     }
 }
+
 
 
 @available(iOS 17.0, *)

@@ -26,7 +26,7 @@ final class HomePresenterImpl: HomePresenter {
             
             let trendingRecipe = MockData.getMockRecipesMore()
             let countries = ["Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE"]
-            let categories =  ["Breackfst", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
+            let categories =  ["v", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
             let recipeCategories = MockData.getMockRecipesMore()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in

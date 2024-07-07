@@ -7,18 +7,22 @@
 
 import UIKit
 
-class CellView: UIView {
+class CellView: CustomView {
     var isSelected: Bool {
         didSet {
-            
+            cellSelected(isSelected)
         }
     }
-    init() {
+    override init(frame: CGRect) {
         self.isSelected = false
-        super.init(frame: .zero)
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func cellSelected(_ isSelected: Bool) {
+        
     }
 }

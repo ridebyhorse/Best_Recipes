@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-final class BannerRecipesView: CustomView, Configurable {
+final class BannerRecipesView: CellView, Configurable {
     let precipeImageView = UIImageView()
     private let nameRecipeLabel = UILabel()
     
@@ -45,7 +45,7 @@ final class BannerRecipesView: CustomView, Configurable {
     UINavigationController(rootViewController: CustomTabBarController())
 }
 
-final class TitleRecipesView: CustomView, Configurable {
+final class TitleRecipesView: CellView, Configurable {
     private let label = UILabel()
     private let button = UIButton(type: .system)
     private let stackView = UIStackView()
@@ -62,7 +62,6 @@ final class TitleRecipesView: CustomView, Configurable {
         
         label.text = model.headerName
         
-        
     }
     
     override func configure() {
@@ -74,17 +73,13 @@ final class TitleRecipesView: CustomView, Configurable {
         button.tintColor = .black
         button.titleLabel?.font = .custom(font: .bold, size: 20)
         button.titleLabel?.textColor = .white
-        
         label.font = .custom(font: .bold, size: 24)
         stackView.addArrangedSubviews(label, button)
-        
-        
         stackView.axis = .horizontal
     }
-    
 }
 
-final class TimeCircleRecipesView: CustomView, Configurable {
+final class TimeCircleRecipesView: CellView, Configurable {
     let precipeImageView = UIImageView()
     private let nameRecipeLabel = UILabel()
     
@@ -104,9 +99,6 @@ final class TimeCircleRecipesView: CustomView, Configurable {
     
     override func configure() {
         addSubviews(precipeImageView, nameRecipeLabel)
-        
-        
-        
         
         precipeImageView.snp.makeConstraints { make in
             //make.leading.trailing.equalToSuperview()
@@ -128,36 +120,47 @@ final class TimeCircleRecipesView: CustomView, Configurable {
         super.layoutSubviews()
         precipeImageView.layer.cornerRadius = precipeImageView.frame.height / 2
         precipeImageView.clipsToBounds = true
-        print(self.frame)
+        
     }
-    
 }
 
 
-final class CategoryView: CustomView, Configurable {
+final class CategoryView: CellView {
     
     private let categoryLabel = UILabel()
     
-    
-    func update(with model: Category?) {
-        guard let model = model else {
-            
-            return
-        }
-        
-        categoryLabel.text = model.headerName
-        
-        
-        
-    }
-    
     override func configure() {
         addSubview(categoryLabel)
-        categoryLabel.font = .custom(font: .bold, size: 13)
+        categoryLabel.font = .custom(font: .bold, size: 12)
         categoryLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(5)
+            make.centerY.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(10)
         }
         
+        
+        layer.cornerRadius = 10
+        
+    }
+  
+    override func cellSelected(_ isSelected: Bool) {
+        print(isSelected)
+        backgroundColor = isSelected ? .redApp : .white
+        categoryLabel.textColor = isSelected ? .white : .redCategoryText
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print(frame)
+    }
+}
+
+
+extension CategoryView: Configurable {
+    func update(with model: Category?) {
+        guard let model = model else {
+            return
+        }
+        categoryLabel.text = model.headerName
+        print(frame)
+    }
 }
