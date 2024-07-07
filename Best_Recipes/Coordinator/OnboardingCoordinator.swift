@@ -8,11 +8,11 @@
 import UIKit
 
 class OnboardingCoordinator: CoordinatorProtocol {
-
+    
     var flowCompletionHandler: CoordinatorHandler?
     
     var rootViewController: UIViewController?
-
+    
     func start() {
         showOnboarding()
     }

@@ -5,7 +5,6 @@
 //  Created by Natalia on 05.07.2024.
 //
 
-import Foundation
 import UIKit
 
 class AppCoordinator {
@@ -20,18 +19,19 @@ class AppCoordinator {
     }
     
     func start() {
-        hasSeenOnboarding ? showMainFlow() :  showOnboarding()
+        hasSeenOnboarding ? showMainFlow() : showOnboarding()
     }
     
     func showMainFlow() {
         let mainCoordinator = MainCoordinator()
+        childCoordinators.append(mainCoordinator)
         mainCoordinator.start()
         window.rootViewController = mainCoordinator.rootViewController
     }
     
     func showOnboarding() {
         let onboardingCoordinator = OnboardingCoordinator()
-        childCoordinators = [onboardingCoordinator]
+        childCoordinators.append(onboardingCoordinator)
         onboardingCoordinator.start()
         window.rootViewController = onboardingCoordinator.rootViewController
         onboardingCoordinator.flowCompletionHandler = { [weak self] in

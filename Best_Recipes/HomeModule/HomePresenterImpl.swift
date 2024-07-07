@@ -7,17 +7,14 @@
 
 import Foundation
 
-final class HomePresenterImpl: HomePresenter {
+final class HomePresenterImpl: HomePresenter, FlowProtocol {
     
     weak var view: (any HomeController)?
     var flowHandler: (() -> Void)?
     let networkManager = NetworkManager(networkService: NetworkService.shared)
     
-    var coordinator: HomeCoordinator?
-    
-    init(view: any HomeController, coordinator: HomeCoordinator) {
+    init(view: any HomeController) {
         self.view = view
-        self.coordinator = coordinator
     }
     
     func viewDidLoad() {
@@ -43,7 +40,7 @@ final class HomePresenterImpl: HomePresenter {
                             resepies: createRecipeCellViewModel(with: trendingRecipe!),
                             header: .init(headerName: "Trending now 🔥",
                                           seeAllHandler: {
-                                              self.coordinator?.goToDetail()
+                                              self.flowHandler?()
                                               print("Tapp Trending see all")
                                           }
                                          )

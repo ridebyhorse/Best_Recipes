@@ -8,50 +8,75 @@
 import UIKit
 
 class MainCoordinator: CoordinatorProtocol {
-
-    private let customTabBar = CustomTabBar()
     
     var rootViewController: UITabBarController
+    var flowCompletionHandler: CoordinatorHandler?
     
-    var childCoordinators = [CoordinatorProtocol]()
+    private let moduleFactory = ModuleFactory()
     
     init() {
         self.rootViewController = UITabBarController()
+        let customTabBar = CustomTabBar()
         rootViewController.setValue(customTabBar, forKey: "tabBar")
     }
     
     func start() {
-        let homeCoordinator = HomeCoordinator()
-        homeCoordinator.start()
-        childCoordinators.append(homeCoordinator)
-        let homeVC = homeCoordinator.rootViewController
-        setup(vc: homeVC, imageName: "Home", selectedImageName: "Home-active")
-        
-        let recipeDetailCoordinator = RecipeDetailCoordinator()
-        recipeDetailCoordinator.start()
-        childCoordinators.append(recipeDetailCoordinator)
-        let recipeDetailVC = recipeDetailCoordinator.rootViewController
-        setup(vc: recipeDetailVC, imageName: "Bookmark", selectedImageName: "Bookmark-active")
-        
-        
-        let notificationVC = UINavigationController(rootViewController: NotificationViewController())
-        notificationVC.title = "Recent notifications"
-        setup(vc: notificationVC, imageName: "Notification", selectedImageName: "Notification-active")
-        
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
-        profileVC.title = "My profile"
-        setup(vc: profileVC, imageName: "Profile", selectedImageName: "Profile-active")
-        
-        rootViewController.setViewControllers([homeVC, recipeDetailVC, UINavigationController(), notificationVC, profileVC], animated: true)
+        let controllers = getControllers()
+        rootViewController.setViewControllers(controllers, animated: true)
     }
     
-    private func getRecipeDetailsScreen() -> UIViewController {
-        RecipeDetailsAssembly().build()
+    func showRecipeDetailsModule() {
+        let vc = createRecipeDetailsModule()
+        rootViewController.show(vc, sender: self)
     }
-
     
-    func setup(vc: UIViewController, imageName: String, selectedImageName: String) {
+    func showHomeModule() {
+        let vc = createRecipeDetailsModule()
+        rootViewController.show(vc, sender: self)
+    }
+    
+    func createRecipeDetailsModule() -> UIViewController {
+        moduleFactory.createRecipeDetailsModule()
+    }
+    
+    func createHomeModule() -> UIViewController {
+        moduleFactory.createHomeModule { [weak self] in
+            self?.showRecipeDetailsModule()
+        }
+    }
+    
+    func createBookmarkModule() -> UIViewController {
+        moduleFactory.createBookMarkModule { [weak self] in
+            self?.showRecipeDetailsModule()
+        }
+    }
+    
+    func createNotificationModule() -> UIViewController {
+        moduleFactory.createNotificationModule()
+    }
+    
+    func createProfileModule() -> UIViewController {
+        moduleFactory.createProfileModule { [weak self] in
+            self?.showRecipeDetailsModule()
+        }
+    }
+    
+    private func getControllers() -> [UINavigationController] {
+        [
+            setup(vc: createHomeModule(), title: "Get amazing recipes for cooking", imageName: "Home", selectedImageName: "Home-active"),
+            setup(vc: createRecipeDetailsModule(), title: "Saved recipes", imageName: "Bookmark", selectedImageName: "Bookmark-active"),
+            UINavigationController(),
+            setup(vc: createNotificationModule(), title: "Recent notifications", imageName: "Notification", selectedImageName: "Notification-active"),
+            setup(vc: ProfileViewController(), title: "My profile", imageName: "Profile", selectedImageName: "Profile-active")
+        ]
+    }
+    
+    private func setup(vc: UIViewController, title: String, imageName: String, selectedImageName: String) -> UINavigationController {
         vc.tabBarItem.image = UIImage(imageLiteralResourceName: imageName).withRenderingMode(.alwaysOriginal)
         vc.tabBarItem.selectedImage = UIImage(imageLiteralResourceName: selectedImageName).withRenderingMode(.alwaysOriginal)
+        vc.navigationItem.title = title
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.navigationBar.prefersLargeTitles = true
+        return navigationController
     }
 }
