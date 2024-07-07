@@ -303,14 +303,8 @@ extension HomeControllerImpl:  UICollectionViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { return }
         switch section {
         case .categories:
-            print(!selectedIndexPaths.isEmpty)
-            if !selectedIndexPaths.isEmpty {
-                print(!selectedIndexPaths.isEmpty)
-               
-            }
             let indexPath = IndexPath(item: 0, section: Section.circeRecipe.rawValue)
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            
         default:
             collectionView.deselectItem(at: indexPath, animated: false)
         }
