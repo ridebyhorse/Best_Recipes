@@ -43,6 +43,7 @@
 		B9B9E1322C35A5A8003E5439 /* RecipeDetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9E1312C35A5A8003E5439 /* RecipeDetailProtocols.swift */; };
 		B9B9E1342C35A719003E5439 /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9E1332C35A719003E5439 /* RecipeDetailViewModel.swift */; };
 		B9B9E1372C35AAD7003E5439 /* RecipeDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9E1362C35AAD7003E5439 /* RecipeDetailPresenter.swift */; };
+		CB66F5392C3C561800705A9A /* MockRecipe.json in Resources */ = {isa = PBXBuildFile; fileRef = 6EC7D6F82C3749A00045313F /* MockRecipe.json */; };
 		CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */; };
 		CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */; };
 		CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63132C315E5F00CEE6BF /* Assets.xcassets */; };
@@ -435,6 +436,7 @@
 				CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */,
 				CB6C63142C315E5F00CEE6BF /* Assets.xcassets in Resources */,
 				CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */,
+				CB66F5392C3C561800705A9A /* MockRecipe.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

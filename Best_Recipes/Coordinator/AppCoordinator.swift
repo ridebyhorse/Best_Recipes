@@ -16,10 +16,12 @@ class AppCoordinator {
     
     init(window: UIWindow) {
         self.window = window
+        NetworkManager(networkService: NetworkService.shared).fetchRecipes()
     }
     
     func start() {
-        hasSeenOnboarding ? showMainFlow() : showOnboarding()
+//        hasSeenOnboarding ? showMainFlow() : showOnboarding()
+        showOnboarding()
     }
     
     func showMainFlow() {
@@ -35,7 +37,7 @@ class AppCoordinator {
         onboardingCoordinator.start()
         window.rootViewController = onboardingCoordinator.rootViewController
         onboardingCoordinator.flowCompletionHandler = { [weak self] in
-            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+//            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
             self?.showMainFlow()
         }
     }
