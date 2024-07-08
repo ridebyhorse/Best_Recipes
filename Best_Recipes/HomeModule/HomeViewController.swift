@@ -21,7 +21,7 @@ final class HomeControllerImpl: UIViewController {
     var presenter: (any HomePresenter)?
     
     //MARK: - Private properties
-    private let searchController = Builder.createSearchScreen()
+    private let searchController = CustomSearchController(searchResultsController: SearchAssembly.build())
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
     
