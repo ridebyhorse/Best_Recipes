@@ -312,7 +312,7 @@ extension HomeControllerImpl:  UICollectionViewDelegate {
 
 
 
-@available(iOS 17.0, *)
-#Preview {
-    UINavigationController(rootViewController: CustomTabBarController())
-}
+//@available(iOS 17.0, *)
+//#Preview {
+//    UINavigationController(rootViewController: CustomTabBarController())
+//}
