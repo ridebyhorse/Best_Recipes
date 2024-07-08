@@ -12,4 +12,13 @@ final class Builder {
     static func createRecipeScreen() -> UIViewController {
         RecipeDetailsAssembly().build()
     }
+    
+    static func createHomeScreen() -> UIViewController {
+        HomeAssembly().build()
+    }
+    
+    static func createSearchScreen() -> UISearchController {
+        CustomSearchController(searchResultsController: SearchAssembly().build())
+    }
+
 }

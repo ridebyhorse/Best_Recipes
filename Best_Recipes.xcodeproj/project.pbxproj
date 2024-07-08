@@ -59,6 +59,13 @@
 		CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */; };
 		CBCB55352C37035D000BD3F1 /* APIKey.json in Resources */ = {isa = PBXBuildFile; fileRef = CBCB55342C37035D000BD3F1 /* APIKey.json */; settings = {ASSET_TAGS = (APIKey, ); }; };
 		CBCB55372C3703DD000BD3F1 /* KeyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */; };
+		CBDC20812C3BE51600887C91 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC20802C3BE51600887C91 /* SearchBar.swift */; };
+		CBDC20832C3BE53400887C91 /* SearchRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC20822C3BE53400887C91 /* SearchRecipesView.swift */; };
+		CBDC20862C3BE55E00887C91 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC20852C3BE55E00887C91 /* SearchViewModel.swift */; };
+		CBDC20882C3BE57900887C91 /* SearchAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC20872C3BE57900887C91 /* SearchAssembly.swift */; };
+		CBDC208A2C3BE59900887C91 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC20892C3BE59900887C91 /* SearchPresenter.swift */; };
+		CBDC208C2C3BE5B200887C91 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC208B2C3BE5B200887C91 /* SearchProtocol.swift */; };
+		CBDC208E2C3BE5CC00887C91 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC208D2C3BE5CC00887C91 /* SearchViewController.swift */; };
 		CBE872B32C35C815005EB742 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE872B22C35C815005EB742 /* NetworkManager.swift */; };
 		CBEDCA142C34953500232A02 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA132C34953500232A02 /* DIContainer.swift */; };
 		CBEDCA1A2C3496BA00232A02 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA192C3496BA00232A02 /* StorageService.swift */; };
@@ -119,6 +126,13 @@
 		CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeTask.swift; sourceTree = "<group>"; };
 		CBCB55342C37035D000BD3F1 /* APIKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = APIKey.json; sourceTree = "<group>"; };
 		CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstant.swift; sourceTree = "<group>"; };
+		CBDC20802C3BE51600887C91 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		CBDC20822C3BE53400887C91 /* SearchRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesView.swift; sourceTree = "<group>"; };
+		CBDC20852C3BE55E00887C91 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		CBDC20872C3BE57900887C91 /* SearchAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembly.swift; sourceTree = "<group>"; };
+		CBDC20892C3BE59900887C91 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		CBDC208B2C3BE5B200887C91 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
+		CBDC208D2C3BE5CC00887C91 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CBE872B22C35C815005EB742 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CBEDCA132C34953500232A02 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		CBEDCA192C3496BA00232A02 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
@@ -292,6 +306,7 @@
 				0FEF0B1D2C3484D100A5E0F2 /* UI */,
 				CB6C63322C317A0900CEE6BF /* Service */,
 				6E4CBCCE2C334B3B008D19FE /* HomeModule */,
+				CBDC20792C3BE29800887C91 /* SearchModule */,
 				6E4CBCBC2C3346F1008D19FE /* Base */,
 				CB6C631E2C316BB500CEE6BF /* Font */,
 				CB6C63132C315E5F00CEE6BF /* Assets.xcassets */,
@@ -361,6 +376,36 @@
 				CBEDCA192C3496BA00232A02 /* StorageService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		CBDC20792C3BE29800887C91 /* SearchModule */ = {
+			isa = PBXGroup;
+			children = (
+				CBDC207F2C3BE50A00887C91 /* View */,
+				CBDC20842C3BE54600887C91 /* ViewModel */,
+				CBDC20872C3BE57900887C91 /* SearchAssembly.swift */,
+				CBDC20892C3BE59900887C91 /* SearchPresenter.swift */,
+				CBDC208B2C3BE5B200887C91 /* SearchProtocol.swift */,
+				CBDC208D2C3BE5CC00887C91 /* SearchViewController.swift */,
+			);
+			path = SearchModule;
+			sourceTree = "<group>";
+		};
+		CBDC207F2C3BE50A00887C91 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CBDC20802C3BE51600887C91 /* SearchBar.swift */,
+				CBDC20822C3BE53400887C91 /* SearchRecipesView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CBDC20842C3BE54600887C91 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CBDC20852C3BE55E00887C91 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -462,12 +507,15 @@
 				CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */,
 				CBEDCA1A2C3496BA00232A02 /* StorageService.swift in Sources */,
 				CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */,
+				CBDC208A2C3BE59900887C91 /* SearchPresenter.swift in Sources */,
+				CBDC20832C3BE53400887C91 /* SearchRecipesView.swift in Sources */,
 				6E4CBCF92C3364A8008D19FE /* ReusableView.swift in Sources */,
 				D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */,
 				CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */,
 				6ED9989D2C34AFB3002675A5 /* HomeAssembly.swift in Sources */,
 				6E4CBCC42C334830008D19FE /* CollectionCell.swift in Sources */,
 				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
+				CBDC208C2C3BE5B200887C91 /* SearchProtocol.swift in Sources */,
 				6E4CBD042C33761A008D19FE /* HomePresenterImpl.swift in Sources */,
 				6E4CBD022C336E73008D19FE /* BannerRecipesView.swift in Sources */,
 				B9B9E1172C347D26003E5439 /* NumberedView.swift in Sources */,
@@ -475,11 +523,14 @@
 				6E4CBCF72C336332008D19FE /* HomeVIewModel.swift in Sources */,
 				CBE872B32C35C815005EB742 /* NetworkManager.swift in Sources */,
 				6E4CBCCD2C334A86008D19FE /* UIStackView + Extension.swift in Sources */,
+				CBDC20812C3BE51600887C91 /* SearchBar.swift in Sources */,
 				B9B9E1162C347D26003E5439 /* IngredientsTableView.swift in Sources */,
 				CB6C63382C317EB400CEE6BF /* CustomFont.swift in Sources */,
 				CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */,
 				6E4CBCBE2C33474E008D19FE /* Configurable.swift in Sources */,
 				6E4CBCCB2C334A55008D19FE /* UIView+Extension.swift in Sources */,
+				CBDC20862C3BE55E00887C91 /* SearchViewModel.swift in Sources */,
+				CBDC208E2C3BE5CC00887C91 /* SearchViewController.swift in Sources */,
 				B9B9E12D2C349F9D003E5439 /* BaseGreyCellView.swift in Sources */,
 				6E4CBCFD2C336A3E008D19FE /* HomeViewController.swift in Sources */,
 				0FEF0B232C34853700A5E0F2 /* CustomTabBar.swift in Sources */,
@@ -487,6 +538,7 @@
 				CB6C632E2C3173E700CEE6BF /* CreateRecipeViewController.swift in Sources */,
 				CBEDCA1D2C3496F400232A02 /* CustomTabBarController.swift in Sources */,
 				6E4CBCFB2C3369CF008D19FE /* RecipesCellViewModel.swift in Sources */,
+				CBDC20882C3BE57900887C91 /* SearchAssembly.swift in Sources */,
 				B9B9E1322C35A5A8003E5439 /* RecipeDetailProtocols.swift in Sources */,
 				CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */,
 				0FEF0B282C34870900A5E0F2 /* PlusButton1.swift in Sources */,

@@ -89,7 +89,8 @@ final class HomePresenterImpl: HomePresenter {
                         },
                         favoriteHandler:  {
                             print(recipe.id)
-                        }
+                        },
+                        ingridientsCount: recipe.ingredients?.count ?? 0
                     )
             }
             return reipeModel
