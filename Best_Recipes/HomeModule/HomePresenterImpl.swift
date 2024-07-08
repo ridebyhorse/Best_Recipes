@@ -91,7 +91,8 @@ final class HomePresenterImpl: HomePresenter, FlowProtocol {
                         },
                         favoriteHandler:  {
                             print(recipe.id)
-                        }
+                        },
+                        ingridientsCount: recipe.ingredients?.count ?? 0
                     )
             }
             return reipeModel

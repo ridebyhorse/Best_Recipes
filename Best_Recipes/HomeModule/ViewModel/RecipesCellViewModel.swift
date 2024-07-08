@@ -18,6 +18,7 @@ struct RecipesCellViewModel: Hashable, Identifiable {
     let coockingTime: Int
     let didSelect: (() -> Void)?
     let favoriteHandler: (() -> Void)?
+    let ingridientsCount: Int
     
     static func == (lhs: RecipesCellViewModel, rhs: RecipesCellViewModel) -> Bool {
            return lhs.id == rhs.id &&  lhs.isFavorite == rhs.isFavorite
