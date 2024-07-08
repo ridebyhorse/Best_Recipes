@@ -20,8 +20,7 @@ class AppCoordinator {
     }
     
     func start() {
-//        hasSeenOnboarding ? showMainFlow() : showOnboarding()
-        showOnboarding()
+        hasSeenOnboarding ? showMainFlow() : showOnboarding()
     }
     
     func showMainFlow() {
@@ -37,7 +36,7 @@ class AppCoordinator {
         onboardingCoordinator.start()
         window.rootViewController = onboardingCoordinator.rootViewController
         onboardingCoordinator.flowCompletionHandler = { [weak self] in
-//            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
             self?.showMainFlow()
         }
     }

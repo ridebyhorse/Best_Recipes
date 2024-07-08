@@ -137,8 +137,3 @@ extension SearchControllerImpl:  UICollectionViewDelegate {
         print(indexPath)
     }
 }
-
-@available(iOS 17.0, *)
-#Preview {
-    Builder.createSearchScreen()
-}
