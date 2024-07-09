@@ -15,6 +15,10 @@ class OnBoardingViewController: UIPageViewController {
     let pageControl = UIPageControl() // external - not part of underlying pages
     let initialPage = 0
     
+    #warning("to do")
+    // вызвать по нажатию "Start cooking" или "skip" для перехода на home screen
+    var completionHandler: () -> () = { }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +83,8 @@ extension OnBoardingViewController: UIPageViewControllerDataSource {
         if currentIndex < pages.count - 1 {
             return pages[currentIndex + 1]  // go next
         } else {
-            return pages.first              // wrap to first
+            completionHandler()
+            return nil             // wrap to first
         }
     }
 }

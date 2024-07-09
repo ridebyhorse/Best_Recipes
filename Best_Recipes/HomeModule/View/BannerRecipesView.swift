@@ -40,10 +40,10 @@ final class BannerRecipesView: CellView, Configurable {
     }
     
 }
-@available(iOS 17.0, *)
-#Preview {
-    UINavigationController(rootViewController: CustomTabBarController())
-}
+//@available(iOS 17.0, *)
+//#Preview {
+//    UINavigationController(rootViewController: CustomTabBarController())
+//}
 
 final class TitleRecipesView: CellView, Configurable {
     private let label = UILabel()
