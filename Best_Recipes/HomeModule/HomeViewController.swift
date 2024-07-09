@@ -295,28 +295,6 @@ private extension HomeControllerImpl {
 }
 
 extension HomeControllerImpl:  UICollectionViewDelegate {
-    //    func collectionView(_ collectionView: UICollectinView, numberOfItemsInSection section: Int) -> Int {
-    //        switch sections[section] {
-    //        case .trendingNow(model: let model, header: let header):
-    //            return model.count
-    //        }
-    //    }
-    //
-    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
-    //        sections.count
-    //    }
-    //
-    //
-    //
-    //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    //        switch sections[indexPath.section] {
-    //        case .trendingNow(model: let model, header: let header):
-    //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerRecipesCell.self), for: indexPath) as! BannerRecipesCell
-    //            cell.update(with: model[indexPath.row], didSelectHandler: model[indexPath.row].didSelect)
-    //            return cell
-    //        }
-    //    }
-    //
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         switch section {
