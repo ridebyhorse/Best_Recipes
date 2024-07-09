@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CollectionReusableView<View: Configurable & UIView>: UICollectionReusableView {
+final class CollectionReusableView<View: Configurable & CellView>: UICollectionReusableView {
     private let view = View()
     
     override init(frame: CGRect) {
