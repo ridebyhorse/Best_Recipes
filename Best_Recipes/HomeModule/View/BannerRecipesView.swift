@@ -80,8 +80,12 @@ final class TitleRecipesView: CellView, Configurable {
 }
 
 final class TimeCircleRecipesView: CellView, Configurable {
-    let precipeImageView = UIImageView()
+    private let precipeImageView = UIImageView()
+    private let backgroundView = UIView()
     private let nameRecipeLabel = UILabel()
+    private let cookingTimeLabel = UILabel()
+    private let cookingTimeTitleLabel = UILabel()
+    
     
     
     func update(with model: RecipesCellViewModel?) {
@@ -92,28 +96,20 @@ final class TimeCircleRecipesView: CellView, Configurable {
         }
         
         precipeImageView.update(with: .init(url: model.recipeImage , cornerRadius: precipeImageView.frame.height / 2))
+        nameRecipeLabel.text = model.recipeName
+        nameRecipeLabel.numberOfLines = 2
+        nameRecipeLabel.font = .custom(font: .bold, size: 14)
+        nameRecipeLabel.textAlignment = .center
         
-        backgroundColor = .systemGray
         
     }
     
     override func configure() {
-        addSubviews(precipeImageView, nameRecipeLabel)
+        setupSubView()
+        setupContraints()
         
-        precipeImageView.snp.makeConstraints { make in
-            //make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(self.snp.width).multipliedBy(0.78)
-        }
-        
-        nameRecipeLabel.snp.makeConstraints { make in
-            make.top.equalTo(precipeImageView.snp.bottom).offset(10)
-            make.leading.equalToSuperview()
-        }
-        //  precipeImageView.update(with: .init( cornerRadius: precipeImageView.frame.height / 2 ))
-        // precipeImageView.clipsToBounds = true
-        
+        backgroundView.backgroundColor = .lightGreyApp
+        backgroundView.layer.cornerRadius = 10
     }
     
     override func layoutSubviews() {
@@ -121,6 +117,30 @@ final class TimeCircleRecipesView: CellView, Configurable {
         precipeImageView.layer.cornerRadius = precipeImageView.frame.height / 2
         precipeImageView.clipsToBounds = true
         
+    }
+}
+
+private extension TimeCircleRecipesView {
+    func setupSubView() {
+        addSubviews(backgroundView, precipeImageView, nameRecipeLabel)
+    }
+    
+    func setupContraints() {
+        precipeImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(self.snp.width).multipliedBy(0.78)
+        }
+        
+        backgroundView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(precipeImageView.snp.centerY)
+        }
+        
+        nameRecipeLabel.snp.makeConstraints { make in
+            make.top.equalTo(precipeImageView.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(15)
+        }
     }
 }
 
