@@ -7,7 +7,8 @@
 
 import Foundation
 
-final class HomePresenterImpl: HomePresenter {
+final class HomePresenterImpl: HomePresenter, FlowProtocol {
+    
     weak var view: (any HomeController)?
     var flowHandler: (() -> Void)?
     let networkManager = NetworkManager(networkService: NetworkService.shared)
@@ -39,6 +40,7 @@ final class HomePresenterImpl: HomePresenter {
                             resepies: createRecipeCellViewModel(with: trendingRecipe!),
                             header: .init(headerName: "Trending now 🔥",
                                           seeAllHandler: {
+                                              self.flowHandler?()
                                               print("Tapp Trending see all")
                                           }
                                          )
@@ -89,7 +91,8 @@ final class HomePresenterImpl: HomePresenter {
                         },
                         favoriteHandler:  {
                             print(recipe.id)
-                        }
+                        },
+                        ingridientsCount: recipe.ingredients?.count ?? 0
                     )
             }
             return reipeModel

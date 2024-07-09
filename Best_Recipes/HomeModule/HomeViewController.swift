@@ -22,6 +22,7 @@ final class HomeControllerImpl: UIViewController {
     
     //MARK: - Private properties
     private var isFirstLoad = true
+    private let searchController = CustomSearchController(searchResultsController: SearchAssembly().build())
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
     private var selectedIndexPaths: [Int: IndexPath] = [:]
@@ -48,15 +49,32 @@ extension HomeControllerImpl: HomeController {
     }
 }
 
+extension HomeControllerImpl: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.layoutSubviews()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.layoutSubviews()
+        
+        guard let searchController = searchController.searchResultsController as? SearchControllerImpl else { return }
+        guard let searchText = searchBar.text else { return }
+        searchController.presenter?.searchRecipeByKeyword(searchText)
+    }
+}
 
 private extension HomeControllerImpl {
     func configure() {
         setupViews()
         setupConstraints()
+        searchController.searchBar.delegate = self
     }
     
     func setupViews() {
         view.addSubviews(collectionView)
+        navigationItem.searchController = searchController
     }
     
     func setupConstraints() {
