@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchRecipesView: CustomView, Configurable {
+final class SearchRecipesView: CellView, Configurable {
     
     private let recipeImageView: UIImageView = {
         let recipeImageView = UIImageView()
