@@ -56,7 +56,7 @@ final class HomePresenterImpl: HomePresenter, FlowProtocol {
                                         seeAllHandler: nil)),
                         recentRecipe:
                                 .init(
-                                    resepies: [],
+                                    resepies: createRecipeCellViewModel(with: trendingRecipe!),
                                     header: .init(
                                         headerName: "Recent recipe",
                                         seeAllHandler: nil)),

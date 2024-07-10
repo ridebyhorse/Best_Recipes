@@ -20,7 +20,7 @@ extension UIImageView: Configurable {
         init(
             image: UIImage? = nil,
             url: URL? = nil,
-            renderingMode: UIImage.RenderingMode = .alwaysTemplate,
+            renderingMode: UIImage.RenderingMode = .alwaysOriginal,
             tintColor: UIColor? = nil,
             contenMode: UIImageView.ContentMode = .scaleAspectFill,
             size: CGSize? = nil,

@@ -13,6 +13,8 @@ typealias BannerRecipesCell = CollectionCell<BannerRecipesView>
 typealias HeaderRecipesCell = CollectionCell<TitleRecipesView>
 typealias CategoryCell = CollectionCell<CategoryView>
 typealias CircleRecipesCell = CollectionCell<TimeCircleRecipesView>
+typealias RecentRecipesCell = CollectionCell<RecentRecipeView>
+typealias CountryCell = CollectionCell<CountryCategoryView>
 
 //MARK: - class HomeControllerImpl
 final class HomeControllerImpl: UIViewController {
@@ -87,12 +89,18 @@ private extension HomeControllerImpl {
     func updateCollection(with model: HomeViewModel) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
         
-        snapshot.appendSections([.trendigHeader, .trendingNow, .popularCategoryHeader, .categories, .circeRecipe])
+        snapshot.appendSections([.trendigHeader, .trendingNow, .popularCategoryHeader, .categories, .circeRecipe, .recentRecipeHeader, .recentRecipe, .countryHeader , .country])
         snapshot.appendItems([model.tandingNow.header], toSection: .trendigHeader)
         snapshot.appendItems(model.tandingNow.resepies, toSection: .trendingNow)
         snapshot.appendItems([model.popularCategory.header], toSection: .popularCategoryHeader)
         snapshot.appendItems(model.popularCategory.categories, toSection: .categories)
         snapshot.appendItems(model.popularCategory.resepies, toSection: .circeRecipe)
+        snapshot.appendItems([model.recentRecipe.header], toSection: .recentRecipeHeader)
+        print(model.recentRecipe.resepies)
+        print("------------")
+        snapshot.appendItems(model.recentRecipe.resepies, toSection: .recentRecipe)
+        snapshot.appendItems([model.country.header], toSection: .countryHeader)
+        snapshot.appendItems(model.country.country, toSection: .country)
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
@@ -106,6 +114,9 @@ private extension HomeControllerImpl {
         collectionView.register(HeaderRecipesCell.self, forCellWithReuseIdentifier: String(describing: HeaderRecipesCell.self))
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: String(describing: CategoryCell.self))
         collectionView.register(CircleRecipesCell.self, forCellWithReuseIdentifier: String(describing: CircleRecipesCell.self))
+        collectionView.register(CountryCell.self, forCellWithReuseIdentifier: String(describing: CountryCell.self))
+        collectionView.register(RecentRecipesCell.self, forCellWithReuseIdentifier: String(describing: RecentRecipesCell.self))
+        collectionView.register(RecentRecipesCell.self, forCellWithReuseIdentifier: String(describing: RecentRecipesCell.self))
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = true
         //collectionView.dataSource = self
@@ -123,7 +134,7 @@ private extension HomeControllerImpl {
                     cell.update(with: recipeViewModel, didSelectHandler: recipeViewModel.didSelect)
                 }
                 return cell
-            case .trendigHeader, .popularCategoryHeader:
+            case .trendigHeader, .popularCategoryHeader, .countryHeader, .popularCategoryHeader, .recentRecipeHeader:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderRecipesCell.self), for: indexPath) as! HeaderRecipesCell
                 if let seeAllViewModel = item as? SeeAll {
                     cell.update(with: seeAllViewModel, didSelectHandler: nil)
@@ -138,6 +149,19 @@ private extension HomeControllerImpl {
             case .circeRecipe:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CircleRecipesCell.self), for: indexPath) as! CircleRecipesCell
                 if let seeAllViewModel = item as? RecipesCellViewModel {
+                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                }
+                return cell
+           
+            case .recentRecipe:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RecentRecipesCell.self), for: indexPath) as! RecentRecipesCell
+                if let seeAllViewModel = item as? RecipesCellViewModel {
+                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                }
+                return cell
+            case .country:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CountryCell.self), for: indexPath) as! CountryCell
+                if let seeAllViewModel = item as? Country {
                     cell.update(with: seeAllViewModel, didSelectHandler: nil)
                 }
                 return cell
@@ -169,6 +193,14 @@ private extension HomeControllerImpl {
                 return self.createCategorySection()
             case .circeRecipe:
                 return self.createCircleRecipeSection()
+            case .recentRecipeHeader:
+                return self.headerSetion()
+            case .recentRecipe:
+                return self.createRecentRecipeLayout()
+            case .countryHeader:
+                return self.headerSetion()
+            case .country:
+                return self.createCountryLayout()
             }
         }
     }
@@ -271,15 +303,54 @@ private extension HomeControllerImpl {
         section.interGroupSpacing = 0
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+    
+        return section
+    }
+    
+    func createRecentRecipeLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1)
+        )
         
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
         
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.39),
+            heightDimension: .fractionalHeight(0.26)
+        )
         
-        //        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-        //            layoutSize: headerSize,
-        //            elementKind: UICollectionView.elementKindSectionHeader,
-        //            alignment: .top
-        //        )
-        //        section.boundarySupplementaryItems = [sectionHeader]
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 0
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+        
+        return section
+    }
+    
+    func createCountryLayout() -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1)
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.3),
+            heightDimension: .fractionalHeight(0.18)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 0
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+        
         return section
     }
 }
@@ -291,6 +362,10 @@ private extension HomeControllerImpl {
         case popularCategoryHeader
         case categories
         case circeRecipe
+        case recentRecipeHeader
+        case recentRecipe
+        case countryHeader
+        case country
     }
 }
 
@@ -326,8 +401,7 @@ extension HomeControllerImpl:  UICollectionViewDelegate {
 }
 
 
-
 @available(iOS 17.0, *)
 #Preview {
-    UINavigationController(rootViewController: HomeControllerImpl())
+    UINavigationController(rootViewController: ModuleFactory().createHomeModule(flowHandler: nil))
 }
