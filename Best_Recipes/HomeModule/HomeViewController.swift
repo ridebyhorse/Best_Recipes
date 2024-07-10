@@ -48,7 +48,9 @@ extension HomeControllerImpl: HomeController {
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
             isFirstLoad = false
         } else {
-            
+            selectedIndexPaths.forEach { (key: Int, value: IndexPath) in
+                collectionView.selectItem(at: value, animated: false, scrollPosition: [])
+            }
         }
     }
 }
