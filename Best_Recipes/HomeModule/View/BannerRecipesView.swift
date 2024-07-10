@@ -341,9 +341,9 @@ extension CountryCategoryView: Configurable {
             countryNameLabel.text = nil
             return
         }
-        
-        countryImageView.update(with: .init(image: .british , cornerRadius:  countryImageView.frame.height / 2))
-        countryNameLabel.text = "Country"
+
+        countryImageView.update(with: .init(image: UIImage(named: model.imageName), cornerRadius:  countryImageView.frame.height / 2))
+        countryNameLabel.text = model.name
         
        
        

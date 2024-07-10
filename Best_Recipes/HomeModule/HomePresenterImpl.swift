@@ -26,7 +26,11 @@ final class HomePresenterImpl: HomePresenter, FlowProtocol {
 //            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
             
             let trendingRecipe = MockData.getMockRecipesMore()
-            let countries = ["Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE"]
+            var countries = [String]()
+            trendingRecipe!.forEach({
+                countries += $0.countries
+            })
+            countries = Array(Set(countries))
             let categories =  ["v", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
             let recipeCategories = MockData.getMockRecipesMore()
             
