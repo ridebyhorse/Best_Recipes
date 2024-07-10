@@ -25,6 +25,11 @@
 		6E4CBD042C33761A008D19FE /* HomePresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CBD032C33761A008D19FE /* HomePresenterImpl.swift */; };
 		6ED998952C348B84002675A5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6ED998942C348B84002675A5 /* SnapKit */; };
 		6ED998982C348B8E002675A5 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6ED998972C348B8E002675A5 /* AlamofireImage */; };
+		6EA421D62C3F35E200EB4336 /* TimeCircleRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA421D52C3F35E100EB4336 /* TimeCircleRecipesView.swift */; };
+		6EA421D82C3F3A8600EB4336 /* RecentRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA421D72C3F3A8600EB4336 /* RecentRecipeView.swift */; };
+		6EA421DA2C3F3FB300EB4336 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA421D92C3F3FB300EB4336 /* CountryView.swift */; };
+		6EA421DC2C3F416000EB4336 /* TilteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA421DB2C3F416000EB4336 /* TilteView.swift */; };
+		6EA421DE2C3F46CC00EB4336 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA421DD2C3F46CC00EB4336 /* CategoryView.swift */; };
 		B91A001E2C386A8F00E438E8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A001D2C386A8F00E438E8 /* AppCoordinator.swift */; };
 		B91A00202C386ADD00E438E8 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A001F2C386ADD00E438E8 /* CoordinatorProtocol.swift */; };
 		B91A00222C388EE800E438E8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A00212C388EE800E438E8 /* MainCoordinator.swift */; };
@@ -93,6 +98,11 @@
 		6E4CBCFC2C336A3E008D19FE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6E4CBD012C336E73008D19FE /* BannerRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerRecipesView.swift; sourceTree = "<group>"; };
 		6E4CBD032C33761A008D19FE /* HomePresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenterImpl.swift; sourceTree = "<group>"; };
+		6EA421D52C3F35E100EB4336 /* TimeCircleRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCircleRecipesView.swift; sourceTree = "<group>"; };
+		6EA421D72C3F3A8600EB4336 /* RecentRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRecipeView.swift; sourceTree = "<group>"; };
+		6EA421D92C3F3FB300EB4336 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
+		6EA421DB2C3F416000EB4336 /* TilteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilteView.swift; sourceTree = "<group>"; };
+		6EA421DD2C3F46CC00EB4336 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		6EC7D6F82C3749A00045313F /* MockRecipe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockRecipe.json; sourceTree = "<group>"; };
 		B91A001D2C386A8F00E438E8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B91A001F2C386ADD00E438E8 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -232,6 +242,11 @@
 			isa = PBXGroup;
 			children = (
 				6E4CBD012C336E73008D19FE /* BannerRecipesView.swift */,
+				6EA421D52C3F35E100EB4336 /* TimeCircleRecipesView.swift */,
+				6EA421D72C3F3A8600EB4336 /* RecentRecipeView.swift */,
+				6EA421D92C3F3FB300EB4336 /* CountryView.swift */,
+				6EA421DB2C3F416000EB4336 /* TilteView.swift */,
+				6EA421DD2C3F46CC00EB4336 /* CategoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -531,13 +546,16 @@
 				CB6C63282C31727B00CEE6BF /* BookmarkViewController.swift in Sources */,
 				CBDA84BF2C3C627D00E61884 /* SearchAssembly.swift in Sources */,
 				6E4CBCF92C3364A8008D19FE /* ReusableView.swift in Sources */,
+				6EA421DA2C3F3FB300EB4336 /* CountryView.swift in Sources */,
 				D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */,
+				6EA421D82C3F3A8600EB4336 /* RecentRecipeView.swift in Sources */,
 				CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */,
 				6E4CBCC42C334830008D19FE /* CollectionCell.swift in Sources */,
 				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
 				CB0A52DA2C3C5F5200B4FBC9 /* SearchViewModel.swift in Sources */,
 				6E4CBD042C33761A008D19FE /* HomePresenterImpl.swift in Sources */,
 				6E4CBD022C336E73008D19FE /* BannerRecipesView.swift in Sources */,
+				6EA421DE2C3F46CC00EB4336 /* CategoryView.swift in Sources */,
 				CBDA84BB2C3C5FB400E61884 /* SearchPresenter.swift in Sources */,
 				B91A00202C386ADD00E438E8 /* CoordinatorProtocol.swift in Sources */,
 				B91A002A2C3B1E4100E438E8 /* ModuleFactory.swift in Sources */,
@@ -566,11 +584,13 @@
 				0FEF0B282C34870900A5E0F2 /* PlusButton1.swift in Sources */,
 				CBDE991A2C3DD76B000201C0 /* AppColor.swift in Sources */,
 				6E4CBCC92C3349B5008D19FE /* UIimageVIew + Extension.swift in Sources */,
+				6EA421DC2C3F416000EB4336 /* TilteView.swift in Sources */,
 				B9B9E1192C347D26003E5439 /* RecipeView.swift in Sources */,
 				B9B9E11C2C347D54003E5439 /* MockData.swift in Sources */,
 				CBEDCA142C34953500232A02 /* DIContainer.swift in Sources */,
 				CBDA84CD2C3C641C00E61884 /* SearchBar.swift in Sources */,
 				CB9096CF2C3DD04F00A9B05D /* CellView.swift in Sources */,
+				6EA421D62C3F35E200EB4336 /* TimeCircleRecipesView.swift in Sources */,
 				CB6C63362C317A3200CEE6BF /* Recipe.swift in Sources */,
 				B91A001E2C386A8F00E438E8 /* AppCoordinator.swift in Sources */,
 			);

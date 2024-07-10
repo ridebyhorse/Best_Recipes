@@ -40,10 +40,16 @@ class MainCoordinator: CoordinatorProtocol {
     }
     
     func createHomeModule() -> UIViewController {
-        moduleFactory.createHomeModule { [weak self] in
-            self?.showRecipeDetailsModule()
+        moduleFactory.createHomeModule() { [weak self] model in
+            switch model {
+            case .recipe(recipeId: let recipeId):
+                self?.createRecipeDetailsModule()
+            case .seeAll(type: let type):
+                break
+            }
         }
     }
+    
     
     func createBookmarkModule() -> UIViewController {
         moduleFactory.createBookMarkModule { [weak self] in

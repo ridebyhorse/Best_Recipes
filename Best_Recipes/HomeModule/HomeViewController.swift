@@ -47,6 +47,8 @@ extension HomeControllerImpl: HomeController {
             selectedIndexPaths[Section.categories.rawValue] = indexPath
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
             isFirstLoad = false
+        } else {
+            
         }
     }
 }
@@ -92,17 +94,21 @@ private extension HomeControllerImpl {
         snapshot.appendSections([.trendigHeader, .trendingNow, .popularCategoryHeader, .categories, .circeRecipe, .recentRecipeHeader, .recentRecipe, .countryHeader , .country])
         snapshot.appendItems([model.tandingNow.header], toSection: .trendigHeader)
         snapshot.appendItems(model.tandingNow.resepies, toSection: .trendingNow)
+        
         snapshot.appendItems([model.popularCategory.header], toSection: .popularCategoryHeader)
         snapshot.appendItems(model.popularCategory.categories, toSection: .categories)
+        
         snapshot.appendItems(model.popularCategory.resepies, toSection: .circeRecipe)
-        snapshot.appendItems([model.recentRecipe.header], toSection: .recentRecipeHeader)
-        print(model.recentRecipe.resepies)
-        print("------------")
-        snapshot.appendItems(model.recentRecipe.resepies, toSection: .recentRecipe)
+        
+        if !model.recentRecipe.resepies.isEmpty {
+            snapshot.appendItems([model.recentRecipe.header], toSection: .recentRecipeHeader)
+            snapshot.appendItems(model.recentRecipe.resepies, toSection: .recentRecipe)
+            
+        }
         snapshot.appendItems([model.country.header], toSection: .countryHeader)
         snapshot.appendItems(model.country.country, toSection: .country)
         
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 
@@ -134,7 +140,7 @@ private extension HomeControllerImpl {
                     cell.update(with: recipeViewModel, didSelectHandler: recipeViewModel.didSelect)
                 }
                 return cell
-            case .trendigHeader, .popularCategoryHeader, .countryHeader, .popularCategoryHeader, .recentRecipeHeader:
+            case .trendigHeader, .popularCategoryHeader, .countryHeader, .recentRecipeHeader:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderRecipesCell.self), for: indexPath) as! HeaderRecipesCell
                 if let seeAllViewModel = item as? SeeAll {
                     cell.update(with: seeAllViewModel, didSelectHandler: nil)
@@ -142,21 +148,21 @@ private extension HomeControllerImpl {
                 return cell
             case .categories:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCell.self), for: indexPath) as! CategoryCell
-                if let seeAllViewModel = item as? Category {
-                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                if let item = item as? Category {
+                    cell.update(with: item, didSelectHandler: nil)
                 }
                 return cell
             case .circeRecipe:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CircleRecipesCell.self), for: indexPath) as! CircleRecipesCell
-                if let seeAllViewModel = item as? RecipesCellViewModel {
-                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                if let item = item as? RecipesCellViewModel {
+                    cell.update(with: item, didSelectHandler: item.didSelect)
                 }
                 return cell
            
             case .recentRecipe:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RecentRecipesCell.self), for: indexPath) as! RecentRecipesCell
-                if let seeAllViewModel = item as? RecipesCellViewModel {
-                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                if let item = item as? RecipesCellViewModel {
+                    cell.update(with: item, didSelectHandler: item.didSelect)
                 }
                 return cell
             case .country:
@@ -224,17 +230,7 @@ private extension HomeControllerImpl {
         section.interGroupSpacing = 0
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
-        let headerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(44)
-        )
         
-        //        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-        //            layoutSize: headerSize,
-        //            elementKind: UICollectionView.elementKindSectionHeader,
-        //            alignment: .top
-        //        )
-        //        section.boundarySupplementaryItems = [sectionHeader]
         return section
     }
     
@@ -254,7 +250,6 @@ private extension HomeControllerImpl {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 0
-        //section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
         
         return section

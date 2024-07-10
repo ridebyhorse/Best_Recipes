@@ -17,7 +17,7 @@ class ModuleFactory {
         return view
     }
     
-    func createHomeModule(flowHandler: (() -> Void)?) -> UIViewController {
+    func createHomeModule(flowHandler: HomeNavigationHandler?) -> UIViewController {
         let view = HomeControllerImpl()
         let presenter = HomePresenterImpl(view: view)
         view.presenter = presenter
