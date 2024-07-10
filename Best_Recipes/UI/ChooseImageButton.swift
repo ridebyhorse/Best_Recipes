@@ -14,7 +14,7 @@ class ChooseImageButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        layer.cornerRadius = frame.width / 2
+        layer.cornerRadius = 15
     }
     
     override init(frame: CGRect) {
@@ -29,13 +29,14 @@ class ChooseImageButton: UIButton {
     
     private func configure() {
         tintColor = .black
-        setBackgroundImage(UIImage(named: "Edit"), for: .normal)
+        backgroundColor = .white
+        setImage(UIImage(named: "Edit"), for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
-        
         addTarget(self, action: #selector(buttonTappedAdd), for: .touchUpInside)
     }
     
-   @objc internal func buttonTappedAdd() {
+   @objc private func buttonTappedAdd() {
        print("tap")
+       onTap?()
     }
 }

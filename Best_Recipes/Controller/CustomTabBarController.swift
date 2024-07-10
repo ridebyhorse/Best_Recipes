@@ -16,6 +16,12 @@ final class CustomTabBarController: UITabBarController {
         
         setValue(customTabBar, forKey: "tabBar")
         setupTabItems()
+        customTabBar.onPlusButtonTap = {[weak self] in
+            let createRecipeVC = CreateRecipeViewController()
+            createRecipeVC.modalPresentationStyle = .fullScreen
+            self?.present(createRecipeVC, animated: true)
+            
+        }
     }
     
     private func setupTabItems() {

@@ -9,6 +9,8 @@ import UIKit
 
 final class CustomTabBar: UITabBar {
     
+    var onPlusButtonTap: (() -> Void)?
+    
     private let plusButton = PlusButton(type: .system)
     
     override func draw(_ rect: CGRect) {
@@ -40,6 +42,10 @@ final class CustomTabBar: UITabBar {
             plusButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
             plusButton.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)
         ])
+        
+        plusButton.onTap = {[weak self] in
+            self?.onPlusButtonTap?()
+        }
     }
     
     //MARK: Hit test
