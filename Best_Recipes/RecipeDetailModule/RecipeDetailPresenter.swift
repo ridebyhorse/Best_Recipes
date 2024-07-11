@@ -8,7 +8,7 @@
 import Foundation
 
 class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
-    
+
     weak var view: RecipeDetailController?
     
     private var recipe: Recipe?

@@ -11,7 +11,7 @@ struct HomeViewModel {
     let tandingNow: TrandingNow
     let popularCategory: PopularCategory
     let recentRecipe: RecentRecipe
-    let country: Country
+    let country: Countries
 }
 
 
@@ -57,21 +57,23 @@ struct Category: Hashable, Identifiable {
     }
 }
 
-struct Country {
-    let country: [Countries]
+struct Countries {
+    let country: [Country]
     let header: SeeAll
 }
 
-struct Countries: Hashable, Identifiable {
+struct Country: Hashable, Identifiable {
     let id = UUID()
     let name: String
     let imageName: String
     let didSelect: (() -> Void)?
     
-    static func == (lhs: Countries, rhs: Countries) -> Bool {
+    static func == (lhs: Country, rhs: Country) -> Bool {
         lhs.id == rhs.id
     }
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 }
+
+

@@ -7,7 +7,8 @@
 
 import Foundation
 
-final class HomePresenterImpl: HomePresenter {
+final class HomePresenterImpl: HomePresenter, FlowProtocol {
+    
     weak var view: (any HomeController)?
     var flowHandler: (() -> Void)?
     let networkManager = NetworkManager(networkService: NetworkService.shared)
@@ -25,8 +26,12 @@ final class HomePresenterImpl: HomePresenter {
 //            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
             
             let trendingRecipe = MockData.getMockRecipesMore()
-            let countries = ["Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE","Gb", "DE"]
-            let categories =  ["Breackfst", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
+            var countries = [String]()
+            trendingRecipe!.forEach({
+                countries += $0.countries
+            })
+            countries = Array(Set(countries))
+            let categories =  ["v", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
             let recipeCategories = MockData.getMockRecipesMore()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
@@ -39,6 +44,7 @@ final class HomePresenterImpl: HomePresenter {
                             resepies: createRecipeCellViewModel(with: trendingRecipe!),
                             header: .init(headerName: "Trending now 🔥",
                                           seeAllHandler: {
+                                              self.flowHandler?()
                                               print("Tapp Trending see all")
                                           }
                                          )
@@ -54,7 +60,7 @@ final class HomePresenterImpl: HomePresenter {
                                         seeAllHandler: nil)),
                         recentRecipe:
                                 .init(
-                                    resepies: [],
+                                    resepies: createRecipeCellViewModel(with: trendingRecipe!),
                                     header: .init(
                                         headerName: "Recent recipe",
                                         seeAllHandler: nil)),
@@ -89,13 +95,13 @@ final class HomePresenterImpl: HomePresenter {
                         },
                         favoriteHandler:  {
                             print(recipe.id)
-                        }
+                        },
+                        ingridientsCount: recipe.ingredients?.count ?? 0
                     )
             }
             return reipeModel
         }
     }
 }
-
 
 

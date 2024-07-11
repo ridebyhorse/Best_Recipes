@@ -7,7 +7,12 @@
 import SnapKit
 import UIKit
 
-class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
+class CollectionCell<View: Configurable & CellView >: UICollectionViewCell {
+    override var isSelected: Bool {
+        didSet {
+            self.view.isSelected = isSelected
+        }
+    }
     private let view = View()
     private let stackView = UIStackView()
     private var didSelectHandler: (() -> Void)?
@@ -36,7 +41,8 @@ class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
     ) {
         view.update(with: model)
         self.didSelectHandler = didSelectHandler
-//        
+        view.isSelected = isSelected
+//
 //        if let height {
 //            stackView.snp.remakeConstraints {
 //                $0.height.equalTo(height)

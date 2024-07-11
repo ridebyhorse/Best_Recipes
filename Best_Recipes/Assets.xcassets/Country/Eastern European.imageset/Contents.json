@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Eastern European.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
