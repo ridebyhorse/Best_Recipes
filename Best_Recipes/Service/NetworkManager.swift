@@ -56,6 +56,13 @@ class NetworkManager {
         return Array(Set(countries))
     }
     
+    func getRecipeById(id: Int) -> Recipe? {
+        if let index = recipes.firstIndex(where: {$0.id == id}) {
+            return recipes[index]
+        }
+        return nil
+    }
+    
     func getRecipeForCountry(_ country: String) -> [Recipe] {
         recipes.filter({ $0.countries.contains(country) })
     }

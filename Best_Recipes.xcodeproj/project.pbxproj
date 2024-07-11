@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0FEF0B232C34853700A5E0F2 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEF0B222C34853700A5E0F2 /* CustomTabBar.swift */; };
-		0FEF0B282C34870900A5E0F2 /* PlusButton1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEF0B272C34870900A5E0F2 /* PlusButton1.swift */; };
 		6E4CBCBE2C33474E008D19FE /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CBCBD2C33474E008D19FE /* Configurable.swift */; };
 		6E4CBCC22C33480D008D19FE /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CBCC12C33480D008D19FE /* CustomView.swift */; };
 		6E4CBCC42C334830008D19FE /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CBCC32C334830008D19FE /* CollectionCell.swift */; };

@@ -25,7 +25,7 @@ struct MockData {
     
     static func getMockRecipesMore() -> [Recipe]? {
         guard
-            let url = Bundle.main.url(forResource: "mockData", withExtension: "json"),
+            let url = Bundle.main.url(forResource: "MockRecipe", withExtension: "json"),
             let data = try? Data(contentsOf: url)
         else { return nil }
         
