@@ -72,6 +72,7 @@
 		CBEDCA142C34953500232A02 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA132C34953500232A02 /* DIContainer.swift */; };
 		CBEDCA1A2C3496BA00232A02 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEDCA192C3496BA00232A02 /* StorageService.swift */; };
 		D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */; };
+		D15B9C9C2C3F79F3005B1E84 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15B9C9B2C3F79F3005B1E84 /* DemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		CBEDCA132C34953500232A02 /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		CBEDCA192C3496BA00232A02 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		D15B9C9B2C3F79F3005B1E84 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +378,7 @@
 				CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */,
 				CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */,
 				0FEF0B222C34853700A5E0F2 /* CustomTabBar.swift */,
+				D15B9C9B2C3F79F3005B1E84 /* DemoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				B91A002A2C3B1E4100E438E8 /* ModuleFactory.swift in Sources */,
 				B9B9E1172C347D26003E5439 /* NumberedView.swift in Sources */,
 				6E4CBCF72C336332008D19FE /* HomeVIewModel.swift in Sources */,
+				D15B9C9C2C3F79F3005B1E84 /* DemoViewController.swift in Sources */,
 				CBE872B32C35C815005EB742 /* NetworkManager.swift in Sources */,
 				6E4CBCCD2C334A86008D19FE /* UIStackView + Extension.swift in Sources */,
 				CBDA84CB2C3C63E400E61884 /* SearchRecipesView.swift in Sources */,
