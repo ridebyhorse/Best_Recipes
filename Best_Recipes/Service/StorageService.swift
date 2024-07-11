@@ -18,6 +18,7 @@ class StorageService {
         case createdRecipesKey = "createdRecipes"
         case favoriteRecipiesKey = "favoriteRecipes"
         case recentRecipiesKey = "recentRecipes"
+        case userKey = "user"
     }
 
     private init() {}
@@ -44,6 +45,16 @@ class StorageService {
         addRecipe(forKey: .recentRecipiesKey, recipe)
     }
     
+    func saveUserData(user: User) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(user)
+            userDefaults.set(data, forKey: Key.userKey.rawValue)
+        } catch {
+            print("Error encoding user: \(error)")
+        }
+    }
+    
     func toggleFavorite(recipeId id: Int) {
         let recipes = getRecipes(forKey: .favoriteRecipiesKey)
         if recipes.contains(where: {$0.id == id}) {
@@ -55,9 +66,23 @@ class StorageService {
         }
     }
     
+    func getUser() -> User {
+        if let data = userDefaults.data(forKey: Key.userKey.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let user = try decoder.decode(User.self, from: data)
+                return user
+            } catch {
+                print("Error decoding user: \(error)")
+            }
+        }
+        
+        return User(name: "New User", location: "Moscow", recipesCreated: getCreatedRecipes().count)
+    }
+    
     private func addRecipe(forKey key: Key, _ recipe: Recipe) {
         var recipes = getRecipes(forKey: key)
-        if !recipes.contains(where: {$0.title == recipe.title}) {
+        if !recipes.contains(where: {$0.id == recipe.id}) {
             if key == .recentRecipiesKey {
                 recipes.insert(recipe, at: 0)
             } else {

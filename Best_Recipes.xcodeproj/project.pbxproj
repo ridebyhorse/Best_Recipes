@@ -80,6 +80,7 @@
 		CBFA624B2C40023300DB918A /* CreateRecipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFA62472C40023300DB918A /* CreateRecipeButton.swift */; };
 		CBFA624C2C40023300DB918A /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFA62482C40023300DB918A /* PlusButton.swift */; };
 		CBFA62512C400B2300DB918A /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFA62502C400B2300DB918A /* DemoViewController.swift */; };
+		CBFA62552C403BA600DB918A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFA62542C403BA600DB918A /* User.swift */; };
 		D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +160,7 @@
 		CBFA62472C40023300DB918A /* CreateRecipeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRecipeButton.swift; sourceTree = "<group>"; };
 		CBFA62482C40023300DB918A /* PlusButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		CBFA62502C400B2300DB918A /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		CBFA62542C403BA600DB918A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -412,6 +414,7 @@
 				6EC7D6F82C3749A00045313F /* MockRecipe.json */,
 				B9B9E11B2C347D54003E5439 /* MockData.swift */,
 				CB6C63352C317A3200CEE6BF /* Recipe.swift */,
+				CBFA62542C403BA600DB918A /* User.swift */,
 				CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */,
 			);
 			path = Model;
@@ -612,6 +615,7 @@
 				6E4CBCBE2C33474E008D19FE /* Configurable.swift in Sources */,
 				6E4CBCCB2C334A55008D19FE /* UIView+Extension.swift in Sources */,
 				B9B9E12D2C349F9D003E5439 /* BaseGreyCellView.swift in Sources */,
+				CBFA62552C403BA600DB918A /* User.swift in Sources */,
 				B91A00222C388EE800E438E8 /* MainCoordinator.swift in Sources */,
 				6E4CBCFD2C336A3E008D19FE /* HomeViewController.swift in Sources */,
 				0FEF0B232C34853700A5E0F2 /* CustomTabBar.swift in Sources */,
