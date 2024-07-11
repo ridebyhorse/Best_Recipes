@@ -18,7 +18,7 @@ class OnboardingCoordinator: CoordinatorProtocol {
     }
     
     private func showOnboarding() {
-        let controller = OnBoardingViewController()
+        let controller = DemoViewController()
         rootViewController = controller
         controller.completionHandler = { [weak self] in
             self?.flowCompletionHandler?()

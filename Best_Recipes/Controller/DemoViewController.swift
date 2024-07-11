@@ -10,6 +10,7 @@ import SnapKit
 
 class DemoViewController: UIPageViewController {
 
+    var completionHandler: (() -> Void)?
     var pages = [UIViewController]()
     
     let skipButton = UIButton()
@@ -69,13 +70,13 @@ extension DemoViewController {
                                              titleText: "Cook it now or\nsave it for later",
                                              subtitleText: "",
                                              topText: "")
-        let page5 = LoginViewController()
+//        let page5 = LoginViewController()
         
         pages.append(page1)
         pages.append(page2)
         pages.append(page3)
         pages.append(page4)
-        pages.append(page5)
+//        pages.append(page5)
         
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
     }
@@ -161,6 +162,7 @@ extension DemoViewController: UIPageViewControllerDataSource {
         if currentIndex < pages.count - 1 {
             return pages[currentIndex + 1]  // go next
         } else {
+            completionHandler?()
             return pages.first              // wrap first
         }
     }
