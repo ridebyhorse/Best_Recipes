@@ -198,6 +198,10 @@ class CreateRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameRecipe.delegate = self
+        instructions.delegate = self
+        
         PHPhotoLibrary.authorizationStatus()
         PHPhotoLibrary.requestAuthorization { _ in }
         
@@ -213,13 +217,14 @@ class CreateRecipeViewController: UIViewController {
         setIngredientsTitle()
         setAddIngredientsButton()
         setPlaceholderNameRecipe()
+        setPlaceholderInstruction()
     }
     
-    let nameRecipe = UITextView(size: 24, weight: .bold)
+    let nameRecipe = UITextView(size: 24,numb: 4, weight: .bold)
     
     let placeholderNameRecipe = UILabel()
     private func setPlaceholderNameRecipe() {
-        nameRecipe.delegate = self
+        //placeholderNameRecipe.delegate = self
         placeholderNameRecipe.text = "Название рецепта"
         placeholderNameRecipe.textColor = .lightGray
         placeholderNameRecipe.textAlignment = .center
@@ -227,13 +232,18 @@ class CreateRecipeViewController: UIViewController {
         //placeholderNameRecipe.backgroundColor = UIColor(named: "lightGreyApp")
         //placeholderNameRecipe.layer.masksToBounds = true
         //placeholderNameRecipe.layer.cornerRadius = 12
-        placeholderNameRecipe.isHidden = !nameRecipe.text.isEmpty
+//        placeholderNameRecipe.isHidden = !nameRecipe.text.isEmpty
+        //placeholderNameRecipe.isHidden = true
         placeholderNameRecipe.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            placeholderNameRecipe.leadingAnchor.constraint(equalTo: nameRecipe.leadingAnchor, constant: 16),
-            placeholderNameRecipe.topAnchor.constraint(equalTo: nameRecipe.topAnchor)
+            placeholderNameRecipe.leadingAnchor.constraint(equalTo: nameRecipe.leadingAnchor, constant: 15),
+            placeholderNameRecipe.topAnchor.constraint(equalTo: nameRecipe.topAnchor),
+            placeholderNameRecipe.centerYAnchor.constraint(equalTo: nameRecipe.centerYAnchor)
             
         ])
+//        func textViewDidBeginEditing(_ textView: UITextView) {
+//            placeholderNameRecipe.isHidden = true
+//        }
         ////        placeholderNameRecipe.frame.origin = CGPoint(x: nameRecipe.frame.origin.x + 10,
         //                                                     y: nameRecipe.frame.midY - placeholderNameRecipe.frame.size.height / 2)
         
@@ -241,12 +251,33 @@ class CreateRecipeViewController: UIViewController {
     
     
     
-    let instructions = UITextView(size: 16, weight: .regular)
+    let instructions = UITextView(size: 16,numb: 0, weight: .regular)
     let placeholderInstruction = UILabel()
+    //instructions.delegate = self
+    private func setPlaceholderInstruction() {
+        placeholderInstruction.text = "Инструкция приготовения"
+        placeholderInstruction.textColor = .lightGray
+        placeholderInstruction.textAlignment = .center
+        placeholderInstruction.font = .boldSystemFont(ofSize: 16)
+        //placeholderNameRecipe.backgroundColor = UIColor(named: "lightGreyApp")
+        //placeholderNameRecipe.layer.masksToBounds = true
+        //placeholderNameRecipe.layer.cornerRadius = 12
+        //placeholderInstruction.isHidden = !nameRecipe.text.isEmpty
+        placeholderInstruction.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            placeholderInstruction.leadingAnchor.constraint(equalTo: nameRecipe.leadingAnchor, constant: 15),
+            placeholderInstruction.topAnchor.constraint(equalTo: instructions.topAnchor),
+            placeholderInstruction.centerYAnchor.constraint(equalTo: instructions.centerYAnchor)
+        ])
+    }
+    
     
     let addIngredientsName = UITextField(text: "   Item name", size: 14, weight: .regular, borderColor: UIColor(named: "ColorBorder")!)
     let addQuantityIngredients = UITextField(text: "   Quantity", size: 14, weight: .regular, borderColor: UIColor(named: "ColorBorder")!)
     
+//    func saveRecipe() {
+//        var recipe = Recipe(rating: 100, id: 123456, title: nameRecipe.text, countries: [], categories: [], cookingTime: <#T##Int#>, isTrending: false, reviewsCount: 0, author: <#T##String#>, ingredients: [Ingridient(originalName: addIngredientsName.text!, amount: <#T##Double#>, unit: <#T##String#>)], instructions: [Instruction(steps: [InstructionStep(number: 1, step: instructions.text!)), image: nil)
+//    }
     
     
     private func setupConstraints() {
@@ -276,7 +307,7 @@ class CreateRecipeViewController: UIViewController {
             
             nameRecipe.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameRecipe.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            nameRecipe.heightAnchor.constraint(equalToConstant: 44),
+//            nameRecipe.heightAnchor.constraint(equalToConstant: 44),
             nameRecipe.widthAnchor.constraint(equalToConstant: 343),
             
             
@@ -290,7 +321,7 @@ class CreateRecipeViewController: UIViewController {
             
             instructions.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             instructions.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            instructions.heightAnchor.constraint(equalToConstant: 44),
+            //instructions.heightAnchor.constraint(equalToConstant: 77),
             instructions.widthAnchor.constraint(equalToConstant: 343),
             
             servesLabel.topAnchor.constraint(equalTo: instructions.bottomAnchor, constant: 16),
@@ -373,6 +404,7 @@ extension CreateRecipeViewController {
         scrollView.addSubview(contentView)
         contentView.addSubview(instructions)
         nameRecipe.addSubviews(placeholderNameRecipe)
+        instructions.addSubviews(placeholderInstruction)
         contentView.addSubview(ingredientsTitle)
         //            contentView.addSubview(cookTimeButton)
         contentView.addSubview(servesLabel)
@@ -392,10 +424,13 @@ extension CreateRecipeViewController {
 
 
 extension UITextView {
-    convenience init(size: CGFloat, weight: UIFont.Weight) {
+    convenience init(size: CGFloat,numb: Int, weight: UIFont.Weight) {
         self.init()
+        self.textContainer.maximumNumberOfLines = numb
+        self.isScrollEnabled = false
+        //self.sizeToFit()
         self.isEditable = true
-        
+        self.setContentCompressionResistancePriority(.required, for: .vertical)
         // self.attributedPlaceholder = NSAttributedString(string: text, attributes: [.foregroundColor: UIColor.lightGray, .font: UIFont.systemFont(ofSize: size, weight: weight)])
         self.font = UIFont.systemFont(ofSize: size, weight: weight)
         self.layer.borderWidth = 1
@@ -475,9 +510,17 @@ extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINaviga
 
 extension CreateRecipeViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
+        nameRecipe.delegate = self
         placeholderNameRecipe.isHidden = true
     }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if nameRecipe.text == "" {
+            placeholderNameRecipe.isHidden = false
+        }
+    }
+    
 }
+
 
 @available(iOS 17.0, *)
 #Preview {
