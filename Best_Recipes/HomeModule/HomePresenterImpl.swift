@@ -100,11 +100,12 @@ final class HomePresenterImpl: HomePresenter {
                     avtorName: "Jessica",
                     coockingTime: recipe.cookingTime,
                     didSelect:  {
+                        print("didSelect")
                         self.flowHandler?(.recipe(recipeId: recipe.id!))
                     },
                     favoriteHandler:  {
                         StorageService.shared.toggleFavorite(recipeId: recipe.id!)
-                        
+                        print("favoriteHandler")
                         self.x.append(recipe.id!)
                         
                         self.aaa()

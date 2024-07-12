@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class CollectionCell<View: Configurable & CellView >: UICollectionViewCell {
+class CollectionCell<View: Configurable & CellView >: UICollectionViewCell, UIGestureRecognizerDelegate {
     override var isSelected: Bool {
         didSet {
             self.view.isSelected = isSelected
@@ -71,11 +71,19 @@ class CollectionCell<View: Configurable & CellView >: UICollectionViewCell {
                }
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(didSelect))
         tapGR.cancelsTouchesInView = false
+        tapGR.delegate = self
         addGestureRecognizer(tapGR)
     }
     
     @objc
     private func didSelect() {
         didSelectHandler?()
+    }
+    
+     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view?.isKind(of: UIButton.self) == true {
+            return false
+        }
+        return true
     }
 }
