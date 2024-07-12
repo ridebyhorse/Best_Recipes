@@ -32,6 +32,7 @@ class ModuleFactory {
     
     func createBookMarkModule(detailFlowHandler: ((Int) -> Void)?) -> UIViewController {
         let view = BookmarkControllerImpl()
+        view.title = "Saved recipes"
         let presenter = BookmarkPresenterImpl(view: view)
         view.presenter = presenter
         presenter.detailFlowHandler = detailFlowHandler
@@ -60,8 +61,6 @@ class ModuleFactory {
     }
     
     func createRecipeCreationModule() -> UIViewController {
-        let createRecipeVC = CreateRecipeViewController()
-        createRecipeVC.modalPresentationStyle = .fullScreen
-        return createRecipeVC
+        CreateRecipeViewController()
     }
 }

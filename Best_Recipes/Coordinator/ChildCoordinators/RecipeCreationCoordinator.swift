@@ -9,7 +9,6 @@ import UIKit
 
 class RecipeCreationCoordinator: CoordinatorProtocol {
     
-    var flowCompletionHandler: CoordinatorHandler?
     var rootViewController: UINavigationController
     
     private let moduleFactory: ModuleFactory

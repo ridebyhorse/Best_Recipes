@@ -9,7 +9,6 @@ import UIKit
 
 class NotificationCoordinator: CoordinatorProtocol {
     
-    var flowCompletionHandler: CoordinatorHandler?
     var rootViewController: UINavigationController
     
     private let moduleFactory: ModuleFactory
@@ -17,6 +16,7 @@ class NotificationCoordinator: CoordinatorProtocol {
     init(_ moduleFactory: ModuleFactory) {
         self.rootViewController = UINavigationController()
         self.moduleFactory = moduleFactory
+        rootViewController.navigationBar.prefersLargeTitles = true
     }
     
     func start() {

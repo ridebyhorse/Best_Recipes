@@ -9,7 +9,6 @@ import UIKit
 
 class HomeCoordinator: CoordinatorProtocol {
     
-    var flowCompletionHandler: CoordinatorHandler?
     var rootViewController: UINavigationController
     
     private let moduleFactory: ModuleFactory

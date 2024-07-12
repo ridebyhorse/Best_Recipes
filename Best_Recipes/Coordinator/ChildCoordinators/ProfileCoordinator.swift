@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileCoordinator: CoordinatorProtocol {
     
-    var flowCompletionHandler: CoordinatorHandler?
     var rootViewController: UINavigationController
     
     private let moduleFactory: ModuleFactory
@@ -25,8 +24,6 @@ class ProfileCoordinator: CoordinatorProtocol {
     }
     
     private func createProfileModule() -> UIViewController {
-        moduleFactory.createProfileModule { [weak self] in
-            self?.flowCompletionHandler?()
-        }
+        moduleFactory.createProfileModule {}
     }
 }

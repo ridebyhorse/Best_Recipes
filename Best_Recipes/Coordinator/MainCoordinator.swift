@@ -50,7 +50,6 @@ enum TabItem: String {
 class MainCoordinator: CoordinatorProtocol {
     
     var rootViewController: UITabBarController
-    var flowCompletionHandler: CoordinatorHandler?
     var childCoordinators = [CoordinatorProtocol]()
     
     private let moduleFactory = ModuleFactory()
@@ -85,18 +84,12 @@ class MainCoordinator: CoordinatorProtocol {
     private func getHomeCoordinator() -> HomeCoordinator {
         let coordinator = HomeCoordinator(moduleFactory)
         coordinator.start()
-        coordinator.flowCompletionHandler = {
-            // do smth
-        }
         childCoordinators.append(coordinator)
         return coordinator
     }
     
     private func getBookmarkCoordinator() -> BookmarkCoordinator {
         let coordinator = BookmarkCoordinator(moduleFactory)
-        coordinator.flowCompletionHandler = {
-            // do smth
-        }
         coordinator.start()
         childCoordinators.append(coordinator)
         return coordinator
@@ -104,9 +97,6 @@ class MainCoordinator: CoordinatorProtocol {
     
     private func getRecipeCreationCoordinator() -> RecipeCreationCoordinator {
         let coordinator = RecipeCreationCoordinator(moduleFactory)
-        coordinator.flowCompletionHandler = {
-            // do smth
-        }
         coordinator.start()
         childCoordinators.append(coordinator)
         return coordinator
@@ -115,9 +105,6 @@ class MainCoordinator: CoordinatorProtocol {
     private func getNotificationCoordinator() -> NotificationCoordinator {
         let coordinator = NotificationCoordinator(moduleFactory)
         coordinator.start()
-        coordinator.flowCompletionHandler = {
-            // do smth
-        }
         childCoordinators.append(coordinator)
         return coordinator
     }
@@ -125,9 +112,6 @@ class MainCoordinator: CoordinatorProtocol {
     private func getProfileCoordinator() -> ProfileCoordinator {
         let coordinator = ProfileCoordinator(moduleFactory)
         coordinator.start()
-        coordinator.flowCompletionHandler = {
-            // do smth
-        }
         childCoordinators.append(coordinator)
         return coordinator
     }
