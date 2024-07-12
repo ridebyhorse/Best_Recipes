@@ -11,6 +11,7 @@ class ModuleFactory {
     
     func createRecipeDetailsModule() -> UIViewController {
         let view = RecipeDetailController()
+        view.title = "Saved recipes"
         let presenter = RecipeDetailPresenter()
         view.presenter = presenter
         presenter.view = view
@@ -19,6 +20,7 @@ class ModuleFactory {
     
     func createHomeModule(flowHandler: (() -> Void)?) -> UIViewController {
         let view = HomeControllerImpl()
+        view.title = "Get amazing recipes for cooking"
         let presenter = HomePresenterImpl(view: view)
         view.presenter = presenter
         presenter.flowHandler = flowHandler
@@ -27,21 +29,22 @@ class ModuleFactory {
     
     func createBookMarkModule(flowHandler: (() -> Void)?) -> UIViewController {
         let view = BookmarkViewController()
-        //        let presenter = BookmarkPresenter(view: view)
-        //        view.presenter = presenter
-        //        presenter.flowHandler = flowHandler
-        return BookmarkViewController()
+        return view
+    }
+    
+    func createRecipeCreationModule() -> UIViewController {
+        return CreateRecipeViewController()
     }
     
     func createNotificationModule() -> UIViewController {
-        return NotificationViewController()
+        let view = NotificationViewController()
+        view.title = "Recent notifications"
+        return view
     }
     
     func createProfileModule(flowHandler: (() -> Void)?) -> UIViewController {
         let view = ProfileViewController()
-        //        let presenter = ProfilePresenter(view: view)
-        //        view.presenter = presenter
-        //        presenter.flowHandler = flowHandler
+        view.title = "My profile"
         return view
     }
     

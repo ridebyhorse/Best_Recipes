@@ -31,6 +31,11 @@
 		B91A00242C388F0000E438E8 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A00232C388F0000E438E8 /* OnboardingCoordinator.swift */; };
 		B91A002A2C3B1E4100E438E8 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A00292C3B1E4100E438E8 /* ModuleFactory.swift */; };
 		B91A002C2C3B391700E438E8 /* FlowProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A002B2C3B391700E438E8 /* FlowProtocol.swift */; };
+		B92E94D52C3FC6F700621CC7 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92E94D42C3FC6F700621CC7 /* HomeCoordinator.swift */; };
+		B92E94D72C3FD33600621CC7 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92E94D62C3FD33600621CC7 /* ProfileCoordinator.swift */; };
+		B92E94D92C3FE2D400621CC7 /* BookmarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92E94D82C3FE2D400621CC7 /* BookmarkCoordinator.swift */; };
+		B92E94DB2C3FE48B00621CC7 /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92E94DA2C3FE48B00621CC7 /* NotificationCoordinator.swift */; };
+		B92E94DD2C3FE7A600621CC7 /* RecipeCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92E94DC2C3FE7A600621CC7 /* RecipeCreationCoordinator.swift */; };
 		B9B9E1152C347D26003E5439 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9E10D2C347D26003E5439 /* IngredientCell.swift */; };
 		B9B9E1162C347D26003E5439 /* IngredientsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9E10E2C347D26003E5439 /* IngredientsTableView.swift */; };
 		B9B9E1172C347D26003E5439 /* NumberedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B9E10F2C347D26003E5439 /* NumberedView.swift */; };
@@ -89,6 +94,11 @@
 		B91A00232C388F0000E438E8 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		B91A00292C3B1E4100E438E8 /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
 		B91A002B2C3B391700E438E8 /* FlowProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowProtocol.swift; sourceTree = "<group>"; };
+		B92E94D42C3FC6F700621CC7 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		B92E94D62C3FD33600621CC7 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		B92E94D82C3FE2D400621CC7 /* BookmarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCoordinator.swift; sourceTree = "<group>"; };
+		B92E94DA2C3FE48B00621CC7 /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
+		B92E94DC2C3FE7A600621CC7 /* RecipeCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCreationCoordinator.swift; sourceTree = "<group>"; };
 		B9B9E10D2C347D26003E5439 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		B9B9E10E2C347D26003E5439 /* IngredientsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableView.swift; sourceTree = "<group>"; };
 		B9B9E10F2C347D26003E5439 /* NumberedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberedView.swift; sourceTree = "<group>"; };
@@ -222,8 +232,21 @@
 				B91A001D2C386A8F00E438E8 /* AppCoordinator.swift */,
 				B91A00212C388EE800E438E8 /* MainCoordinator.swift */,
 				B91A00232C388F0000E438E8 /* OnboardingCoordinator.swift */,
+				B92E94DE2C3FE83A00621CC7 /* ChildCoordinators */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		B92E94DE2C3FE83A00621CC7 /* ChildCoordinators */ = {
+			isa = PBXGroup;
+			children = (
+				B92E94D82C3FE2D400621CC7 /* BookmarkCoordinator.swift */,
+				B92E94DC2C3FE7A600621CC7 /* RecipeCreationCoordinator.swift */,
+				B92E94DA2C3FE48B00621CC7 /* NotificationCoordinator.swift */,
+				B92E94D62C3FD33600621CC7 /* ProfileCoordinator.swift */,
+				B92E94D42C3FC6F700621CC7 /* HomeCoordinator.swift */,
+			);
+			path = ChildCoordinators;
 			sourceTree = "<group>";
 		};
 		B9B9E1122C347D26003E5439 /* View */ = {
@@ -449,9 +472,11 @@
 				B9B9E1182C347D26003E5439 /* RatingView.swift in Sources */,
 				6E4CBCC62C33493E008D19FE /* TableCell.swift in Sources */,
 				B9B9E1342C35A719003E5439 /* RecipeDetailViewModel.swift in Sources */,
+				B92E94D72C3FD33600621CC7 /* ProfileCoordinator.swift in Sources */,
 				B9B9E1372C35AAD7003E5439 /* RecipeDetailPresenter.swift in Sources */,
 				CB6C632A2C3172BE00CEE6BF /* NotificationViewController.swift in Sources */,
 				B9B9E11A2C347D26003E5439 /* RecipeDetailController.swift in Sources */,
+				B92E94D52C3FC6F700621CC7 /* HomeCoordinator.swift in Sources */,
 				CBCB55372C3703DD000BD3F1 /* KeyConstant.swift in Sources */,
 				6E4CBCD02C334B5B008D19FE /* HomeProtocol.swift in Sources */,
 				6E4CBCC22C33480D008D19FE /* CustomView.swift in Sources */,
@@ -461,6 +486,8 @@
 				6E4CBCF92C3364A8008D19FE /* ReusableView.swift in Sources */,
 				D14FA4D12C34B36D007C62AE /* OnBoardingViewController.swift in Sources */,
 				CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */,
+				B92E94D92C3FE2D400621CC7 /* BookmarkCoordinator.swift in Sources */,
+				B92E94DD2C3FE7A600621CC7 /* RecipeCreationCoordinator.swift in Sources */,
 				6E4CBCC42C334830008D19FE /* CollectionCell.swift in Sources */,
 				CB6C632C2C3172FD00CEE6BF /* ProfileViewController.swift in Sources */,
 				6E4CBD042C33761A008D19FE /* HomePresenterImpl.swift in Sources */,
@@ -486,6 +513,7 @@
 				B9B9E1322C35A5A8003E5439 /* RecipeDetailProtocols.swift in Sources */,
 				B91A002C2C3B391700E438E8 /* FlowProtocol.swift in Sources */,
 				CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */,
+				B92E94DB2C3FE48B00621CC7 /* NotificationCoordinator.swift in Sources */,
 				0FEF0B282C34870900A5E0F2 /* PlusButton1.swift in Sources */,
 				6E4CBCC92C3349B5008D19FE /* UIimageVIew + Extension.swift in Sources */,
 				B9B9E1192C347D26003E5439 /* RecipeView.swift in Sources */,

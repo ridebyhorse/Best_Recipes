@@ -7,10 +7,51 @@
 
 import UIKit
 
+enum TabItem: String {
+    case home
+    case bookmark
+    case recipeCreation
+    case notification
+    case profile
+    
+    var icon: UIImage? {
+        switch self {
+        case .home:
+            getImage(named: "Home")
+        case .bookmark:
+            getImage(named: "Bookmark")
+        case .notification:
+            getImage(named: "Notification")
+        case .profile:
+            getImage(named: "Profile")
+        default: nil
+        }
+    }
+    
+    var selectedIcon: UIImage? {
+        switch self {
+        case .home:
+            getImage(named: "Home-active")
+        case .bookmark:
+            getImage(named: "Bookmark-active")
+        case .notification:
+            getImage(named: "Notification-active")
+        case .profile:
+            getImage(named: "Profile-active")
+        default: nil
+        }
+    }
+    
+    private func getImage(named name: String) -> UIImage {
+        UIImage(imageLiteralResourceName: name).withRenderingMode(.alwaysOriginal)
+    }
+}
+
 class MainCoordinator: CoordinatorProtocol {
     
     var rootViewController: UITabBarController
     var flowCompletionHandler: CoordinatorHandler?
+    var childCoordinators = [CoordinatorProtocol]()
     
     private let moduleFactory = ModuleFactory()
     
@@ -21,62 +62,84 @@ class MainCoordinator: CoordinatorProtocol {
     }
     
     func start() {
-        let controllers = getControllers()
-        rootViewController.setViewControllers(controllers, animated: true)
+        let homeNavigationVC = getHomeCoordinator().rootViewController
+        homeNavigationVC.tabBarItem = getTab(for: .home)
+        
+        let bookmarkNavigationVC = getBookmarkCoordinator().rootViewController
+        bookmarkNavigationVC.tabBarItem = getTab(for: .bookmark)
+        
+        let recipeCreationNavVC = getRecipeCreationCoordinator().rootViewController
+        
+        let notificationNavigationVC = getNotificationCoordinator().rootViewController
+        notificationNavigationVC.tabBarItem = getTab(for: .notification)
+        
+        let profileNavigationVC = getProfileCoordinator().rootViewController
+        profileNavigationVC.tabBarItem = getTab(for: .profile)
+        
+        rootViewController.setViewControllers([homeNavigationVC, bookmarkNavigationVC, recipeCreationNavVC, notificationNavigationVC, profileNavigationVC], animated: false)
     }
     
-    func showRecipeDetailsModule() {
-        let vc = createRecipeDetailsModule()
-        rootViewController.show(vc, sender: self)
+    private func getHomeCoordinator() -> HomeCoordinator {
+        let coordinator = HomeCoordinator(moduleFactory)
+        coordinator.start()
+        coordinator.flowCompletionHandler = { [weak self] in
+            guard let self = self else { return }
+            let vc = self.createRecipeDetailsModule()
+            coordinator.rootViewController.pushViewController(vc, animated: true)
+        }
+        childCoordinators.append(coordinator)
+        return coordinator
     }
     
-    func showHomeModule() {
-        let vc = createRecipeDetailsModule()
-        rootViewController.show(vc, sender: self)
+    private func getBookmarkCoordinator() -> BookmarkCoordinator {
+        let coordinator = BookmarkCoordinator(moduleFactory)
+        coordinator.flowCompletionHandler = {
+            // do smth
+        }
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        return coordinator
     }
     
+    private func getRecipeCreationCoordinator() -> RecipeCreationCoordinator {
+        let coordinator = RecipeCreationCoordinator(moduleFactory)
+        coordinator.flowCompletionHandler = {
+            // do smth
+        }
+        coordinator.start()
+        childCoordinators.append(coordinator)
+        return coordinator
+    }
+    
+    private func getNotificationCoordinator() -> NotificationCoordinator {
+        let coordinator = NotificationCoordinator(moduleFactory)
+        coordinator.start()
+        coordinator.flowCompletionHandler = {
+            // do smth
+        }
+        childCoordinators.append(coordinator)
+        return coordinator
+    }
+    
+    private func getProfileCoordinator() -> ProfileCoordinator {
+        let coordinator = ProfileCoordinator(moduleFactory)
+        coordinator.start()
+        coordinator.flowCompletionHandler = {
+            // do smth
+        }
+        childCoordinators.append(coordinator)
+        return coordinator
+    }
+
     func createRecipeDetailsModule() -> UIViewController {
         moduleFactory.createRecipeDetailsModule()
     }
-    
-    func createHomeModule() -> UIViewController {
-        moduleFactory.createHomeModule { [weak self] in
-            self?.showRecipeDetailsModule()
-        }
-    }
-    
-    func createBookmarkModule() -> UIViewController {
-        moduleFactory.createBookMarkModule { [weak self] in
-            self?.showRecipeDetailsModule()
-        }
-    }
-    
-    func createNotificationModule() -> UIViewController {
-        moduleFactory.createNotificationModule()
-    }
-    
-    func createProfileModule() -> UIViewController {
-        moduleFactory.createProfileModule { [weak self] in
-            self?.showRecipeDetailsModule()
-        }
-    }
-    
-    private func getControllers() -> [UINavigationController] {
-        [
-            setup(vc: createHomeModule(), title: "Get amazing recipes for cooking", imageName: "Home", selectedImageName: "Home-active"),
-            setup(vc: createRecipeDetailsModule(), title: "Saved recipes", imageName: "Bookmark", selectedImageName: "Bookmark-active"),
-            UINavigationController(),
-            setup(vc: createNotificationModule(), title: "Recent notifications", imageName: "Notification", selectedImageName: "Notification-active"),
-            setup(vc: ProfileViewController(), title: "My profile", imageName: "Profile", selectedImageName: "Profile-active")
-        ]
-    }
-    
-    private func setup(vc: UIViewController, title: String, imageName: String, selectedImageName: String) -> UINavigationController {
-        vc.tabBarItem.image = UIImage(imageLiteralResourceName: imageName).withRenderingMode(.alwaysOriginal)
-        vc.tabBarItem.selectedImage = UIImage(imageLiteralResourceName: selectedImageName).withRenderingMode(.alwaysOriginal)
-        vc.navigationItem.title = title
-        let navigationController = UINavigationController(rootViewController: vc)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
+
+    private func getTab(for item: TabItem) -> UITabBarItem {
+        UITabBarItem(
+            title: nil,
+            image: item.icon,
+            selectedImage: item.selectedIcon
+        )
     }
 }
