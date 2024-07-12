@@ -10,9 +10,11 @@ import Foundation
 class NetworkService {
     
     static let shared = NetworkService()
-    private let apiKeys = [KeyConstant.APIKey.apiKey1, KeyConstant.APIKey.apiKey2]
+    private let apiKeys = ["aed8a716eb104d529457e9bdfa716c0b", "57a18417f2a547b29df04e67c6703ac8"]
     private var currentApiKey = 0
     private let baseUrlString = "https://api.spoonacular.com/recipes/random?number=100&apiKey="
+    private let categoryUrlStringStart = "https://api.spoonacular.com/recipes/complexSearch?cuisine="
+    private let categoryUrlStringEnd = "&number=20&apiKey="
     private let searchByKeywordUrlStringStart = "https://api.spoonacular.com/food/search?query="
     private let searchByKeywordUrlStringEnd = "&number=10&apiKey="
     private let searchByIdUrlString = "https://api.spoonacular.com/recipes/informationBulk?ids="
@@ -32,6 +34,17 @@ class NetworkService {
         let recipesResponse = try JSONDecoder().decode(RecipeData.self, from: data)
         
         return recipesResponse.recipes
+    }
+    
+    func searchRecipesForCategory(category: String) async throws -> [CategoryResult] {
+        let urlString = categoryUrlStringStart + category + categoryUrlStringEnd + apiKeys[currentApiKey]
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let recipesResponse = try JSONDecoder().decode(CategorySearchResult.self, from: data)
+        
+        return recipesResponse.results
     }
     
     func searchRecipes(byKeyword keyword: String) async throws -> [SearchResult] {

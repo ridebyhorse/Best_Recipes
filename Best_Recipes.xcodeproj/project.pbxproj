@@ -376,6 +376,7 @@
 				CB6C632F2C31793D00CEE6BF /* App */,
 				CB6C63312C3179CD00CEE6BF /* Model */,
 				CB6C63302C3179BF00CEE6BF /* Controller */,
+				CB95400D2C41B43D00C20302 /* Onboarding */,
 				CBFA62562C403FBF00DB918A /* BookmarkModule */,
 				CBFA624E2C4009F400DB918A /* TabBar */,
 				CBFA624D2C4009D500DB918A /* CreateRecipeModule */,
@@ -415,8 +416,6 @@
 		CB6C63302C3179BF00CEE6BF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */,
-				CBFA62502C400B2300DB918A /* DemoViewController.swift */,
 				CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */,
 				CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */,
 			);
@@ -455,6 +454,15 @@
 				6E2D63562C3A115400D44660 /* CellView.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		CB95400D2C41B43D00C20302 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA62502C400B2300DB918A /* DemoViewController.swift */,
+				D14FA4D02C34B36C007C62AE /* OnBoardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		CBDA84C72C3C63A100E61884 /* View */ = {

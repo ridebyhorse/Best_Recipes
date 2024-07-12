@@ -16,6 +16,14 @@ struct SearchResult: Decodable {
     let results: [Result]
 }
 
+struct CategorySearchResult: Decodable {
+    let results: [CategoryResult]
+}
+
+struct CategoryResult: Decodable {
+    var id: Int?
+}
+
 struct Result: Decodable {
     var id: Int?
     let name: String
