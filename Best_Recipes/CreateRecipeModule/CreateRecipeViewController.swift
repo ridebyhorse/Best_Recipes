@@ -9,7 +9,14 @@ import UIKit
 import Photos
 import MobileCoreServices
 
-class CreateRecipeViewController: UIViewController {
+class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    let storageServise = StorageService.shared
+    
+    var imageURLToSave: URL?
+    
+    var pickerView1 = UIPickerView()
+    var pickerView2 = UIPickerView()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -97,7 +104,7 @@ class CreateRecipeViewController: UIViewController {
     
     private let cookTimeImage = UIImageView()
     private func setCookTimeImage() {
-        cookTimeImage.image = UIImage(named: "Icon - Serves-2")
+        cookTimeImage.image = UIImage(named: "ClockTime")
         cookTimeImage.contentMode = .scaleAspectFit
         cookTimeImage.backgroundColor = .white
         cookTimeImage.layer.cornerRadius = 12
@@ -105,17 +112,17 @@ class CreateRecipeViewController: UIViewController {
         cookTimeImage.isUserInteractionEnabled = true
         cookTimeImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cookTimeImage.leftAnchor.constraint(equalTo: cookTimeLabel.leftAnchor, constant: 16),
+            cookTimeImage.leadingAnchor.constraint(equalTo: cookTimeLabel.leadingAnchor, constant: 16),
             cookTimeImage.centerYAnchor.constraint(equalTo: cookTimeLabel.centerYAnchor),
         ])
     }
     private func setServesImage() {
-        servesImage.image = UIImage(named: "Icon - Serves")
+        servesImage.image = UIImage(named: "ServesSum")
         servesImage.contentMode = .scaleAspectFit
         servesImage.isUserInteractionEnabled = true
         servesImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            servesImage.leftAnchor.constraint(equalTo: servesLabel.leftAnchor, constant: 16),
+            servesImage.leadingAnchor.constraint(equalTo: servesLabel.leadingAnchor, constant: 16),
             servesImage.centerYAnchor.constraint(equalTo: servesLabel.centerYAnchor),
         ])
     }
@@ -133,6 +140,242 @@ class CreateRecipeViewController: UIViewController {
     }
     
     private let servesImage = UIImageView()
+    
+    
+    private var servesSum = UILabel()
+    //(frame: CGRect(x: 250, y: 477, width: 20, height: 20))
+    private var cookTimeSum = UILabel()
+//    (frame: CGRect(x: 270, y: 553, width: 200, height: 20))
+    
+    
+    private func setServesAndCookSum() {
+        cookTimeSum.text = "00 min"
+        servesSum.text = "01"
+        
+        servesSum.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeSum.translatesAutoresizingMaskIntoConstraints = false
+//        cookTimeSum.backgroundColor = .red
+        
+//        servesSum.textColor = .black
+//        servesSum.backgroundColor = .green
+        
+//        view.addSubview(servesSum)
+//        view.addSubview(cookTimeSum)
+        
+//        NSLayoutConstraint.activate([
+//            servesSum.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -6),
+//            servesSum.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            servesSum.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+//            servesSum.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            
+            
+//            cookTimeSum.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -56),
+//            cookTimeSum.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+//            NSLayoutConstraint.activate([
+//                //cookTimeSum.topAnchor.constraint(equalTo: view.topAnchor, constant: 56),
+//                cookTimeSum.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//                cookTimeSum.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+////                cookTimeSum.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
+//                cookTimeSum.heightAnchor.constraint(equalToConstant: 32),
+//                cookTimeSum.widthAnchor.constraint(equalToConstant: 32)
+//            ])
+//        ])
+        
+        
+    }
+    
+    var serves = Array(1...12).map { String ($0) }
+    
+    var cookTimeHours = Array(1...24).map { String ($0) }
+    
+    //var CookTesto = [ "01", "02", "03", "04", "05", "06", "07" ]
+    
+    var cookTimeMinuts: Array = Array(1...59).map { String ($0) }
+//    print(cookTimeMinuts)
+    
+    let screenWidth = UIScreen.main.bounds.width - 10
+    let screenHeight = UIScreen.main.bounds.height / 2
+    var selectedRow = 0
+    var selectedRow1 = 1
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        if pickerView == pickerView1 {
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
+            label.text = Array(serves)[row]
+            label.sizeToFit()
+            return label
+        } else {
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
+//            label.text = Array(cookTimeHours)[row]
+            switch component {
+            case 0:  
+                label.text = Array(cookTimeHours)[row]
+            default:
+                label.text = Array(cookTimeMinuts)[row]
+            }
+            label.sizeToFit()
+            return label
+        }
+        
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
+//        label.text = Array(cookTime)[row].key
+//        label.sizeToFit()
+//        return label
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView == pickerView1 {
+            return 1
+        } else {
+            return 2
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == pickerView1 {
+            return serves.count
+        } else {
+//            return cookTimeHours.count
+            switch component {
+            case 0:
+                return cookTimeHours.count
+            default:
+                return cookTimeMinuts.count
+            }
+//            return cookTimeMinuts.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+//        if pickerView == pickerView1 {
+//            return 60
+//        } else {
+//            return 60
+//        }
+       /* return*/ 60
+    }
+    private let servesButton = UIButton(type: .system)
+    private let cookTimeButton = UIButton(type: .system)
+    
+    private func setServesAndCookButtons() {
+        servesButton.translatesAutoresizingMaskIntoConstraints = false
+        servesButton.setImage(UIImage(named: "Arrow-Right"), for: .normal)
+        servesButton.tintColor = .black
+        servesButton.addTarget(self, action: #selector(selectedServes), for: .touchUpInside)
+        
+        
+        cookTimeButton.translatesAutoresizingMaskIntoConstraints = false
+        cookTimeButton.setImage(UIImage(named: "Arrow-Right"), for: .normal)
+        cookTimeButton.tintColor = .black
+        cookTimeButton.addTarget(self, action: #selector(selectedTime), for: .touchUpInside)
+        
+//        contentView.addSubview(servesButton)
+//        contentView.addSubview(cookTimeButton)
+        
+//        NSLayoutConstraint.activate([
+//            servesButton.trailingAnchor.constraint(equalTo: servesLabel.trailingAnchor, constant: -16),
+//            servesButton.centerYAnchor.constraint(equalTo: servesLabel.centerYAnchor),
+//            
+//            cookTimeButton.trailingAnchor.constraint(equalTo: cookTimeLabel.trailingAnchor, constant: -16),
+//            cookTimeButton.centerYAnchor.constraint(equalTo: cookTimeLabel.centerYAnchor)
+//        ])
+        
+    }
+    @objc private func selectedTime() {
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
+        pickerView1.isHidden = false
+        pickerView2.isHidden = true
+        
+        pickerView2 = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        
+        pickerView2.dataSource = self
+        pickerView2.delegate = self
+        
+        
+        pickerView2.selectRow(selectedRow, inComponent: 0, animated: false)
+        pickerView2.selectRow(selectedRow1, inComponent: 1, animated: false)
+        
+        vc.view.addSubview(pickerView2)
+        pickerView2.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
+        pickerView2.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        
+        let alert = UIAlertController(title: "Select Cook Time", message: "", preferredStyle: .actionSheet)
+        
+        alert.popoverPresentationController?.sourceView = cookTimeButton
+        alert.popoverPresentationController?.sourceRect = cookTimeButton.bounds
+        
+        alert.setValue(vc, forKey: "contentViewController")
+        alert.addAction(UIAlertAction(title: "Cancele", style: .cancel, handler: { (UIAlertAction)
+            in
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (UIAlertAction)
+            in
+            self.selectedRow = self.pickerView2.selectedRow(inComponent: 0)
+            self.selectedRow1 = self.pickerView2.selectedRow(inComponent: 1)
+            let selected = Array( self.cookTimeHours)[self.selectedRow]
+            let selected1 = Array( self.cookTimeMinuts)[self.selectedRow1]
+
+            
+//            let color = selected.value
+            let name = selected
+            let name1 = selected1
+
+            //
+            self.cookTimeSum.text = ("\(name) hour \(name1) min")
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+
+    }
+   
+    @objc private func selectedServes() {
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
+        
+        pickerView1.isHidden = true
+        pickerView2.isHidden = false
+        
+        pickerView1 = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        pickerView1.dataSource = self
+        pickerView1.delegate = self
+        
+        pickerView1.selectRow(selectedRow, inComponent: 0, animated: false)
+//        pickerView1.selectRow(selectedRow1, inComponent: 1, animated: false)
+
+        
+        vc.view.addSubview(pickerView1)
+        pickerView1.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
+        pickerView1.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        
+        let alert = UIAlertController(title: "Select Serves", message: "", preferredStyle: .actionSheet)
+        
+        alert.popoverPresentationController?.sourceView = servesButton
+        alert.popoverPresentationController?.sourceRect = servesButton.bounds
+        
+        alert.setValue(vc, forKey: "contentViewController")
+        alert.addAction(UIAlertAction(title: "Cancele", style: .cancel, handler: { (UIAlertAction)
+            in
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { [self] (UIAlertAction)
+            in
+            self.selectedRow = self.pickerView1.selectedRow(inComponent: 0)
+//            self.selectedRow1 = self.pickerView1.selectedRow(inComponent: 1)
+            let selected = Array( self.serves)[self.selectedRow]
+//            let selected1 = Array( self.serves)[self.selectedRow1]
+            //let color = selected.value
+            let name = selected
+//            let name1 = selected1.key
+            //
+            //self.servesSum.text = (name)
+            self.servesSum.text = (name)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     private let ingredientsTitle = UILabel()
     
@@ -173,6 +416,16 @@ class CreateRecipeViewController: UIViewController {
         
         nameRecipe.delegate = self
         instructions.delegate = self
+//        
+////        pickerView1.delegate = self
+//        pickerView1.dataSource = self
+//        pickerView1.isHidden = true
+//        
+//        pickerView2.delegate = self
+//        pickerView2.dataSource = self
+//        pickerView2.isHidden = true
+//        
+        
         
         PHPhotoLibrary.authorizationStatus()
         PHPhotoLibrary.requestAuthorization { _ in }
@@ -185,6 +438,8 @@ class CreateRecipeViewController: UIViewController {
         setServesImage()
         setCookTimeImage()
         setCookTimeLabel()
+        setServesAndCookButtons()
+        setServesAndCookSum()
         setServesLabel()
         setIngredientsTitle()
         setPlaceholderNameRecipe()
@@ -234,28 +489,57 @@ class CreateRecipeViewController: UIViewController {
     let addIngredientsName = UITextField(text: "   Item name", size: 14, weight: .regular, borderColor: UIColor(named: "ColorBorder")!)
     let addQuantityIngredients = UITextField(text: "   Quantity", size: 14, weight: .regular, borderColor: UIColor(named: "ColorBorder")!)
     
-    //    func saveRecipe() {
-    //        var recipe = Recipe(rating: 100, id: 123456, title: nameRecipe.text, countries: [], categories: [], cookingTime: <#T##Int#>, isTrending: false, reviewsCount: 0, author: <#T##String#>, ingredients: [Ingridient(originalName: addIngredientsName.text!, amount: <#T##Double#>, unit: <#T##String#>)], instructions: [Instruction(steps: [InstructionStep(number: 1, step: instructions.text!)), image: nil)
-    //    }
+    
+    func saveRecipe() {
+        var ingridients = [Ingridient]()
+        stackView.arrangedSubviews.forEach({
+            if !$0.isHidden {
+                let stack = $0 as! UIStackView
+                let nameField = stack.arrangedSubviews[0] as! UITextField
+                let amountField = stack.arrangedSubviews[1] as! UITextField
+                let name = nameField.text ?? "Unknown ingridient"
+                var stringAmount = ""
+                var unit = ""
+                let amountCharArray = Array(amountField.text ?? "0")
+                for char in amountCharArray {
+                    if char.isNumber {
+                        stringAmount.append(char)
+                    } else {
+                        unit.append(char)
+                    }
+                }
+                ingridients.append(Ingridient(originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
+            }
+        })
+        self.selectedRow = self.pickerView2.selectedRow(inComponent: 0)
+        self.selectedRow1 = self.pickerView2.selectedRow(inComponent: 1)
+        let selected = Array( self.cookTimeHours)[self.selectedRow]
+        let selected1 = Array( self.cookTimeMinuts)[self.selectedRow1]
+        
+        let name = Int(selected) ?? 0
+        let name1 = Int(selected1) ?? 0
+        
+        //        var recipe = Recipe(rating: 100, id: Int(String(name) + String(name1) + String(ingridients.first?.amount) ?? "00"), title: nameRecipe.text, countries: [], categories: [], cookingTime: name * 60 + name1, isTrending: false, reviewsCount: 0, author: storageServise.getUser().name, ingredients: ingridients, instructions: [Instruction(steps: [InstructionStep(number: 1, step: instructions.text!)), image: imageURLToSave)
+        //
+    }
     
     private func setupConstraints() {
-        instructions.delegate = self
         NSLayoutConstraint.activate([
             createRecipeButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             createRecipeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             createRecipeButton.heightAnchor.constraint(equalToConstant: 56),
             createRecipeButton.widthAnchor.constraint(equalToConstant: 343),
             
+            scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.bottomAnchor.constraint(equalTo: createRecipeButton.topAnchor, constant: -16),
+            
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            scrollView.bottomAnchor.constraint(equalTo: createRecipeButton.topAnchor, constant: -16),
             
             nameRecipe.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameRecipe.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -268,19 +552,38 @@ class CreateRecipeViewController: UIViewController {
             
             instructions.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             instructions.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            //instructions.heightAnchor.constraint(equalToConstant: 77),
-            instructions.widthAnchor.constraint(equalToConstant: 343),
+//            instructions.heightAnchor.constraint(equalToConstant: 77),
+//            instructions.widthAnchor.constraint(equalToConstant: 343),
+            instructions.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            instructions.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             servesLabel.topAnchor.constraint(equalTo: instructions.bottomAnchor, constant: 16),
             servesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             servesLabel.heightAnchor.constraint(equalToConstant: 60),
-            servesLabel.widthAnchor.constraint(equalToConstant: 343),
-            
+//            servesLabel.widthAnchor.constraint(equalToConstant: 343),
+            servesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            servesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
             cookTimeLabel.topAnchor.constraint(equalTo: servesLabel.bottomAnchor, constant: 16),
             cookTimeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             cookTimeLabel.heightAnchor.constraint(equalToConstant: 60),
-            cookTimeLabel.widthAnchor.constraint(equalToConstant: 343),
+//            cookTimeLabel.widthAnchor.constraint(equalToConstant: 343),
+            cookTimeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cookTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
+            servesButton.trailingAnchor.constraint(equalTo: servesLabel.trailingAnchor, constant: -16),
+            servesButton.centerYAnchor.constraint(equalTo: servesLabel.centerYAnchor),
+            
+            cookTimeButton.trailingAnchor.constraint(equalTo: cookTimeLabel.trailingAnchor, constant: -16),
+            cookTimeButton.centerYAnchor.constraint(equalTo: cookTimeLabel.centerYAnchor),
+            
+            servesSum.trailingAnchor.constraint(equalTo: servesButton.leadingAnchor, constant: -20),
+            servesSum.centerYAnchor.constraint(equalTo: servesButton.centerYAnchor),
+            
+            cookTimeSum.trailingAnchor.constraint(equalTo: cookTimeButton.leadingAnchor, constant: -20),
+            cookTimeSum.centerYAnchor.constraint(equalTo: cookTimeButton.centerYAnchor),
+            
+                        
             stackView.topAnchor.constraint(equalTo: ingredientsTitle.bottomAnchor, constant: 16),
             stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -318,16 +621,24 @@ extension CreateRecipeViewController {
         contentView.addSubview(servesImage)
         contentView.addSubview(stackView)
         
+        contentView.addSubview(servesButton)
+        contentView.addSubview(cookTimeButton)
+        
         stackView.addArrangedSubviews(ingredients1)
         
         nameRecipe.addSubviews(placeholderNameRecipe)
         instructions.addSubviews(placeholderInstruction)
+        
+        
+        contentView.addSubview(servesSum)
+        contentView.addSubview(cookTimeSum)
     }
 }
 
 extension UITextView {
-    convenience init(size: CGFloat,numb: Int, weight: UIFont.Weight) {
+    convenience init(size: CGFloat, numb: Int, weight: UIFont.Weight) {
         self.init()
+        self.tag = numb
         self.textContainer.maximumNumberOfLines = numb
         self.isScrollEnabled = false
         self.sizeToFit()
@@ -370,10 +681,9 @@ extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINaviga
     }
     //MARK: - Images
     private func handlePhoto(_ info: [UIImagePickerController.InfoKey: Any]) {
-        
         if let imageURL = info[.imageURL] as? URL {
             print("DEBUG PRINT:", "Image URL: \(imageURL.description)")
-            
+            imageURLToSave = imageURL
             let dict: CFDictionary? = self.bestMetadataCollectionMethod(with: imageURL )
             print("DEBUG PRINT:", dict ?? "Failed to get metadata")
         }
@@ -393,15 +703,22 @@ extension CreateRecipeViewController: UIImagePickerControllerDelegate & UINaviga
 }
 
 extension CreateRecipeViewController: UITextViewDelegate {
-    func textViewDidChange() {
+    func textViewDidChange(_ textView: UITextView) {
         placeholderNameRecipe.isHidden = !nameRecipe.text.isEmpty
+        placeholderInstruction.isHidden = !instructions.text.isEmpty
     }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        placeholderNameRecipe.isHidden = !nameRecipe.text.isEmpty
-    }
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        placeholderNameRecipe.isHidden = true
-    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        placeholderNameRecipe.isHidden = !nameRecipe.text.isEmpty
+//        placeholderInstruction.isHidden = !instructions.text.isEmpty
+//    }
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        switch textView.tag {
+//        case 0:
+//            placeholderInstruction.isHidden = true
+//        default:
+//            placeholderNameRecipe.isHidden = true
+//        }
+//    }
 }
 
 @available(iOS 17.0, *)
