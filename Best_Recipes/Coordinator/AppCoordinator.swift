@@ -16,6 +16,7 @@ class AppCoordinator {
     
     init(window: UIWindow) {
         self.window = window
+//        NetworkManager(networkService: NetworkService.shared).fetchRecipes()
     }
     
     func start() {

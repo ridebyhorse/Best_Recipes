@@ -85,13 +85,12 @@ extension IngredientsTableView: UITableViewDataSource {
             )
                 as? IngredientCell
         else { fatalError("configure IngredientCell fail") }
-        
-#warning("get ingredient image")
+
         if let item = items?[indexPath.row] {
             cell.configureCell(
                 ingredintName: item.title,
                 amount: item.amountAndUnit,
-                image: UIImage(named: "Ingredients")
+                image: item.image!
             )
         }
         return cell

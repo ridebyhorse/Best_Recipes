@@ -25,7 +25,7 @@ struct RecipeData: Decodable {
     var recipes: [Recipe]
 }
 
-struct Recipe: Codable{
+struct Recipe: Codable {
     var isFavorite: Bool = false
     var rating: Double
     let id: Int?

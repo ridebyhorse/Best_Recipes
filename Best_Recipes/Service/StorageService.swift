@@ -9,7 +9,7 @@ import Foundation
 
 class StorageService {
     
-    let networkManager = NetworkManager(networkService: NetworkService.shared)
+    let networkManager = NetworkManager.shared
     
     static let shared = StorageService()
     
@@ -18,6 +18,7 @@ class StorageService {
         case createdRecipesKey = "createdRecipes"
         case favoriteRecipiesKey = "favoriteRecipes"
         case recentRecipiesKey = "recentRecipes"
+        case userKey = "user"
     }
 
     private init() {}
@@ -44,20 +45,46 @@ class StorageService {
         addRecipe(forKey: .recentRecipiesKey, recipe)
     }
     
+    func saveUserData(user: User) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(user)
+            userDefaults.set(data, forKey: Key.userKey.rawValue)
+        } catch {
+            print("Error encoding user: \(error)")
+        }
+    }
+    
     func toggleFavorite(recipeId id: Int) {
         let recipes = getRecipes(forKey: .favoriteRecipiesKey)
         if recipes.contains(where: {$0.id == id}) {
+            networkManager.updateFav(id: id)
             removeRecipe(forKey: .favoriteRecipiesKey, recipeId: id)
         } else {
             let recipe = networkManager.getRecipeById(id)
-            guard let recipe else { return }
+            networkManager.updateFav(id: id)
+            guard var recipe else { return }
             addRecipe(forKey: .favoriteRecipiesKey, recipe)
         }
     }
     
+    func getUser() -> User {
+        if let data = userDefaults.data(forKey: Key.userKey.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let user = try decoder.decode(User.self, from: data)
+                return user
+            } catch {
+                print("Error decoding user: \(error)")
+            }
+        }
+        
+        return User(name: "New User", location: "Moscow", recipesCreated: getCreatedRecipes().count)
+    }
+    
     private func addRecipe(forKey key: Key, _ recipe: Recipe) {
         var recipes = getRecipes(forKey: key)
-        if !recipes.contains(where: {$0.title == recipe.title}) {
+        if !recipes.contains(where: {$0.id == recipe.id}) {
             if key == .recentRecipiesKey {
                 recipes.insert(recipe, at: 0)
             } else {
@@ -81,6 +108,15 @@ class StorageService {
             do {
                 let decoder = JSONDecoder()
                 let recipes = try decoder.decode([Recipe].self, from: data)
+                if key == .favoriteRecipiesKey {
+                    var favRecipes = recipes
+                    for (index, var recipe) in recipes.enumerated() {
+                        recipe.isFavorite = true
+                        favRecipes.remove(at: index)
+                        favRecipes.insert(recipe, at: index)
+                    }
+                    return favRecipes
+                }
                 return recipes
             } catch {
                 print("Error decoding recipes: \(error)")

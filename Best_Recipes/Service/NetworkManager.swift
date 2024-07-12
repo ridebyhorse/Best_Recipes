@@ -13,7 +13,9 @@ class NetworkManager {
     private var recipes = [Recipe]()
     private var searchId = [Int]()
     
-    init(networkService: NetworkService) {
+    static let shared = NetworkManager.init(networkService: NetworkService.shared)
+    
+    private init(networkService: NetworkService) {
         self.networkService = networkService
     }
     
@@ -22,7 +24,12 @@ class NetworkManager {
             do {
                 var result = try await networkService.fetchRecipes()
                 configureRecipes(&result)
-                recipes = result.filter({ $0.ingredients != nil })
+                let filteredRecipes = result.filter({ $0.ingredients != nil })
+                for filteredRecipe in filteredRecipes {
+                    if !recipes.contains(where: {$0.id == filteredRecipe.id}) {
+                        recipes.append(filteredRecipe)
+                    }
+                }
             } catch {
                 print("Ошибка при загрузке рецептов: \(error)")
                 networkService.switchCurrentApiKey()
@@ -75,9 +82,20 @@ class NetworkManager {
     }
     
     func getRecipeById(_ id: Int) -> Recipe? {
-        guard let index = recipes.firstIndex(where: {$0.id == id}) else { return nil }
-        
-        return recipes[index]
+        let mockRecipes = MockData.getMockRecipesMore()!
+        if let index = recipes.firstIndex(where: {$0.id == id}) {
+            return recipes[index]
+        } else if let mockIndex = mockRecipes.firstIndex(where: {$0.id == id}) {
+            return mockRecipes[mockIndex]
+        } else {
+            return nil
+        }
+    }
+    
+    func updateFav(id: Int) {
+        if let index = recipes.firstIndex(where: {$0.id == id}) {
+            recipes[index].isFavorite.toggle()
+        }
     }
     
     private func searchRecipes(byKeyword keyword: String) async -> [Recipe] {

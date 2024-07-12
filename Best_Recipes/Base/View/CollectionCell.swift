@@ -7,7 +7,12 @@
 import SnapKit
 import UIKit
 
-class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
+class CollectionCell<View: Configurable & CellView >: UICollectionViewCell, UIGestureRecognizerDelegate {
+    override var isSelected: Bool {
+        didSet {
+            self.view.isSelected = isSelected
+        }
+    }
     private let view = View()
     private let stackView = UIStackView()
     private var didSelectHandler: (() -> Void)?
@@ -36,7 +41,8 @@ class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
     ) {
         view.update(with: model)
         self.didSelectHandler = didSelectHandler
-//        
+        view.isSelected = isSelected
+//
 //        if let height {
 //            stackView.snp.remakeConstraints {
 //                $0.height.equalTo(height)
@@ -65,11 +71,19 @@ class CollectionCell<View: Configurable & UIView >: UICollectionViewCell {
                }
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(didSelect))
         tapGR.cancelsTouchesInView = false
+        tapGR.delegate = self
         addGestureRecognizer(tapGR)
     }
     
     @objc
     private func didSelect() {
         didSelectHandler?()
+    }
+    
+     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view?.isKind(of: UIButton.self) == true {
+            return false
+        }
+        return true
     }
 }

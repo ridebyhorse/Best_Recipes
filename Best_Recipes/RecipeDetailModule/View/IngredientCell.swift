@@ -26,7 +26,7 @@ final class IngredientCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(ingredintName: String, amount: String, image: UIImage?) {
+    func configureCell(ingredintName: String, amount: String, image: URL) {
         ingredientView.configureView(
             image: image,
             title: ingredintName,
