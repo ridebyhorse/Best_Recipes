@@ -58,10 +58,9 @@ class MainCoordinator: CoordinatorProtocol {
     init() {
         self.rootViewController = UITabBarController()
         let customTabBar = CustomTabBar()
-        let createRecipeVC = CreateRecipeViewController()
-        createRecipeVC.modalPresentationStyle = .fullScreen
+        let vc = moduleFactory.createRecipeCreationModule()
         customTabBar.onPlusButtonTap = {[weak self] in
-            self?.rootViewController.present(createRecipeVC, animated: true)}
+            self?.rootViewController.present(vc, animated: true)}
         rootViewController.setValue(customTabBar, forKey: "tabBar")
     }
     
@@ -86,10 +85,8 @@ class MainCoordinator: CoordinatorProtocol {
     private func getHomeCoordinator() -> HomeCoordinator {
         let coordinator = HomeCoordinator(moduleFactory)
         coordinator.start()
-        coordinator.flowCompletionHandler = { [weak self] in
-            guard let self = self else { return }
-            let vc = self.createRecipeDetailsModule()
-            coordinator.rootViewController.pushViewController(vc, animated: true)
+        coordinator.flowCompletionHandler = {
+            // do smth
         }
         childCoordinators.append(coordinator)
         return coordinator
@@ -133,10 +130,6 @@ class MainCoordinator: CoordinatorProtocol {
         }
         childCoordinators.append(coordinator)
         return coordinator
-    }
-
-    func createRecipeDetailsModule() -> UIViewController {
-        moduleFactory.createRecipeDetailsModule()
     }
 
     private func getTab(for item: TabItem) -> UITabBarItem {

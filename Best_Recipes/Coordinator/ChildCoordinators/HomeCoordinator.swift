@@ -26,8 +26,24 @@ class HomeCoordinator: CoordinatorProtocol {
     }
     
     private func createHomeModule() -> UIViewController {
-        moduleFactory.createHomeModule { [weak self] in
-            self?.flowCompletionHandler?()
+        moduleFactory.createHomeModule(searchController: createSearchModule()) { [weak self] model in
+            switch model {
+            case .recipe(recipeId: let recipeId):
+                self?.showRecipeDetailsModule(id: recipeId)
+            case .seeAll(type: let type):
+                break
+            }
         }
+    }
+    
+    func createSearchModule() -> UISearchController {
+        moduleFactory.createSearchModule { [weak self] id in
+            self?.showRecipeDetailsModule(id: id)
+        }
+    }
+    
+    func showRecipeDetailsModule(id: Int) {
+        let vc = moduleFactory.createRecipeDetailsModule(id: id)
+        rootViewController.show(vc, sender: self)
     }
 }

@@ -59,4 +59,9 @@ class ModuleFactory {
         return view
     }
     
+    func createRecipeCreationModule() -> UIViewController {
+        let createRecipeVC = CreateRecipeViewController()
+        createRecipeVC.modalPresentationStyle = .fullScreen
+        return createRecipeVC
+    }
 }

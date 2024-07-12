@@ -24,8 +24,13 @@ class BookmarkCoordinator: CoordinatorProtocol {
     }
     
     private func createBookmarkModule() -> UIViewController {
-        moduleFactory.createBookMarkModule { [weak self] in
-            self?.flowCompletionHandler?()
+        moduleFactory.createBookMarkModule { [weak self] id in
+            self?.showRecipeDetailsModule(id: id)
         }
+    }
+    
+    func showRecipeDetailsModule(id: Int) {
+        let vc = moduleFactory.createRecipeDetailsModule(id: id)
+        rootViewController.show(vc, sender: self)
     }
 }
