@@ -72,6 +72,7 @@ final class RecipeView: UIView {
     }
     
     func configureView(
+        image: URL?,
         title: String,
         steps: [String],
         rating: String,
@@ -81,9 +82,7 @@ final class RecipeView: UIView {
         setList(of: steps)
         ratingView.configureView(with: rating)
         reviewsLabel.text = "(\(reviewsCount) Reviews)"
-
-        #warning("to do")
-        imageView.image = UIImage(named: "Onboarding1")
+        imageView.update(with: .init(url: image, cornerRadius: 15))
     }
     
     private func setList(of items: [String]) {

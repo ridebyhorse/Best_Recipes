@@ -39,7 +39,7 @@ final class DIContainer: NetworkManagerProtocol, StorageServiceProtocol {
     let storageService: StorageService
     
     private init() {
-        self.networkManager = NetworkManager(networkService: NetworkService.shared)
+        self.networkManager = NetworkManager.shared
         self.storageService = StorageService.shared
     }
 }

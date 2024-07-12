@@ -10,7 +10,7 @@ import Foundation
 final class HomePresenterImpl: HomePresenter {
     var flowHandler: HomeNavigationHandler?
     weak var view: (any HomeController)?
-    let networkManager = NetworkManager(networkService: NetworkService.shared)
+    let networkManager = NetworkManager.shared
     private var homeViewModel: HomeViewModel? {
         didSet {
             view?.update(with: homeViewModel)

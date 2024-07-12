@@ -17,6 +17,7 @@ protocol HomePresenter: AnyObject  {
 protocol HomeController: Configurable {
     typealias Model = HomeViewModel
     var presenter: HomePresenter? { get }
+    var searchController: UISearchController? { get set }
 }
 
 

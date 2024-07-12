@@ -9,7 +9,7 @@ import Foundation
 
 class StorageService {
     
-    let networkManager = NetworkManager(networkService: NetworkService.shared)
+    let networkManager = NetworkManager.shared
     
     static let shared = StorageService()
     
@@ -58,10 +58,12 @@ class StorageService {
     func toggleFavorite(recipeId id: Int) {
         let recipes = getRecipes(forKey: .favoriteRecipiesKey)
         if recipes.contains(where: {$0.id == id}) {
+            networkManager.updateFav(id: id)
             removeRecipe(forKey: .favoriteRecipiesKey, recipeId: id)
         } else {
             let recipe = networkManager.getRecipeById(id)
-            guard let recipe else { return }
+            networkManager.updateFav(id: id)
+            guard var recipe else { return }
             addRecipe(forKey: .favoriteRecipiesKey, recipe)
         }
     }
@@ -106,6 +108,15 @@ class StorageService {
             do {
                 let decoder = JSONDecoder()
                 let recipes = try decoder.decode([Recipe].self, from: data)
+                if key == .favoriteRecipiesKey {
+                    var favRecipes = recipes
+                    for (index, var recipe) in recipes.enumerated() {
+                        recipe.isFavorite = true
+                        favRecipes.remove(at: index)
+                        favRecipes.insert(recipe, at: index)
+                    }
+                    return favRecipes
+                }
                 return recipes
             } catch {
                 print("Error decoding recipes: \(error)")

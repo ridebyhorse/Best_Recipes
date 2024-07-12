@@ -11,6 +11,7 @@ protocol SearchPresenter: AnyObject  {
     var view: (any SearchController)? { get }
     init(view: any SearchController)
     func searchRecipeByKeyword(_ keyword: String)
+    var detailFlowHandler: ((Int) -> Void)? { get set }
 }
 
 protocol SearchController: Configurable {

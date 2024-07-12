@@ -10,5 +10,6 @@ import Foundation
 protocol RecipeDetailControllerProtocol: Configurable where Model == RecipeDetailViewModel { }
 
 protocol RecipeDetailPresenterProtocol: AnyObject {
+    var recipeId: Int? { get set }
     func activate()
 }

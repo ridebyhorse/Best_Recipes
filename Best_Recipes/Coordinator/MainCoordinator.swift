@@ -29,35 +29,45 @@ class MainCoordinator: CoordinatorProtocol {
         rootViewController.setViewControllers(controllers, animated: true)
     }
     
-    func showRecipeDetailsModule() {
-        let vc = createRecipeDetailsModule()
+    func showBookmarkModule() {
+        let vc = createBookmarkModule()
         rootViewController.show(vc, sender: self)
     }
     
-    func showHomeModule() {
-        let vc = createRecipeDetailsModule()
+//    func showHomeModule() {
+//        let vc = createRecipeDetailsModule()
+//        rootViewController.show(vc, sender: self)
+//    }
+    
+    func showRecipeDetailsModule(id: Int) {
+        let vc = createRecipeDetailsModule(id: id)
         rootViewController.show(vc, sender: self)
     }
     
-    func createRecipeDetailsModule() -> UIViewController {
-        moduleFactory.createRecipeDetailsModule()
+    func createRecipeDetailsModule(id: Int) -> UIViewController {
+        moduleFactory.createRecipeDetailsModule(id: id)
     }
     
     func createHomeModule() -> UIViewController {
-        moduleFactory.createHomeModule() { [weak self] model in
+        moduleFactory.createHomeModule(searchController: createSearchModule()) { [weak self] model in
             switch model {
             case .recipe(recipeId: let recipeId):
-                self?.createRecipeDetailsModule()
+                self?.showRecipeDetailsModule(id: recipeId)
             case .seeAll(type: let type):
                 break
             }
         }
     }
     
+    func createSearchModule() -> UISearchController {
+        moduleFactory.createSearchModule { [weak self] id in
+            self?.showRecipeDetailsModule(id: id)
+        }
+    }
     
     func createBookmarkModule() -> UIViewController {
-        moduleFactory.createBookMarkModule { [weak self] in
-            self?.showRecipeDetailsModule()
+        moduleFactory.createBookMarkModule { [weak self] id in
+            self?.showRecipeDetailsModule(id: id)
         }
     }
     
@@ -67,14 +77,14 @@ class MainCoordinator: CoordinatorProtocol {
     
     func createProfileModule() -> UIViewController {
         moduleFactory.createProfileModule { [weak self] in
-            self?.showRecipeDetailsModule()
+            self?.showBookmarkModule()
         }
     }
     
     private func getControllers() -> [UINavigationController] {
         [
             setup(vc: createHomeModule(), title: "Get amazing recipes for cooking", imageName: "Home", selectedImageName: "Home-active"),
-            setup(vc: createRecipeDetailsModule(), title: "Saved recipes", imageName: "Bookmark", selectedImageName: "Bookmark-active"),
+            setup(vc: createBookmarkModule(), title: "Saved recipes", imageName: "Bookmark", selectedImageName: "Bookmark-active"),
             UINavigationController(),
             setup(vc: createNotificationModule(), title: "Recent notifications", imageName: "Notification", selectedImageName: "Notification-active"),
             setup(vc: ProfileViewController(), title: "My profile", imageName: "Profile", selectedImageName: "Profile-active")
