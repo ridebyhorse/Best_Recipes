@@ -17,6 +17,8 @@ final class HomePresenterImpl: HomePresenter {
         }
     }
     
+    var x = [Int]()
+    
     init(view: any HomeController) {
         self.view = view
     }
@@ -98,12 +100,13 @@ final class HomePresenterImpl: HomePresenter {
                     avtorName: "Jessica",
                     coockingTime: recipe.cookingTime,
                     didSelect:  {
-                        print(recipe.id!)
-                        print(flowHandler == nil)
                         self.flowHandler?(.recipe(recipeId: recipe.id!))
                     },
                     favoriteHandler:  {
                         StorageService.shared.toggleFavorite(recipeId: recipe.id!)
+                        
+                        self.x.append(recipe.id!)
+                        
                         self.aaa()
                     },
                     ingridientsCount: recipe.ingredients?.count ?? 0
@@ -111,8 +114,9 @@ final class HomePresenterImpl: HomePresenter {
         }
         
         let favorite = StorageService.shared.getFavoriteRecipes()
+        print(favorite)
         
-        return updateFavoriteStatus(in: reipeModel, with: favorite)
+        return updateFavoriteStatus(in: reipeModel, with: self.x)
     }
     func aaa() {
         
@@ -169,9 +173,9 @@ final class HomePresenterImpl: HomePresenter {
         }
     }
     
-    func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Recipe]) -> [RecipesCellViewModel] {
+    func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Int]) -> [RecipesCellViewModel] {
         var updatedRecipes = recipes
-        let favoriteIds = Set(favoriteRecipes.map { $0.id })
+        let favoriteIds = Set(favoriteRecipes.map { $0 })
         
         for i in 0..<updatedRecipes.count {
             if favoriteIds.contains(updatedRecipes[i].recipeid) {
