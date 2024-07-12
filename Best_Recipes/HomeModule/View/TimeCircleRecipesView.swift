@@ -16,7 +16,8 @@ final class TimeCircleRecipesView: CellView {
     private let cookingTimeLabel = createCookingTimeLabel()
     private let cookingTimeTitleLabel = createCookingTimeTitleLabel()
     private let timeStackView = createStackView()
-    private let  favoriteButton = createButton()
+    private lazy var favoriteButton = createButton()
+    private var favoriteHandler: (() -> Void)?
     
     override func configure() {
         setupSubView()
@@ -40,21 +41,18 @@ extension TimeCircleRecipesView: Configurable {
             cookingTimeTitleLabel.text = nil
             cookingTimeLabel.text = nil
             favoriteButton.setImage(.bookmark, for: .normal)
+            favoriteHandler = nil
             return
         }
         
         precipeImageView.update(with: .init(url: model.recipeImage , cornerRadius: precipeImageView.frame.height / 2))
         nameRecipeLabel.text = model.recipeName
-        
         cookingTimeLabel.text = String(model.coockingTime) + " Mins"
         cookingTimeTitleLabel.text = "Time"
-      
-        
+        favoriteHandler = model.favoriteHandler
         let imageButton: UIImage = model.isFavorite ? .bookmarkActive : .bookmark
         favoriteButton.setImage(imageButton, for: .normal)
-        //favoriteButton.backgroundColor = .darkGreyApp
     }
-    
 }
 
 //MARK: - Private method
@@ -89,7 +87,11 @@ private extension TimeCircleRecipesView {
         favoriteButton.snp.makeConstraints { make in
             make.trailing.bottom.equalToSuperview().inset(10)
         }
-        
+    }
+    
+    @objc
+    func tappedFavorite() {
+        favoriteHandler?()
     }
 }
 
@@ -104,11 +106,12 @@ private extension TimeCircleRecipesView {
         return stackView
     }
     
-    static func createButton() -> UIButton {
+    func createButton() -> UIButton {
         let button = UIButton()
         button.tag = 0
         button.setImage(.bookmark, for: .normal)
         button.imageView?.contentMode = .scaleAspectFill
+        button.addTarget(self, action: #selector(tappedFavorite), for: .touchUpInside)
         return button
     }
     
@@ -141,6 +144,8 @@ private extension TimeCircleRecipesView {
         view.layer.cornerRadius = 10
         return view
     }
+    
+    
 }
 
 @available(iOS 17.0, *)
