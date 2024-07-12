@@ -24,7 +24,7 @@ final class HomeControllerImpl: UIViewController {
     
     //MARK: - Private properties
     private var isFirstLoad = true
-    private let searchController = CustomSearchController(searchResultsController: SearchAssembly().build())
+    var searchController: UISearchController?
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
     private var selectedIndexPaths: [Int: IndexPath] = [:]
@@ -65,7 +65,7 @@ extension HomeControllerImpl: UISearchBarDelegate {
         searchBar.endEditing(true)
         searchBar.layoutSubviews()
         
-        guard let searchController = searchController.searchResultsController as? SearchControllerImpl else { return }
+        guard let searchController = searchController!.searchResultsController as? SearchControllerImpl else { return }
         guard let searchText = searchBar.text else { return }
         searchController.presenter?.searchRecipeByKeyword(searchText)
     }
@@ -75,7 +75,7 @@ private extension HomeControllerImpl {
     func configure() {
         setupViews()
         setupConstraints()
-        searchController.searchBar.delegate = self
+        searchController!.searchBar.delegate = self
     }
     
     func setupViews() {
@@ -400,5 +400,5 @@ extension HomeControllerImpl:  UICollectionViewDelegate {
 
 @available(iOS 17.0, *)
 #Preview {
-    UINavigationController(rootViewController: ModuleFactory().createHomeModule(flowHandler: nil))
+    UINavigationController(rootViewController: ModuleFactory().createHomeModule(searchController: MainCoordinator().createSearchModule(), flowHandler: nil))
 }

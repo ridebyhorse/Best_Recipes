@@ -8,9 +8,10 @@
 import Foundation
 
 final class SearchPresenterImpl: SearchPresenter {
+    
     weak var view: (any SearchController)?
-    var flowHandler: (() -> Void)?
-    let networkManager = NetworkManager(networkService: NetworkService.shared)
+    var detailFlowHandler: ((Int) -> Void)?
+    let networkManager = NetworkManager.shared
     private var recipes = [Recipe]() {
         didSet {
             view?.update(
@@ -41,9 +42,9 @@ final class SearchPresenterImpl: SearchPresenter {
                     avtorImage: recipe.author,
                     avtorName: recipe.author,
                     coockingTime: recipe.cookingTime,
-                    didSelect:  {
-                        //DETAIL SCREEN
+                    didSelect: { [weak self] in
                         print(recipe.id)
+                        self?.detailFlowHandler?(recipe.id!)
                     },
                     favoriteHandler:  {
                         print(recipe.id)

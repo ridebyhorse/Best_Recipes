@@ -8,30 +8,34 @@
 import Foundation
 
 class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
-
+    
     weak var view: RecipeDetailController?
     
+    var recipeId: Int?
+    
     private var recipe: Recipe?
+    
+    private let networkManager = NetworkManager.shared
     
     func activate() {
         loadData()
     }
     
     private func loadData() {
-        if let recipe = MockData.getMockRecipes()?.first {
-            self.recipe = recipe
-            updateUI()
+        print(recipeId)
+        if let recipeId {
+            self.recipe = networkManager.getRecipeById(recipeId) ?? MockData.getMockRecipes()?.first
         } else {
-            //showError
+            self.recipe = MockData.getMockRecipes()?.first
         }
+        updateUI()
     }
     
     private func updateUI() {
-        
-#warning("to do")
-        let imageURL = URL(string: "")
-        let rating = "4,5"
-        let reviews = "300"
+
+        let imageURL = recipe!.image
+        let rating = String(format: "%.1f", recipe!.rating / 20.0)
+        let reviews = String(recipe!.reviewsCount)
         
         let steps: [String] = recipe?.instructions
             .first?
@@ -42,7 +46,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
             .compactMap {
                 .init(
                     title: $0.originalName,
-                    image: URL(string: $0.image ?? ""),
+                    image: URL(string: "https://img.spoonacular.com/ingredients_100x100/" + ($0.image ?? "")),
                     amount: $0.amount,
                     unit: $0.unit
                 )

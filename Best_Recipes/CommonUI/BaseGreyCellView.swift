@@ -54,7 +54,7 @@ class BaseGreyCellView: UIView {
     }
     
     func configureView(
-        image: UIImage?,
+        image: URL,
         title: String,
         description: String,
         buttonImage: UIImage?,
@@ -63,8 +63,8 @@ class BaseGreyCellView: UIView {
     ) {
         backgroundColor = .greyApp
         layer.cornerRadius = 15
-        
-        imageView.image = image
+        imageView.backgroundColor = .white
+        imageView.update(with: .init(url: image,contenMode: .scaleAspectFit, cornerRadius: 8))
         titleLabel.text = title
         descriptionLabel.text = description
         

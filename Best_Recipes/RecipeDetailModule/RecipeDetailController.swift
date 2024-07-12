@@ -28,6 +28,7 @@ extension RecipeDetailController: RecipeDetailControllerProtocol {
     func update(with model: RecipeDetailViewModel?) {
         guard let model = model else { return }
         customView.configureView(
+            image: model.image,
             title: model.title,
             steps: model.instructions,
             rating: model.rating, 

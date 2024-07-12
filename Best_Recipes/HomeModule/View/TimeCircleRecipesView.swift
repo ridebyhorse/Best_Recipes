@@ -145,5 +145,5 @@ private extension TimeCircleRecipesView {
 
 @available(iOS 17.0, *)
 #Preview {
-    UINavigationController(rootViewController: ModuleFactory().createHomeModule(flowHandler: nil))
+    UINavigationController(rootViewController: ModuleFactory().createHomeModule(searchController: MainCoordinator().createSearchModule(), flowHandler: nil))
 }
