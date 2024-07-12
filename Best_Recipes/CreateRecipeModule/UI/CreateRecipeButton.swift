@@ -9,6 +9,8 @@ import UIKit
 
 final class CreateRecipeButton: UIButton {
     
+    var onTap: (() -> Void)?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -31,5 +33,6 @@ final class CreateRecipeButton: UIButton {
             self.alpha = self.alpha == 1 ? 0.0 : 1
         }
         print("tap")
+        onTap?()
     }
 }

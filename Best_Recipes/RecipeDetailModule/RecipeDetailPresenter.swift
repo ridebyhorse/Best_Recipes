@@ -22,8 +22,8 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     }
     
     private func loadData() {
-        print(recipeId)
         if let recipeId {
+            StorageService.shared.addToRecentRecipes(recipeId: recipeId)
             self.recipe = networkManager.getRecipeById(recipeId) ?? MockData.getMockRecipes()?.first
         } else {
             self.recipe = MockData.getMockRecipes()?.first
