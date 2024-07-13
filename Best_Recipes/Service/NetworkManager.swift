@@ -47,7 +47,7 @@ class NetworkManager {
             categories += $0.categories
         })
         
-        return Array(Set(categories))
+        return categories.removingDuplicates()
     }
     
     func getRecipeForCategory(_ category: String) -> [Recipe] {
@@ -70,7 +70,7 @@ class NetworkManager {
             countries += $0.countries
         })
         
-        return Array(Set(countries))
+        return countries.removingDuplicates()
     }
     
     func getRecipeForCountry(_ country: String) -> [Recipe] {
@@ -193,6 +193,4 @@ class NetworkManager {
         
         return result
     }
-    
-    
 }
