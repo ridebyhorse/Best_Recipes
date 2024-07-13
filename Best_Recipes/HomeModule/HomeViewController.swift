@@ -200,8 +200,8 @@ private extension HomeControllerImpl {
                 return cell
             case .country:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CountryCell.self), for: indexPath) as! CountryCell
-                if let seeAllViewModel = item as? Country {
-                    cell.update(with: seeAllViewModel, didSelectHandler: nil)
+                if let item = item as? Country {
+                    cell.update(with: item, didSelectHandler: item.didSelect)
                 }
                 return cell
             }

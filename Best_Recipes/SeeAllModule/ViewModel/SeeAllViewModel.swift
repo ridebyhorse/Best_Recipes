@@ -11,6 +11,7 @@ enum SeeAllMode: String {
     case trending = "Trending now 🔥"
     case recent = "Recent recipes"
     case countries = "Popular cusines"
+    case certainCountry
 }
 
 struct SeeAllViewModel {
