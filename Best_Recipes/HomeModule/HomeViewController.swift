@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SwiftUI
 
 typealias BannerRecipesCell = CollectionCell<BannerRecipesView>
 typealias HeaderRecipesCell = CollectionCell<TitleRecipesView>
@@ -29,10 +28,18 @@ final class HomeControllerImpl: UIViewController {
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
     private var selectedIndexPaths: [Int: IndexPath] = [:]
     
+    private let loadingIndicator: UIActivityIndicatorView = createLoadingView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         presenter?.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.viewDidApear()
     }
 }
 
@@ -41,6 +48,8 @@ extension HomeControllerImpl: HomeController {
     
     func update(with model: HomeViewModel?) {
         updateCollection(with: model!)
+        
+        hideLoadingIndicator()
         
         if !model!.popularCategory.resepies.isEmpty, isFirstLoad {
             let indexPath = IndexPath(row: 0, section: Section.categories.rawValue)
@@ -53,10 +62,9 @@ extension HomeControllerImpl: HomeController {
             }
         }
     }
-    
-    
 }
 
+//MARK: - UISearchBarDelegate
 extension HomeControllerImpl: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -77,11 +85,12 @@ private extension HomeControllerImpl {
     func configure() {
         setupViews()
         setupConstraints()
+        showLoadingIndicator()
         searchController!.searchBar.delegate = self
     }
     
     func setupViews() {
-        view.addSubviews(collectionView)
+        view.addSubviews(collectionView, loadingIndicator)
         navigationItem.searchController = searchController
     }
     
@@ -89,8 +98,19 @@ private extension HomeControllerImpl {
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
+    func showLoadingIndicator() {
+        loadingIndicator.startAnimating()
+    }
+    
+    func hideLoadingIndicator() {
+        loadingIndicator.stopAnimating()
+    }
     
     func updateCollection(with model: HomeViewModel) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
@@ -116,11 +136,12 @@ private extension HomeControllerImpl {
     }
 }
 
-//MARK: - Create and Configure Priperties
+//MARK: - Create and Configure Properties
 private extension HomeControllerImpl {
     func createCollectionView() -> UICollectionView {
+        
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
-        collectionView.register(BannerRecipesCell.self, forCellWithReuseIdentifier: String(describing: BannerRecipesCell.self))
+        collectionView.register(SeeAllRecipesCell.self, forCellWithReuseIdentifier: String(describing: SeeAllRecipesCell.self))
         collectionView.register(HeaderRecipesCell.self, forCellWithReuseIdentifier: String(describing: HeaderRecipesCell.self))
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: String(describing: CategoryCell.self))
         collectionView.register(CircleRecipesCell.self, forCellWithReuseIdentifier: String(describing: CircleRecipesCell.self))
@@ -129,17 +150,26 @@ private extension HomeControllerImpl {
         collectionView.register(RecentRecipesCell.self, forCellWithReuseIdentifier: String(describing: RecentRecipesCell.self))
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = true
-        //collectionView.dataSource = self
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return collectionView
     }
     
+    static func createLoadingView() -> UIActivityIndicatorView {
+        
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        return indicator
+        
+    }
+    
     private func createDataSource() -> UICollectionViewDiffableDataSource<Section, AnyHashable> {
+        
         return UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { collectionView, indexPath, item in
             guard let sectionType = Section(rawValue: indexPath.section) else { return UICollectionViewCell()}
             switch sectionType {
+                
             case .trendingNow:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerRecipesCell.self), for: indexPath) as! BannerRecipesCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SeeAllRecipesCell.self), for: indexPath) as! SeeAllRecipesCell
                 if let recipeViewModel = item as? RecipesCellViewModel {
                     cell.update(with: recipeViewModel, didSelectHandler: recipeViewModel.didSelect)
                 }
@@ -153,7 +183,7 @@ private extension HomeControllerImpl {
             case .categories:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCell.self), for: indexPath) as! CategoryCell
                 if let item = item as? Category {
-                    cell.update(with: item, didSelectHandler: nil)
+                    cell.update(with: item, didSelectHandler: item.didSelect)
                 }
                 return cell
             case .circeRecipe:
@@ -162,7 +192,6 @@ private extension HomeControllerImpl {
                     cell.update(with: item, didSelectHandler: item.didSelect)
                 }
                 return cell
-           
             case .recentRecipe:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RecentRecipesCell.self), for: indexPath) as! RecentRecipesCell
                 if let item = item as? RecipesCellViewModel {
@@ -178,7 +207,6 @@ private extension HomeControllerImpl {
             }
         }
     }
-    
 }
 
 //MARK: - Create and Composional layout
@@ -302,7 +330,7 @@ private extension HomeControllerImpl {
         section.interGroupSpacing = 0
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
-    
+        
         return section
     }
     

@@ -31,7 +31,7 @@ class NetworkManager {
                         recipes.append(filteredRecipe)
                     }
                 }
-                attempts -= 1 // Reduce the attempt count after a successful fetch
+                attempts -= 1
             } catch {
                 print("Ошибка при загрузке рецептов: (error)")
                 networkService.switchCurrentApiKey()
