@@ -8,25 +8,22 @@
 import Foundation
 
 final class HomePresenterImpl: HomePresenter {
-    @MainActor 
-    func viewDidApear() {
-        self.reloadData()
-    }
-    
+    let networkManager: NetworkManager
+    let storageService: StorageService
     var flowHandler: HomeNavigationHandler?
     weak var view: (any HomeController)?
-    let networkManager = NetworkManager.shared
-    let storageService = StorageService.shared
-    
     private var category = ""
+    
     private var homeViewModel: HomeViewModel?  = nil {
         didSet {
             view?.update(with: homeViewModel)
         }
     }
     
-    init(view: any HomeController) {
+    init(view: any HomeController, storageService: StorageService, networkManager: NetworkManager) {
         self.view = view
+        self.storageService = storageService
+        self.networkManager = networkManager
     }
     
     func viewDidLoad() {
@@ -36,7 +33,12 @@ final class HomePresenterImpl: HomePresenter {
             await firstLoad()
         }
     }
-
+    
+    @MainActor
+    func viewDidApear() {
+        self.reloadData()
+    }
+    
     @MainActor
     func createRecipeCellViewModel(with recipes: [Recipe]) -> [RecipesCellViewModel] {
         let favorite = StorageService.shared.getFavoriteRecipes()
@@ -56,7 +58,7 @@ final class HomePresenterImpl: HomePresenter {
                         self.flowHandler?(.recipe(recipeId: recipe.id!))
                     },
                     favoriteHandler:  {
-                        StorageService.shared.toggleFavorite(recipeId: recipe.id!)
+                        storageService.toggleFavorite(recipeId: recipe.id!)
                         self.reloadData()
                     },
                     ingridientsCount: recipe.ingredients?.count ?? 0
@@ -68,7 +70,6 @@ final class HomePresenterImpl: HomePresenter {
     @MainActor
     func firstLoad() {
         let trendingRecipe = networkManager.getTrendingRecipes()
-        print(category)
         let categoryRecipe = networkManager.getRecipeForCategory(self.category)
         let recipe = self.networkManager.getTrendingRecipes()
         let categories = networkManager.getCategories()
@@ -139,7 +140,7 @@ final class HomePresenterImpl: HomePresenter {
     func reloadData() {
         guard let homeViewModel = homeViewModel else { return }
         let categoryRecipe = networkManager.getRecipeForCategory(self.category)
-        let favorite = StorageService.shared.getFavoriteRecipes()
+        let favorite = storageService.getFavoriteRecipes()
         
         let trendingNow = TrandingNow.init(resepies: updateFavoriteStatus(in: homeViewModel.tandingNow.resepies, with: favorite), header: homeViewModel.tandingNow.header)
         let recentRecipe = RecentRecipe.init(resepies: createRecipeCellViewModel(with: storageService.getRecentRecipes()), header: homeViewModel.recentRecipe.header)

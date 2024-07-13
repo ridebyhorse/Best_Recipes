@@ -9,7 +9,9 @@ import UIKit
 
 protocol HomePresenter: AnyObject  {
     var view: (any HomeController)? { get }
-    init(view: any HomeController)
+    init(view: any HomeController, storageService: StorageService, networkManager: NetworkManager)
+    var storageService: StorageService { get }
+    var networkManager: NetworkManager { get }
     func viewDidLoad()
     var flowHandler: HomeNavigationHandler? { get set }
     func viewDidApear()
