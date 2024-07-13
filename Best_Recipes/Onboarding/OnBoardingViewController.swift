@@ -14,13 +14,20 @@ class OnboardingViewController: UIViewController {
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
     let toptitleLabel = UILabel()
+    var isMain = Bool()
     
-    init(imageName: String, titleText: String, subtitleText: String, topText: String) {
+    let stepsStack = UIStackView()
+    let stepView1 = UIView()
+    let stepView2 = UIView()
+    let stepView3 = UIView()
+    
+    init(imageName: String, titleText: String, subtitleText: String, topText: String, isMain: Bool) {
         super.init(nibName: nil, bundle: nil)
         imageView.image = UIImage(named: imageName)
         titleLabel.text = titleText
         subtitleLabel.text = subtitleText
         toptitleLabel.text = topText
+        self.isMain = isMain
     }
     
     required init?(coder: NSCoder) {
@@ -31,6 +38,11 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         style()
         layout()
+        
+        if !isMain {
+            setStepsStack()
+        }
+        
     }
 }
 
@@ -42,8 +54,14 @@ extension OnboardingViewController {
         
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
-        titleLabel.font = .custom(font: .bold, size: 56)
+        //titleLabel.font = .custom(font: .bold, size: 40)
         titleLabel.numberOfLines = 0
+        if isMain {
+            titleLabel.font = .custom(font: .bold, size: 56)
+        } else {
+            titleLabel.font = .custom(font: .bold, size: 40)
+            
+        }
         
         subtitleLabel.textAlignment = .center
         subtitleLabel.textColor = .white
@@ -62,6 +80,12 @@ extension OnboardingViewController {
         imageView.addSubview(titleLabel)
         imageView.addSubview(subtitleLabel)
         imageView.addSubview(toptitleLabel)
+        imageView.addSubview(stepsStack)
+        stepsStack.addArrangedSubview(stepView1)
+        stepsStack.addArrangedSubview(stepView2)
+        stepsStack.addArrangedSubview(stepView3)
+
+        
         
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -82,4 +106,46 @@ extension OnboardingViewController {
             make.left.right.equalToSuperview()
         }
     }
+    func setStepsStack(){
+        stepsStack.axis = .horizontal
+        stepsStack.distribution = .equalSpacing
+        stepsStack.spacing = 7
+        stepView1.layer.cornerRadius = 5
+        stepView2.layer.cornerRadius = 5
+        stepView3.layer.cornerRadius = 5
+        
+        
+        if titleLabel.text == "Recipes with\neach and every\ndetail" {
+            stepView1.backgroundColor = UIColor(named: "greyApp")
+            stepView2.backgroundColor = UIColor(named: "beigeApp")
+            stepView3.backgroundColor = UIColor(named: "greyApp")
+        } else if titleLabel.text == "Cook it now or\nsave it for later" {
+            stepView1.backgroundColor = UIColor(named: "greyApp")
+            stepView2.backgroundColor = UIColor(named: "greyApp")
+            stepView3.backgroundColor = UIColor(named: "beigeApp")
+        } else {
+            stepView1.backgroundColor = UIColor(named: "beigeApp")
+            stepView2.backgroundColor = UIColor(named: "greyApp")
+            stepView3.backgroundColor = UIColor(named: "greyApp")
+        }
+        
+        stepsStack.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-165)
+        }
+        stepView1.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(8)
+        }
+        stepView2.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(8)
+        }
+        stepView3.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(8)
+        }
+        
+    }
 }
+

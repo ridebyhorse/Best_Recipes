@@ -18,12 +18,6 @@ class DemoViewController: UIPageViewController {
     let pageControl = UIPageControl()
     let initialPage = 0
     
-    // Page controls
-    lazy var stepsStack = UIStackView()
-    lazy var stepView1 = UIView()
-    lazy var stepView2 = UIView()
-    lazy var stepView3 = UIView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,18 +26,8 @@ class DemoViewController: UIPageViewController {
         setup()
         style()
         layout()
-        setStepsStack()
     }
-    
-    func setStepsStack(){
-        stepsStack.axis = .horizontal
-        stepsStack.distribution = .equalSpacing
-        stepsStack.spacing = 7
-        stepView1.layer.cornerRadius = 5
-        stepView2.layer.cornerRadius = 5
-        stepView3.layer.cornerRadius = 5
-        
-    }
+
 }
 
 extension DemoViewController {
@@ -53,23 +37,27 @@ extension DemoViewController {
         delegate = self
         
     
-        let page1 = OnboardingViewController(imageName: "splash1",
+        let page1 = OnboardingViewController(imageName: "Onboarding1",
                                              titleText: "Best\nRecipe",
                                              subtitleText: "Find best recipes for cooking",
-                                             topText: "✯100k+ premium recipes"
+                                             topText: "✯100k+ premium recipes",
+                                             isMain: true
         )
-        let page2 = OnboardingViewController(imageName: "splash2",
+        let page2 = OnboardingViewController(imageName: "Onboarding2",
                                              titleText: "Recipes from\nall over the\nworld",
                                              subtitleText: "",
-                                             topText: "")
-        let page3 = OnboardingViewController(imageName: "splash3",
+                                             topText: "",
+                                            isMain: false)
+        let page3 = OnboardingViewController(imageName: "Onboarding3",
                                              titleText: "Recipes with\neach and every\ndetail",
                                              subtitleText: "",
-                                             topText: "")
-        let page4 = OnboardingViewController(imageName: "splash4",
+                                             topText: "",
+                                             isMain: false)
+        let page4 = OnboardingViewController(imageName: "Onboarding4",
                                              titleText: "Cook it now or\nsave it for later",
                                              subtitleText: "",
-                                             topText: "")
+                                             topText: "",
+                                             isMain: false)
 //        let page5 = LoginViewController()
         
         pages.append(page1)
@@ -99,28 +87,6 @@ extension DemoViewController {
 
         view.addSubview(nextButton)
         view.addSubview(skipButton)
-        view.addSubview(stepsStack)
-        stepsStack.addArrangedSubview(stepView1)
-        stepsStack.addArrangedSubview(stepView2)
-        stepsStack.addArrangedSubview(stepView3)
-
-        
-        stepsStack.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(nextButton.snp.top).offset(-25)
-        }
-        stepView1.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(8)
-        }
-        stepView2.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(8)
-        }
-        stepView3.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(8)
-        }
         
         nextButton.snp.makeConstraints { make in
             make.width.equalTo(156)
@@ -137,8 +103,40 @@ extension DemoViewController {
     }
 }
 
-// MARK: - DataSource
+//MARK: - updateUI - button text, skip button, controllers
 
+extension DemoViewController {
+    func updateUI(currentIndex: Int) {
+        if currentIndex == 0 {
+            nextButton.setTitle("Get started", for: .normal)
+            skipButton.setTitle("", for: .normal)
+            skipButton.isUserInteractionEnabled = false
+        }
+        if currentIndex == 1 {
+            nextButton.setTitle("Continue", for: .normal)
+            skipButton.setTitle("Skip", for: .normal)
+            skipButton.isUserInteractionEnabled = true
+        }
+        if currentIndex == 2 {
+            nextButton.setTitle("Continue", for: .normal)
+            skipButton.setTitle("Skip", for: .normal)
+            skipButton.isUserInteractionEnabled = true
+            
+        }
+        if currentIndex == 3 {
+            nextButton.setTitle("Start cooking", for: .normal)
+            skipButton.setTitle("", for: .normal)
+            skipButton.isUserInteractionEnabled = false
+        }
+        if currentIndex == 4 {
+            nextButton.removeFromSuperview()
+        }
+        
+    }
+}
+
+
+// MARK: - DataSource
 extension DemoViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -146,7 +144,6 @@ extension DemoViewController: UIPageViewControllerDataSource {
         guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
         
         if currentIndex == 0 {
-            print("1")
             return pages.last               // wrap last
         } else {
             return pages[currentIndex - 1]  // go previous
@@ -179,44 +176,12 @@ extension DemoViewController: UIPageViewControllerDelegate {
         guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
         
         pageControl.currentPage = currentIndex
+        print(pageControl.currentPage) // только при тапе на экран
+        
         updateUI(currentIndex: currentIndex)
         
     
     }
-    
-    func updateUI(currentIndex: Int) {
-        if currentIndex == 0 {
-            nextButton.setTitle("Get started", for: .normal)
-            stepsStack.removeFromSuperview()
-            skipButton.removeFromSuperview()
-        }
-        if currentIndex == 1 {
-            nextButton.setTitle("Continue", for: .normal)
-            skipButton.setTitle("Skip", for: .normal)
-            stepView1.backgroundColor = UIColor(named: "beigeApp")
-            stepView2.backgroundColor = UIColor(named: "greyApp")
-            stepView3.backgroundColor = UIColor(named: "greyApp")
-        }
-        if currentIndex == 2 {
-            nextButton.setTitle("Continue", for: .normal)
-            skipButton.setTitle("Skip", for: .normal)
-            stepView1.backgroundColor = UIColor(named: "greyApp")
-            stepView2.backgroundColor = UIColor(named: "beigeApp")
-            
-        }
-        if currentIndex == 3 {
-            nextButton.setTitle("Start cooking", for: .normal)
-            stepView2.backgroundColor = UIColor(named: "greyApp")
-            stepView3.backgroundColor = UIColor(named: "beigeApp")
-            skipButton.removeFromSuperview()
-        }
-    if currentIndex == 4 {
-            stepsStack.removeFromSuperview()
-            nextButton.removeFromSuperview()
-        }
-        
-    }
-    
     
 }
 
@@ -231,13 +196,17 @@ extension DemoViewController {
     @objc func skipTapped(_ sender: UIButton) {
         let lastPage = pages.count - 1
         pageControl.currentPage = lastPage
-        
         goToSpecificPage(index: lastPage, ofViewControllers: pages)
     }
     
     @objc func nextTapped(_ sender: UIButton) {
         pageControl.currentPage += 1
         goToNextPage()
+        
+        guard let currentIndex = pages.firstIndex(of: (viewControllers?[0])!) else { return }
+        updateUI(currentIndex: currentIndex)
+
+        
     }
 }
 
@@ -250,6 +219,7 @@ extension UIPageViewController {
         guard let nextPage = dataSource?.pageViewController(self, viewControllerAfter: currentPage) else { return }
         
         setViewControllers([nextPage], direction: .forward, animated: animated, completion: completion)
+        
     }
     
     func goToPreviousPage(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
@@ -263,4 +233,5 @@ extension UIPageViewController {
         setViewControllers([pages[index]], direction: .forward, animated: true, completion: nil)
     }
 }
+
 
