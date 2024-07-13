@@ -30,6 +30,7 @@ typealias HomeNavigationHandler = (HomeNavigationModel) -> Void
 enum HomeNavigationModel {
     case recipe(recipeId: Int)
     case seeAll(mode: SeeAllMode)
+    case seeAllCertainCountry(country: String)
 }
 
 

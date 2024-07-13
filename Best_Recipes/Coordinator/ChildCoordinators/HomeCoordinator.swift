@@ -16,7 +16,7 @@ class HomeCoordinator: CoordinatorProtocol {
     init(_ moduleFactory: ModuleFactory) {
         rootViewController = UINavigationController()
         rootViewController.navigationBar.prefersLargeTitles = true
-        
+        rootViewController.navigationBar.tintColor = .black
         self.moduleFactory = moduleFactory
     }
     
@@ -31,6 +31,9 @@ class HomeCoordinator: CoordinatorProtocol {
                 self?.showRecipeDetailsModule(id: recipeId)
             case .seeAll(mode: let mode):
                 self?.showSeeAllModule(mode: mode)
+            case .seeAllCertainCountry(country: let country):
+                self?.showSeeAllModule(mode: .certainCountry, country: country)
+                print(country)
             }
         }
     }
@@ -46,9 +49,10 @@ class HomeCoordinator: CoordinatorProtocol {
         rootViewController.show(vc, sender: self)
     }
     
-    func showSeeAllModule(mode: SeeAllMode) {
-        let vc = moduleFactory.createSeeAllModule(mode: mode) { [weak self] id in
+    func showSeeAllModule(mode: SeeAllMode, country: String? = nil) {
+        let vc = moduleFactory.createSeeAllModule(mode: mode, country: country) { [weak self] id in
             self?.showRecipeDetailsModule(id: id)
+            print(country)
         }
         rootViewController.show(vc, sender: self)
     }

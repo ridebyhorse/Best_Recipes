@@ -167,7 +167,7 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
 //            servesSum.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 //            servesSum.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
 //            servesSum.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            
+//
             
 //            cookTimeSum.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -56),
 //            cookTimeSum.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
@@ -208,7 +208,7 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
 //            label.text = Array(cookTimeHours)[row]
             switch component {
-            case 0:  
+            case 0:
                 label.text = Array(cookTimeHours)[row]
             default:
                 label.text = Array(cookTimeMinuts)[row]
@@ -275,7 +275,7 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
 //        NSLayoutConstraint.activate([
 //            servesButton.trailingAnchor.constraint(equalTo: servesLabel.trailingAnchor, constant: -16),
 //            servesButton.centerYAnchor.constraint(equalTo: servesLabel.centerYAnchor),
-//            
+//
 //            cookTimeButton.trailingAnchor.constraint(equalTo: cookTimeLabel.trailingAnchor, constant: -16),
 //            cookTimeButton.centerYAnchor.constraint(equalTo: cookTimeLabel.centerYAnchor)
 //        ])
@@ -288,6 +288,10 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
         pickerView2.isHidden = true
         
         pickerView2 = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        
+        pickerView2.dataSource = self
+        pickerView2.delegate = self
+        
         
         pickerView2.selectRow(selectedRow, inComponent: 0, animated: false)
         pickerView2.selectRow(selectedRow1, inComponent: 1, animated: false)
@@ -302,7 +306,7 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
         alert.popoverPresentationController?.sourceRect = cookTimeButton.bounds
         
         alert.setValue(vc, forKey: "contentViewController")
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction)
+        alert.addAction(UIAlertAction(title: "Cancele", style: .cancel, handler: { (UIAlertAction)
             in
         }))
         
@@ -351,7 +355,7 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
         alert.popoverPresentationController?.sourceRect = servesButton.bounds
         
         alert.setValue(vc, forKey: "contentViewController")
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction)
+        alert.addAction(UIAlertAction(title: "Cancele", style: .cancel, handler: { (UIAlertAction)
             in
         }))
         
@@ -409,22 +413,21 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerView2.dataSource = self
-        pickerView2.delegate = self
-        nameRecipe.delegate = self
-        instructions.delegate = self
         createRecipeButton.onTap = { [weak self] in
             self?.saveRecipe()
             self?.dismiss(animated: true)
         }
+        nameRecipe.delegate = self
+        instructions.delegate = self
+//
 ////        pickerView1.delegate = self
 //        pickerView1.dataSource = self
 //        pickerView1.isHidden = true
-//        
+//
 //        pickerView2.delegate = self
 //        pickerView2.dataSource = self
 //        pickerView2.isHidden = true
-//        
+//
         
         
         PHPhotoLibrary.authorizationStatus()
@@ -491,37 +494,39 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     
     func saveRecipe() {
-        var ingridientsToSave = [Ingridient]()
-        let instructionsToSave = [Instruction(steps: [InstructionStep(number: 1, step: instructions.text)])]
-        stackView.arrangedSubviews.forEach({
-            if !$0.isHidden {
-                let stack = $0 as! UIStackView
-                let nameField = stack.arrangedSubviews[0] as! UITextField
-                let amountField = stack.arrangedSubviews[1] as! UITextField
-                let name = nameField.text ?? "Unknown ingridient"
-                var stringAmount = ""
-                var unit = ""
-                let amountCharArray = Array(amountField.text ?? "0")
-                for char in amountCharArray {
-                    if char.isNumber {
-                        stringAmount.append(char)
-                    } else {
-                        unit.append(char)
+            var ingridientsToSave = [Ingridient]()
+            let instructionsToSave = [Instruction(steps: [InstructionStep(number: 1, step: instructions.text)])]
+            stackView.arrangedSubviews.forEach({
+                if !$0.isHidden {
+                    let stack = $0 as! UIStackView
+                    let nameField = stack.arrangedSubviews[0] as! UITextField
+                    let amountField = stack.arrangedSubviews[1] as! UITextField
+                    let name = nameField.text ?? "Unknown ingridient"
+                    var stringAmount = ""
+                    var unit = ""
+                    let amountCharArray = Array(amountField.text ?? "0")
+                    for char in amountCharArray {
+                        if char.isNumber {
+                            stringAmount.append(char)
+                        } else {
+                            unit.append(char)
+                        }
                     }
+                    ingridientsToSave.append(Ingridient(originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
                 }
                 ingridientsToSave.append(Ingridient(id: UUID().hashValue, originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
             }
         })
 
-        let name = Int(Array( self.cookTimeHours)[self.pickerView2.selectedRow(inComponent: 0)]) ?? 0
-        let name1 = Int(Array( self.cookTimeMinuts)[self.pickerView2.selectedRow(inComponent: 1)]) ?? 0
-        let id = name + name1 + Int(ingridientsToSave.first?.amount ?? 0) + Int.random(in: 1...99) + Int.random(in: 1...99)
-        
-        let recipe = Recipe(rating: 0, id: id, title: nameRecipe.text, countries: [], categories: [], cookingTime: name * 60 + name1, isTrending: false, reviewsCount: 0, author: storageServise.getUser().name, ingredients: ingridientsToSave, instructions: instructionsToSave, image: imageURLToSave)
-        print(recipe)
-        storageServise.saveCreatedRecipe(recipe)
-        
-    }
+            let name = Int(Array( self.cookTimeHours)[self.pickerView2.selectedRow(inComponent: 0)]) ?? 0
+            let name1 = Int(Array( self.cookTimeMinuts)[self.pickerView2.selectedRow(inComponent: 1)]) ?? 0
+            let id = name + name1 + Int(ingridientsToSave.first?.amount ?? 0) + Int.random(in: 1...99) + Int.random(in: 1...99)
+            
+            let recipe = Recipe(rating: 0, id: id, title: nameRecipe.text, countries: [], categories: [], cookingTime: name * 60 + name1, isTrending: false, reviewsCount: 0, author: storageServise.getUser().name, ingredients: ingridientsToSave, instructions: instructionsToSave, image: imageURLToSave)
+            print(recipe)
+            storageServise.saveCreatedRecipe(recipe)
+            
+        }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([

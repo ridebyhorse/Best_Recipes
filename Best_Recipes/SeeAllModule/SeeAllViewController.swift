@@ -11,7 +11,7 @@ import SnapKit
 typealias SeeAllCountryCell = CollectionCell<SeeAllCountryView>
 typealias SeeAllRecipesCell = CollectionCell<SeeAllView>
 
-//MARK: - class HomeControllerImpl
+//MARK: - class SeeAllControllerImpl
 final class SeeAllControllerImpl: UIViewController {
     
     //MARK: - Presenter
@@ -21,6 +21,7 @@ final class SeeAllControllerImpl: UIViewController {
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
     private var selectedIndexPaths = [Int: IndexPath]()
+    private var firstLoad = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,19 +30,17 @@ final class SeeAllControllerImpl: UIViewController {
     }
 }
 
-//MARK: - class HomeController implement
+//MARK: - class SeeAllController implement
 extension SeeAllControllerImpl: SeeAllController {
     
     func update(with model: SeeAllViewModel?) {
         updateCollection(with: model!)
-        
-        if !model!.recipes.isEmpty {
-            let indexPath = IndexPath(row: 0, section: Section.recipes.rawValue)
-            selectedIndexPaths[Section.countries.rawValue] = indexPath
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-        } else {
-            selectedIndexPaths.forEach { (key: Int, value: IndexPath) in
-                collectionView.selectItem(at: value, animated: false, scrollPosition: [])
+        if model?.mode == .countries {
+            if firstLoad {
+                let indexPath = IndexPath(row: 0, section: Section.countries.rawValue)
+                selectedIndexPaths[Section.countries.rawValue] = indexPath
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                firstLoad = false
             }
         }
     }
@@ -71,6 +70,7 @@ private extension SeeAllControllerImpl {
         snapshot.appendItems(model.recipes, toSection: .recipes)
         
         dataSource.apply(snapshot, animatingDifferences: false)
+        collectionView.reloadData()
     }
 }
 
@@ -93,7 +93,7 @@ private extension SeeAllControllerImpl {
             case .countries:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SeeAllCountryCell.self), for: indexPath) as! SeeAllCountryCell
                 if let item = item as? SeeAllCountry {
-                    cell.update(with: item, didSelectHandler: nil)
+                    cell.update(with: item, didSelectHandler: item.didSelect)
                 }
                 return cell
             case .recipes:
@@ -211,3 +211,4 @@ extension SeeAllControllerImpl:  UICollectionViewDelegate {
         }
     }
 }
+

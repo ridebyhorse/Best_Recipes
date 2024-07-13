@@ -144,6 +144,7 @@ extension DemoViewController: UIPageViewControllerDataSource {
         if currentIndex == 0 {
             return pages.last               // wrap last
         } else {
+            
             return pages[currentIndex - 1]  // go previous
         }
         
@@ -191,9 +192,10 @@ extension DemoViewController {
     }
 
     @objc func skipTapped(_ sender: UIButton) {
-        let lastPage = pages.count - 1
-        pageControl.currentPage = lastPage
-        goToSpecificPage(index: lastPage, ofViewControllers: pages)
+        completionHandler?()
+//        let lastPage = pages.count - 1
+//        pageControl.currentPage = lastPage
+//        goToSpecificPage(index: lastPage, ofViewControllers: pages)
     }
     
     @objc func nextTapped(_ sender: UIButton) {

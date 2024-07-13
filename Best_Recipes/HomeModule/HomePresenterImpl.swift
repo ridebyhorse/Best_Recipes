@@ -109,7 +109,10 @@ final class HomePresenterImpl: HomePresenter {
             country:
                     .init(
                         country: countries.map() { country in
-                                .init(name: country, imageName: country, didSelect: { print(country)})
+                                .init(name: country, imageName: country, didSelect: {
+                                    print(country)
+                                    self.flowHandler?(.seeAllCertainCountry(country: country))
+                                })
                         },
                         header: .init(headerName: "Popular cusines",
                                       seeAllHandler: {

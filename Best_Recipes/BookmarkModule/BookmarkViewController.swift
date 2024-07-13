@@ -23,6 +23,9 @@ final class BookmarkControllerImpl: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         presenter?.viewDidLoad()
     }
     
@@ -62,8 +65,8 @@ private extension BookmarkControllerImpl {
         snapshot.appendSections([.favoriteRecipe])
         snapshot.appendItems(model.favoriteRecipes, toSection: .favoriteRecipe)
         print(model.favoriteRecipes)
-        dataSource.apply(snapshot, animatingDifferences: true)
-//        print(collectionView.numberOfItems(inSection: 0))
+//        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.applySnapshotUsingReloadData(snapshot)
     }
 }
 
@@ -142,6 +145,7 @@ private extension BookmarkControllerImpl {
 
 extension BookmarkControllerImpl:  UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         print(indexPath)
     }
 }
