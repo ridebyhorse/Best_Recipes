@@ -5,8 +5,6 @@
 //  Created by Мария Нестерова on 11.07.2024.
 //
 
-import Foundation
-
 import UIKit
 import SnapKit
 
