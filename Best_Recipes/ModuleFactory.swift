@@ -11,11 +11,20 @@ class ModuleFactory {
     
     func createRecipeDetailsModule(id: Int) -> UIViewController {
         let view = RecipeDetailController()
-        view.title = "Saved recipes"
+        view.title = "Recipe detail"
         let presenter = RecipeDetailPresenter()
         view.presenter = presenter
         presenter.view = view
         presenter.recipeId = id
+        return view
+    }
+    
+    func createSeeAllModule(mode: SeeAllMode, detailFlowHandler: ((Int) -> Void)?) -> UIViewController {
+        let view = SeeAllControllerImpl()
+        view.title = mode.rawValue
+        let presenter = SeeAllPresenterImpl(view: view, mode: mode)
+        presenter.detailFlowHandler = detailFlowHandler
+        view.presenter = presenter
         return view
     }
     

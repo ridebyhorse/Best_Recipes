@@ -29,8 +29,8 @@ class HomeCoordinator: CoordinatorProtocol {
             switch model {
             case .recipe(recipeId: let recipeId):
                 self?.showRecipeDetailsModule(id: recipeId)
-            case .seeAll(type: let type):
-                break
+            case .seeAll(mode: let mode):
+                self?.showSeeAllModule(mode: mode)
             }
         }
     }
@@ -43,6 +43,13 @@ class HomeCoordinator: CoordinatorProtocol {
     
     func showRecipeDetailsModule(id: Int) {
         let vc = moduleFactory.createRecipeDetailsModule(id: id)
+        rootViewController.show(vc, sender: self)
+    }
+    
+    func showSeeAllModule(mode: SeeAllMode) {
+        let vc = moduleFactory.createSeeAllModule(mode: mode) { [weak self] id in
+            self?.showRecipeDetailsModule(id: id)
+        }
         rootViewController.show(vc, sender: self)
     }
 }

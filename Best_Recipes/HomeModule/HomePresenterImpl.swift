@@ -50,8 +50,7 @@ final class HomePresenterImpl: HomePresenter {
                             resepies: createRecipeCellViewModel(with: trendingRecipe!),
                             header: .init(headerName: "Trending now 🔥",
                                           seeAllHandler: {
-                                              self.flowHandler?(.seeAll(type: "Asd"))
-                                              print("Tapp Trending see all")
+                                              self.flowHandler?(.seeAll(mode: .trending))
                                           }
                                          )
                         ),
@@ -67,17 +66,22 @@ final class HomePresenterImpl: HomePresenter {
                         recentRecipe:
                                 .init(
                                     resepies: createRecipeCellViewModel(with: trendingRecipe!),
-                                    header: .init(
-                                        headerName: "Recent recipe",
-                                        seeAllHandler: nil)),
+                                    header: .init(headerName: "Recent recipe",
+                                                  seeAllHandler: {
+                                                      self.flowHandler?(.seeAll(mode: .recent))
+                                                  }
+                                                 )
+                                ),
                         country:
                                 .init(
                                     country: countries.map() { country in
                                             .init(name: country, imageName: country, didSelect: { print(country)})
                                     },
-                                    header: .init(
-                                        headerName: "Country",
-                                        seeAllHandler: nil)
+                                    header: .init(headerName: "Popular cusines",
+                                                  seeAllHandler: {
+                                                      self.flowHandler?(.seeAll(mode: .countries))
+                                                  }
+                                                 )
                                 )
                     )
                 )
@@ -140,8 +144,7 @@ final class HomePresenterImpl: HomePresenter {
                         resepies: createRecipeCellViewModel(with: trendingRecipe!),
                         header: .init(headerName: "Trending now 🔥",
                                       seeAllHandler: {
-                                          self.flowHandler?(.seeAll(type: "Asd"))
-                                          print("Tapp Trending see all")
+                                          self.flowHandler?(.seeAll(mode: .trending))
                                       }
                                      )
                     ),
@@ -151,23 +154,28 @@ final class HomePresenterImpl: HomePresenter {
                                 categories: categories.map() { .init(headerName: $0, didSelect: {
                                     print(categories)
                                 })},
-                                header: .init(
-                                    headerName: "Popular category",
-                                    seeAllHandler: nil)),
+                                header: .init(headerName: "Popular category",
+                                              seeAllHandler: nil)
+                            ),
                     recentRecipe:
                             .init(
                                 resepies: createRecipeCellViewModel(with: trendingRecipe!),
-                                header: .init(
-                                    headerName: "Recent recipe",
-                                    seeAllHandler: nil)),
+                                header: .init(headerName: "Recent recipe",
+                                              seeAllHandler: {
+                                                  self.flowHandler?(.seeAll(mode: .recent))
+                                              }
+                                             )
+                            ),
                     country:
                             .init(
                                 country: countries.map() { country in
                                         .init(name: country, imageName: country, didSelect: { print(country)})
                                 },
-                                header: .init(
-                                    headerName: "Country",
-                                    seeAllHandler: nil)
+                                header: .init(headerName: "Popular cusines",
+                                              seeAllHandler: {
+                                                  self.flowHandler?(.seeAll(mode: .countries))
+                                              }
+                                             )
                             )
                 )
             )

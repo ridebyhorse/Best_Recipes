@@ -25,5 +25,5 @@ typealias HomeNavigationHandler = (HomeNavigationModel) -> Void
 
 enum HomeNavigationModel {
     case recipe(recipeId: Int)
-    case seeAll(type: String)
+    case seeAll(mode: SeeAllMode)
 }
