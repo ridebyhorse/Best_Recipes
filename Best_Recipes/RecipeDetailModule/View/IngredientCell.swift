@@ -11,7 +11,7 @@ final class IngredientCell: UITableViewCell {
     
     static let identifier = String(describing: IngredientCell.self)
     
-    private var isChecked = false
+    private var isAvailableTap: (() -> Void)?
     
     private let ingredientView = BaseGreyCellView()
     
@@ -26,21 +26,20 @@ final class IngredientCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(ingredintName: String, amount: String, image: URL) {
+    func configureCell(ingredintName: String, amount: String, image: URL, isSelected: Bool, isAvailableTap: (() -> Void)?) {
         ingredientView.configureView(
             image: image,
             title: ingredintName,
             description: amount,
             buttonImage: UIImage(named: "Checkbox"),
-            buttonColor: .black,
-            buttonAction: checkboxTapped)
+            buttonColor: isSelected ? UIColor(resource: .redApp) : .black,
+            buttonAction: checkboxTapped
+        )
+        self.isAvailableTap = isAvailableTap
     }
     
     private func checkboxTapped() {
-#warning("save choice")
-        isChecked.toggle()
-        let buttonColor: UIColor = isChecked ? UIColor(resource: .redApp) : .black
-        ingredientView.configureButton(color: buttonColor)
+        isAvailableTap?()
     }
     
     private func addSubviews() {

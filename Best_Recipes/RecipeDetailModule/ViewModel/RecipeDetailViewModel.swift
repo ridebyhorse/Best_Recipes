@@ -19,10 +19,13 @@ struct RecipeDetailViewModel {
 }
 
 struct IngredientViewModel {
+    let id: Int
     let title: String
     let image: URL?
     let amount: Double
     let unit: String
+    var isAvailable: Bool
+    let availableHandler: (() -> Void)?
     
     var amountAndUnit: String {
         "\(String(format: "%.0f", amount)) \(unit)"

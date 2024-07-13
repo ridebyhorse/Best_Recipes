@@ -117,7 +117,6 @@ final class RecipeView: UIView {
         contentView.addSubview(titleLabel)
         contentView.addSubview(imageView)
         contentView.addSubview(ratingStack)
-        
         contentView.addSubview(bookmarkButton)
         
         ratingStack.addArrangedSubview(ratingView)

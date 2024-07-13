@@ -63,6 +63,7 @@ struct Recipe: Codable {
 }
 
 struct Ingridient: Codable {
+    let id: Int
     var image: String?
     let originalName: String
     let amount: Double

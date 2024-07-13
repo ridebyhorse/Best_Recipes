@@ -45,13 +45,20 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
             .compactMap { $0.step } ?? []
         
         let ingredients: [IngredientViewModel] = recipe.ingredients?
-            .compactMap {
+            .compactMap { ingredient in
                 .init(
-                    title: $0.originalName,
-                    image: URL(string: "https://img.spoonacular.com/ingredients_100x100/" + ($0.image ?? "")),
-                    amount: $0.amount,
-                    unit: $0.unit
+                    id: ingredient.id,
+                    title: ingredient.originalName,
+                    image: URL(string: "https://img.spoonacular.com/ingredients_100x100/" + (ingredient.image ?? "")),
+                    amount: ingredient.amount,
+                    unit: ingredient.unit,
+                    isAvailable: storageManager.isIngredientSaved(ingredient.id),
+                    availableHandler: { [weak self]  in
+                        self?.storageManager.toggleAvailableIngredient(ingredient.id)
+                         self?.updateUI()
+                    }
                 )
+                
             } ?? []
         
         let isFavorite = storageManager.getFavoriteRecipes()

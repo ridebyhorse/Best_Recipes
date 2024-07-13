@@ -90,7 +90,9 @@ extension IngredientsTableView: UITableViewDataSource {
             cell.configureCell(
                 ingredintName: item.title,
                 amount: item.amountAndUnit,
-                image: item.image!
+                image: item.image!,
+                isSelected: item.isAvailable,
+                isAvailableTap: item.availableHandler
             )
         }
         return cell
