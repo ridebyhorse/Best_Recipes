@@ -14,6 +14,8 @@ struct RecipeDetailViewModel {
     let reviewsCount: String
     let instructions: [String]
     let ingredients: [IngredientViewModel]
+    var isFavorite: Bool
+    let favoriteHandler: (() -> Void)?
 }
 
 struct IngredientViewModel {

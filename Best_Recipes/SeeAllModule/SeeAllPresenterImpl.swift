@@ -52,7 +52,7 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
                         self.detailFlowHandler?(recipe.id!)
                     },
                     favoriteHandler:  {
-                        StorageService.shared.toggleFavorite(recipeId: recipe.id!)
+                        StorageService.shared.toggleFavorite(recipeId: recipe.id)
                         self.favorites.append(recipe.id!)
                         switch self.mode {
                         case .countries:

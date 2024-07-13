@@ -55,7 +55,11 @@ class StorageService {
         }
     }
     
-    func toggleFavorite(recipeId id: Int) {
+    func toggleFavorite(recipeId id: Int?) {
+        guard let id = id else {
+            print("Recipe id does not exist")
+            return
+        }
         let recipes = getRecipes(forKey: .favoriteRecipiesKey)
         if recipes.contains(where: {$0.id == id}) {
             networkManager.updateFav(id: id)

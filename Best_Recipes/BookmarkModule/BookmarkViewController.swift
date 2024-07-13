@@ -25,6 +25,11 @@ final class BookmarkControllerImpl: UIViewController {
         configure()
         presenter?.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.viewDidLoad()
+    }
 }
 
 //MARK: - class BookmarkController implement

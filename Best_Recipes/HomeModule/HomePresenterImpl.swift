@@ -58,7 +58,7 @@ final class HomePresenterImpl: HomePresenter {
                         self.flowHandler?(.recipe(recipeId: recipe.id!))
                     },
                     favoriteHandler:  {
-                        storageService.toggleFavorite(recipeId: recipe.id!)
+                        storageService.toggleFavorite(recipeId: recipe.id)
                         self.reloadData()
                     },
                     ingridientsCount: recipe.ingredients?.count ?? 0
