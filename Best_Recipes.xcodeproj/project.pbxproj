@@ -321,10 +321,10 @@
 		B9B9E1142C347D26003E5439 /* RecipeDetailModule */ = {
 			isa = PBXGroup;
 			children = (
-				B9B9E1122C347D26003E5439 /* View */,
 				B9B9E1132C347D26003E5439 /* RecipeDetailController.swift */,
 				B9B9E1362C35AAD7003E5439 /* RecipeDetailPresenter.swift */,
 				B9B9E1312C35A5A8003E5439 /* RecipeDetailProtocols.swift */,
+				B9B9E1122C347D26003E5439 /* View */,
 				B9B9E1352C35A746003E5439 /* ViewModel */,
 			);
 			path = RecipeDetailModule;
@@ -465,9 +465,9 @@
 			children = (
 				CBEDCA132C34953500232A02 /* DIContainer.swift */,
 				CBE872B22C35C815005EB742 /* NetworkManager.swift */,
-				CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */,
 				CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */,
 				CBEDCA192C3496BA00232A02 /* StorageService.swift */,
+				CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";

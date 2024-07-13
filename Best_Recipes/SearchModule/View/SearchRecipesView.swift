@@ -13,7 +13,7 @@ final class SearchRecipesView: CellView, Configurable {
     private let recipeImageView: UIImageView = {
         let recipeImageView = UIImageView()
         recipeImageView.contentMode = .scaleAspectFill
-        recipeImageView.tintColor = .darkGreyApp.withAlphaComponent(0.2)
+        recipeImageView.addoverlay(alpha: 0.4)
         
         return recipeImageView
     }()
@@ -148,5 +148,4 @@ final class SearchRecipesView: CellView, Configurable {
             return "\(minutes) min"
         }
     }
-    
 }

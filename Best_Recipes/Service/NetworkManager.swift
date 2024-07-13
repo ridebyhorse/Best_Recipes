@@ -12,7 +12,7 @@ class NetworkManager {
     private let networkService: NetworkService
     private var recipes = [Recipe]()
     private var searchId = [Int]()
-    private var searchCategoryId = [Int]()
+    private var searchCountryId = [Int]()
     
     static let shared = NetworkManager.init(networkService: NetworkService.shared)
     
@@ -51,17 +51,7 @@ class NetworkManager {
     }
     
     func getRecipeForCategory(_ category: String) -> [Recipe] {
-        let searchedRecipes = UnsafeTask {
-            await self.searchRecipes(byCategory: category)
-        }.get()
-        
-        for recipe in searchedRecipes {
-            if !recipes.contains(where: {$0.id == recipe.id}) {
-                recipes.append(recipe)
-            }
-        }
-        
-        return searchedRecipes
+        recipes.filter({ $0.categories.contains(category) })
     }
     
     func getCountries() -> [String] {
@@ -74,7 +64,17 @@ class NetworkManager {
     }
     
     func getRecipeForCountry(_ country: String) -> [Recipe] {
-        recipes.filter({ $0.countries.contains(country) })
+        let searchedRecipes = UnsafeTask {
+            await self.searchRecipes(byCountry: country)
+        }.get()
+        
+        for recipe in searchedRecipes {
+            if !recipes.contains(where: {$0.id == recipe.id}) {
+                recipes.append(recipe)
+            }
+        }
+        
+        return searchedRecipes
     }
     
     func getRecipesByKeyword(_ keyword: String) -> [Recipe] {
@@ -143,35 +143,35 @@ class NetworkManager {
         return result
     }
     
-    private func searchRecipes(byCategory category: String) async -> [Recipe] {
+    private func searchRecipes(byCountry country: String) async -> [Recipe] {
         await withTaskGroup(of: Void.self) { taskGroup in
             taskGroup.addTask {
-                let searchedRecipes = await self.fetchRecipes(byCategory: category)
+                let searchedRecipes = await self.fetchRecipes(byCountry: country)
                 let ids = searchedRecipes.map({$0.id})
                 
                 for id in ids {
                     if let id {
-                        self.searchCategoryId.append(id)
+                        self.searchCountryId.append(id)
                     }
                 }
             }
         }
         
         let searchedRecipes = UnsafeTask {
-            await self.fetchRecipes(byId: self.searchCategoryId)
+            await self.fetchRecipes(byId: self.searchCountryId)
         }.get()
         
         return searchedRecipes
     }
     
-    private func fetchRecipes(byCategory category: String) async -> [CategoryResult] {
-        var result = [CategoryResult]()
+    private func fetchRecipes(byCountry country: String) async -> [CountryResult] {
+        var result = [CountryResult]()
         
         do {
-            result = try await networkService.searchRecipesForCategory(category: category)
+            result = try await networkService.searchRecipesForCountry(country: country)
             return result
         } catch {
-            print("Ошибка при поиске рецептов в категории \(category): \(error)")
+            print("Ошибка при поиске рецептов по кухне \(country): \(error)")
             networkService.switchCurrentApiKey()
         }
         
@@ -184,10 +184,10 @@ class NetworkManager {
             do {
                 result = try await networkService.searchRecipes(byId: id)
                 searchId = []
-                searchCategoryId = []
+                searchCountryId = []
                 return result
             } catch {
-                print("Ошибка при поиске рецептов: \(error)")
+                print("Ошибка при поиске рецептов по id: \(error)")
                 networkService.switchCurrentApiKey()
             }
         

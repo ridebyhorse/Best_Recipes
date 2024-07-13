@@ -24,6 +24,7 @@ class OnboardingViewController: UIViewController {
     init(imageName: String, titleText: String, subtitleText: String, topText: String, isMain: Bool) {
         super.init(nibName: nil, bundle: nil)
         imageView.image = UIImage(named: imageName)
+        imageView.addoverlay()
         titleLabel.text = titleText
         subtitleLabel.text = subtitleText
         toptitleLabel.text = topText

@@ -61,4 +61,13 @@ extension UIImageView: Configurable {
             self.af.setImage(withURL: url)
         }
     }
+    
+    func addoverlay(color: UIColor = .black, alpha : CGFloat = 0.4) {
+        let overlay = UIView()
+        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        overlay.frame = bounds
+        overlay.backgroundColor = color
+        overlay.alpha = alpha
+        addSubview(overlay)
+    }
 }

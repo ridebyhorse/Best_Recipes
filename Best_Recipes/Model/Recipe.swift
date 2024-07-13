@@ -16,11 +16,11 @@ struct SearchResult: Decodable {
     let results: [Result]
 }
 
-struct CategorySearchResult: Decodable {
-    let results: [CategoryResult]
+struct CountrySearchResult: Decodable {
+    let results: [CountryResult]
 }
 
-struct CategoryResult: Decodable {
+struct CountryResult: Decodable {
     var id: Int?
 }
 
