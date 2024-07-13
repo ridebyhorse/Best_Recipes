@@ -31,7 +31,9 @@ class ModuleFactory {
     func createHomeModule(searchController: UISearchController, flowHandler: HomeNavigationHandler?) -> UIViewController {
         let view = HomeControllerImpl()
         view.title = "Get amazing recipes for cooking"
-        let presenter = HomePresenterImpl(view: view)
+        let network = NetworkManager.shared
+        let storage = StorageService.shared
+        let presenter = HomePresenterImpl(view: view, storageService: storage, networkManager: network)
         view.presenter = presenter
         view.searchController = searchController
         presenter.flowHandler = flowHandler

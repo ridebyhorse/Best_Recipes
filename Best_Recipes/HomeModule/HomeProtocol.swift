@@ -9,11 +9,15 @@ import UIKit
 
 protocol HomePresenter: AnyObject  {
     var view: (any HomeController)? { get }
-    init(view: any HomeController)
+    init(view: any HomeController, storageService: StorageService, networkManager: NetworkManager)
+    var storageService: StorageService { get }
+    var networkManager: NetworkManager { get }
     func viewDidLoad()
     var flowHandler: HomeNavigationHandler? { get set }
+    func viewDidApear()
 }
 
+@MainActor
 protocol HomeController: Configurable {
     typealias Model = HomeViewModel
     var presenter: HomePresenter? { get }
@@ -27,3 +31,5 @@ enum HomeNavigationModel {
     case recipe(recipeId: Int)
     case seeAll(mode: SeeAllMode)
 }
+
+

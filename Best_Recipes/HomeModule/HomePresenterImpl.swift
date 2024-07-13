@@ -8,98 +8,48 @@
 import Foundation
 
 final class HomePresenterImpl: HomePresenter {
+    let networkManager: NetworkManager
+    let storageService: StorageService
     var flowHandler: HomeNavigationHandler?
     weak var view: (any HomeController)?
-    let networkManager = NetworkManager.shared
-    private var homeViewModel: HomeViewModel? {
+    private var category = ""
+    
+    private var homeViewModel: HomeViewModel?  = nil {
         didSet {
             view?.update(with: homeViewModel)
         }
     }
     
-    var x = [Int]()
-    
-    init(view: any HomeController) {
+    init(view: any HomeController, storageService: StorageService, networkManager: NetworkManager) {
         self.view = view
+        self.storageService = storageService
+        self.networkManager = networkManager
     }
     
     func viewDidLoad() {
-//        networkManager.fetchRecipes()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
-//            let trendingRecipe = self?.networkManager.getTrendingRecipes()
-//            let countries = self?.networkManager.getCountries()
-//            let categories = self?.networkManager.getCategories()
-//            let recipeCategories = self?.networkManager.getRecipeForCategory(categories![0])
-            
-            let trendingRecipe = MockData.getMockRecipesMore()
-            var countries = [String]()
-            trendingRecipe!.forEach({
-                countries += $0.countries
-            })
-            countries = countries
-            let categories =  ["v", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
-            let recipeCategories = MockData.getMockRecipesMore()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
-                let recipe = self?.networkManager.getTrendingRecipes()
-                
-                guard let self = self else  { return }
-                self.view?.update(
-                    with: .init(
-                        tandingNow: .init(
-                            resepies: createRecipeCellViewModel(with: trendingRecipe!),
-                            header: .init(headerName: "Trending now 🔥",
-                                          seeAllHandler: {
-                                              self.flowHandler?(.seeAll(mode: .trending))
-                                          }
-                                         )
-                        ),
-                        popularCategory:
-                                .init(
-                                    resepies: createRecipeCellViewModel(with: recipeCategories!),
-                                    categories: categories.map() { .init(headerName: $0, didSelect: {
-                                        print(categories)
-                                    })},
-                                    header: .init(
-                                        headerName: "Popular category",
-                                        seeAllHandler: nil)),
-                        recentRecipe:
-                                .init(
-                                    resepies: createRecipeCellViewModel(with: trendingRecipe!),
-                                    header: .init(headerName: "Recent recipe",
-                                                  seeAllHandler: {
-                                                      self.flowHandler?(.seeAll(mode: .recent))
-                                                  }
-                                                 )
-                                ),
-                        country:
-                                .init(
-                                    country: countries.map() { country in
-                                            .init(name: country, imageName: country, didSelect: { print(country)})
-                                    },
-                                    header: .init(headerName: "Popular cusines",
-                                                  seeAllHandler: {
-                                                      self.flowHandler?(.seeAll(mode: .countries))
-                                                  }
-                                                 )
-                                )
-                    )
-                )
-            }
-            
+        Task {
+            await networkManager.fetchRecipes()
+            self.category = networkManager.getCategories().first!
+            await firstLoad()
         }
-      
     }
     
+    @MainActor
+    func viewDidApear() {
+        self.reloadData()
+    }
+    
+    @MainActor
     func createRecipeCellViewModel(with recipes: [Recipe]) -> [RecipesCellViewModel] {
+        let favorite = StorageService.shared.getFavoriteRecipes()
+        let favoriteIds = Set(favorite.map { $0.id })
         let reipeModel: [RecipesCellViewModel] = recipes.enumerated().map() { [unowned self] ( index ,recipe) in
-           
                 .init(
                     recipeid: recipe.id!,
                     raiting: recipe.rating,
                     recipeImage: recipe.image ?? URL(string: "https://img.taste.com.au/ir8lOyhk/w643-h428-cfill-q90/taste/2010/01/best-easy-pumpkin-soup-recipe-185570-1.jpg")!,
                     recipeName: recipe.title,
-                    isFavorite: true,
+                    isFavorite: favoriteIds.contains(recipe.id!),
                     avtorImage: "person",
                     avtorName: "Jessica",
                     coockingTime: recipe.cookingTime,
@@ -108,83 +58,72 @@ final class HomePresenterImpl: HomePresenter {
                         self.flowHandler?(.recipe(recipeId: recipe.id!))
                     },
                     favoriteHandler:  {
-                        StorageService.shared.toggleFavorite(recipeId: recipe.id!)
-                        print("favoriteHandler")
-                        self.x.append(recipe.id!)
-                        
-                        self.aaa()
+                        storageService.toggleFavorite(recipeId: recipe.id!)
+                        self.reloadData()
                     },
                     ingridientsCount: recipe.ingredients?.count ?? 0
                 )
         }
-        
-        let favorite = StorageService.shared.getFavoriteRecipes()
-        print(favorite)
-        
-        return updateFavoriteStatus(in: reipeModel, with: self.x)
+        return reipeModel
     }
-    func aaa() {
+    
+    @MainActor
+    func firstLoad() {
+        let trendingRecipe = networkManager.getTrendingRecipes()
+        let categoryRecipe = networkManager.getRecipeForCategory(self.category)
+        let recipe = self.networkManager.getTrendingRecipes()
+        let categories = networkManager.getCategories()
+        let countries = networkManager.getCountries()
         
-        let trendingRecipe = MockData.getMockRecipesMore()
-        var countries = [String]()
-        trendingRecipe!.forEach({
-            countries += $0.countries
-        })
-        countries = Array(Set(countries))
-        let categories =  ["v", "Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst","Breackfst",]
-        let recipeCategories = MockData.getMockRecipesMore()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
-            let recipe = self?.networkManager.getTrendingRecipes()
-            
-            guard let self = self else  { return }
-            self.view?.update(
-                with: .init(
-                    tandingNow: .init(
-                        resepies: createRecipeCellViewModel(with: trendingRecipe!),
-                        header: .init(headerName: "Trending now 🔥",
+        self.homeViewModel = .init(
+            tandingNow: .init(
+                resepies: createRecipeCellViewModel(with: trendingRecipe),
+                header: .init(headerName: "Trending now 🔥",
+                              seeAllHandler: {
+                                  self.flowHandler?(.seeAll(mode: .trending))
+                              }
+                             )
+            ),
+            popularCategory:
+                    .init(
+                        resepies: createRecipeCellViewModel(with: categoryRecipe),
+                        categories: categories.map() { catName in
+                                .init(headerName: catName, didSelect: { [weak self ] in
+                                    
+                                    self?.category = catName
+                                    self?.reloadData()
+                                })
+                        },
+                        header: .init(headerName: "Popular category",
+                                      seeAllHandler: nil)
+                    ),
+            recentRecipe:
+                    .init(
+                        resepies: createRecipeCellViewModel(with: storageService.getRecentRecipes()),
+                        header: .init(headerName: "Recent recipe",
                                       seeAllHandler: {
-                                          self.flowHandler?(.seeAll(mode: .trending))
+                                          self.flowHandler?(.seeAll(mode: .recent))
                                       }
                                      )
                     ),
-                    popularCategory:
-                            .init(
-                                resepies: createRecipeCellViewModel(with: recipeCategories!),
-                                categories: categories.map() { .init(headerName: $0, didSelect: {
-                                    print(categories)
-                                })},
-                                header: .init(headerName: "Popular category",
-                                              seeAllHandler: nil)
-                            ),
-                    recentRecipe:
-                            .init(
-                                resepies: createRecipeCellViewModel(with: trendingRecipe!),
-                                header: .init(headerName: "Recent recipe",
-                                              seeAllHandler: {
-                                                  self.flowHandler?(.seeAll(mode: .recent))
-                                              }
-                                             )
-                            ),
-                    country:
-                            .init(
-                                country: countries.map() { country in
-                                        .init(name: country, imageName: country, didSelect: { print(country)})
-                                },
-                                header: .init(headerName: "Popular cusines",
-                                              seeAllHandler: {
-                                                  self.flowHandler?(.seeAll(mode: .countries))
-                                              }
-                                             )
-                            )
-                )
-            )
-        }
+            country:
+                    .init(
+                        country: countries.map() { country in
+                                .init(name: country, imageName: country, didSelect: { print(country)})
+                        },
+                        header: .init(headerName: "Popular cusines",
+                                      seeAllHandler: {
+                                          self.flowHandler?(.seeAll(mode: .countries))
+                                      }
+                                     )
+                    )
+        )
+        
     }
     
-    func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Int]) -> [RecipesCellViewModel] {
+    func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Recipe]) -> [RecipesCellViewModel] {
         var updatedRecipes = recipes
-        let favoriteIds = Set(favoriteRecipes.map { $0 })
+        let favoriteIds = Set(favoriteRecipes.map { $0.id })
         
         for i in 0..<updatedRecipes.count {
             if favoriteIds.contains(updatedRecipes[i].recipeid) {
@@ -196,6 +135,18 @@ final class HomePresenterImpl: HomePresenter {
         
         return updatedRecipes
     }
+    
+    @MainActor
+    func reloadData() {
+        guard let homeViewModel = homeViewModel else { return }
+        let categoryRecipe = networkManager.getRecipeForCategory(self.category)
+        let favorite = storageService.getFavoriteRecipes()
+        
+        let trendingNow = TrandingNow.init(resepies: updateFavoriteStatus(in: homeViewModel.tandingNow.resepies, with: favorite), header: homeViewModel.tandingNow.header)
+        let recentRecipe = RecentRecipe.init(resepies: createRecipeCellViewModel(with: storageService.getRecentRecipes()), header: homeViewModel.recentRecipe.header)
+        let popularCategory = PopularCategory(resepies: createRecipeCellViewModel(with: categoryRecipe), categories: homeViewModel.popularCategory.categories, header: homeViewModel.popularCategory.header)
+        let country = homeViewModel.country
+        
+        self.homeViewModel = .init(tandingNow: trendingNow, popularCategory: popularCategory, recentRecipe: recentRecipe, country: country)
+    }
 }
-
-

@@ -17,11 +17,11 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     
     private let networkManager = NetworkManager.shared
     
-    func activate() {
+    @MainActor func activate() {
         loadData()
     }
     
-    private func loadData() {
+    @MainActor private func loadData() {
         if let recipeId {
             StorageService.shared.addToRecentRecipes(recipeId: recipeId)
             self.recipe = networkManager.getRecipeById(recipeId) ?? MockData.getMockRecipes()?.first
@@ -31,7 +31,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
         updateUI()
     }
     
-    private func updateUI() {
+    @MainActor private func updateUI() {
 
         let imageURL = recipe!.image
         let rating = String(format: "%.1f", recipe!.rating / 20.0)
