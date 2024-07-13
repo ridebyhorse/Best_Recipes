@@ -58,13 +58,11 @@ extension DemoViewController {
                                              subtitleText: "",
                                              topText: "",
                                              isMain: false)
-//        let page5 = LoginViewController()
         
         pages.append(page1)
         pages.append(page2)
         pages.append(page3)
         pages.append(page4)
-//        pages.append(page5)
         
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
     }
@@ -176,7 +174,6 @@ extension DemoViewController: UIPageViewControllerDelegate {
         guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
         
         pageControl.currentPage = currentIndex
-        print(pageControl.currentPage) // только при тапе на экран
         
         updateUI(currentIndex: currentIndex)
         

@@ -16,7 +16,6 @@ class ModuleFactory {
         view.presenter = presenter
         presenter.view = view
         presenter.recipeId = id
-        print(presenter.recipeId)
         return view
     }
     

@@ -13,8 +13,8 @@ class NetworkService {
     private let apiKeys = ["aed8a716eb104d529457e9bdfa716c0b", "57a18417f2a547b29df04e67c6703ac8"]
     private var currentApiKey = 0
     private let baseUrlString = "https://api.spoonacular.com/recipes/random?number=100&apiKey="
-    private let categoryUrlStringStart = "https://api.spoonacular.com/recipes/complexSearch?cuisine="
-    private let categoryUrlStringEnd = "&number=20&apiKey="
+    private let countryUrlStringStart = "https://api.spoonacular.com/recipes/complexSearch?cuisine="
+    private let countryUrlStringEnd = "&number=20&apiKey="
     private let searchByKeywordUrlStringStart = "https://api.spoonacular.com/food/search?query="
     private let searchByKeywordUrlStringEnd = "&number=10&apiKey="
     private let searchByIdUrlString = "https://api.spoonacular.com/recipes/informationBulk?ids="
@@ -36,13 +36,13 @@ class NetworkService {
         return recipesResponse.recipes
     }
     
-    func searchRecipesForCategory(category: String) async throws -> [CategoryResult] {
-        let urlString = categoryUrlStringStart + category + categoryUrlStringEnd + apiKeys[currentApiKey]
+    func searchRecipesForCountry(country: String) async throws -> [CountryResult] {
+        let urlString = countryUrlStringStart + country + countryUrlStringEnd + apiKeys[currentApiKey]
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
         }
         let (data, _) = try await URLSession.shared.data(from: url)
-        let recipesResponse = try JSONDecoder().decode(CategorySearchResult.self, from: data)
+        let recipesResponse = try JSONDecoder().decode(CountrySearchResult.self, from: data)
         
         return recipesResponse.results
     }

@@ -19,7 +19,7 @@ final class RecipeDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        modalPresentationStyle = .fullScreen
         presenter?.activate()
     }
 }
