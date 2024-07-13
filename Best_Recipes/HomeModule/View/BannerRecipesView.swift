@@ -49,6 +49,6 @@ final class BannerRecipesView: CellView, Configurable {
 
 @available(iOS 17.0, *)
 #Preview {
-    UINavigationController(rootViewController: ModuleFactory().createHomeModule(searchController: MainCoordinator().createSearchModule(), flowHandler: nil))
+    UINavigationController(rootViewController: ModuleFactory().createHomeModule(searchController: HomeCoordinator(ModuleFactory()).createSearchModule(), flowHandler: nil))
 }
 

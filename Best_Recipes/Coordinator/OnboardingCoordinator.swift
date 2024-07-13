@@ -9,7 +9,7 @@ import UIKit
 
 class OnboardingCoordinator: CoordinatorProtocol {
     
-    var flowCompletionHandler: CoordinatorHandler?
+    var flowCompletionHandler: (() -> ())?
     
     var rootViewController: UIViewController?
     

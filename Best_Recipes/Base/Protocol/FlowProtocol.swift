@@ -6,5 +6,6 @@
 //
 
 protocol FlowProtocol {
-    var flowHandler: (() -> Void)? { get set }
+    associatedtype T
+    var completionHandler: ((T) -> ())? { get set }
 }
