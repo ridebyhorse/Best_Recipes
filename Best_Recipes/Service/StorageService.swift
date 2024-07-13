@@ -18,7 +18,8 @@ class StorageService {
         case createdRecipesKey = "createdRecipes"
         case favoriteRecipiesKey = "favoriteRecipes"
         case recentRecipiesKey = "recentRecipes"
-        case userKey = "user"
+        case user = "user"
+        case availableIngredientsId
     }
 
     private init() {}
@@ -46,16 +47,14 @@ class StorageService {
     }
     
     func saveUserData(user: User) {
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(user)
-            userDefaults.set(data, forKey: Key.userKey.rawValue)
-        } catch {
-            print("Error encoding user: \(error)")
-        }
+        set(user, forKey: .user)
     }
     
-    func toggleFavorite(recipeId id: Int) {
+    func toggleFavorite(recipeId id: Int?) {
+        guard let id = id else {
+            print("Recipe id does not exist")
+            return
+        }
         let recipes = getRecipes(forKey: .favoriteRecipiesKey)
         if recipes.contains(where: {$0.id == id}) {
             networkManager.updateFav(id: id)
@@ -69,17 +68,40 @@ class StorageService {
     }
     
     func getUser() -> User {
-        if let data = userDefaults.data(forKey: Key.userKey.rawValue) {
-            do {
-                let decoder = JSONDecoder()
-                let user = try decoder.decode(User.self, from: data)
-                return user
-            } catch {
-                print("Error decoding user: \(error)")
-            }
-        }
-        
-        return User(name: "New User", location: "Moscow", recipesCreated: getCreatedRecipes().count)
+        let user: User = get(.user) ?? User(
+            name: "New User",
+            location: "Moscow",
+            recipesCreated: getCreatedRecipes().count
+        )
+        return user
+    }
+    
+    func isIngredientSaved(_ id: Int) -> Bool {
+        getIngredientsId().contains(where: { $0 == id })
+    }
+    
+    func toggleAvailableIngredient(_ id: Int) {
+        isIngredientSaved(id)
+        ? removeIngredient(id: id)
+        : saveIngredient(id)
+    }
+    
+    private func getIngredientsId() -> [Int] {
+        let ingredientsId: [Int] = get(.availableIngredientsId) ?? []
+        return ingredientsId
+    }
+    
+    private func saveIngredient(_ id: Int) {
+        var ids = getIngredientsId()
+        ids.append(id)
+        set(ids, forKey: .availableIngredientsId)
+    }
+    
+    private func removeIngredient(id: Int) {
+        var ids = getIngredientsId()
+        guard let index = ids.firstIndex(where: { $0 == id }) else { return }
+        ids.remove(at: index)
+        set(ids, forKey: .availableIngredientsId)
     }
     
     private func addRecipe(forKey key: Key, _ recipe: Recipe) {
@@ -91,7 +113,7 @@ class StorageService {
                 recipes.append(recipe)
             }
         }
-        saveRecipes(forKey: key, recipes)
+        set(recipes, forKey: key)
     }
     
     private func removeRecipe(forKey key: Key, recipeId id: Int) {
@@ -100,40 +122,46 @@ class StorageService {
         if let index {
             recipes.remove(at: index)
         }
-        saveRecipes(forKey: key, recipes)
+        set(recipes, forKey: key)
     }
     
     private func getRecipes(forKey key: Key) -> [Recipe] {
-        if let data = userDefaults.data(forKey: key.rawValue) {
-            do {
-                let decoder = JSONDecoder()
-                let recipes = try decoder.decode([Recipe].self, from: data)
-                if key == .favoriteRecipiesKey {
-                    var favRecipes = recipes
-                    for (index, var recipe) in recipes.enumerated() {
-                        recipe.isFavorite = true
-                        favRecipes.remove(at: index)
-                        favRecipes.insert(recipe, at: index)
-                    }
-                    return favRecipes
-                }
-                return recipes
-            } catch {
-                print("Error decoding recipes: \(error)")
-            }
-        }
+        let recipes: [Recipe]? = get(key)
+        guard let recipes = recipes else { return [] }
         
-        return []
+        if key == .favoriteRecipiesKey {
+            var favRecipes = recipes
+            for (index, var recipe) in recipes.enumerated() {
+                recipe.isFavorite = true
+                favRecipes.remove(at: index)
+                favRecipes.insert(recipe, at: index)
+            }
+            return favRecipes
+        }
+        return recipes
     }
             
-    private func saveRecipes(forKey key: Key, _ recipes: [Recipe]) {
+    private func set<T: Encodable>(_ value: T, forKey key: Key) {
         do {
             let encoder = JSONEncoder()
-            let data = try encoder.encode(recipes)
+            let data = try encoder.encode(value)
             userDefaults.set(data, forKey: key.rawValue)
         } catch {
-            print("Error encoding recipes: \(error)")
+            print("Error encoding \(key.rawValue): \(error)")
         }
     }
     
+    private func get<T: Decodable>(_ key: Key) -> T? {
+        if let data = userDefaults.data(forKey: key.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let value = try decoder.decode(T.self, from: data)
+                return value
+            } catch {
+                print("Error decoding \(key.rawValue): \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
 }

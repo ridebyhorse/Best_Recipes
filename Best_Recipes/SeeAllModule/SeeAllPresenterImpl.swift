@@ -83,6 +83,7 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
                     ingridientsCount: recipe.ingredients?.count ?? 0
                 )
         }
+      
         let fav = StorageService.shared.getFavoriteRecipes()
         return updateFavoriteStatus(in: recipeModel, with: fav)
     }

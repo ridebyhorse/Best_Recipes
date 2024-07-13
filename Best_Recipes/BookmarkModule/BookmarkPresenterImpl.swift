@@ -38,7 +38,7 @@ final class BookmarkPresenterImpl: BookmarkPresenter {
                         } else {
                             print("\(recipe.id!) Recipe \(recipe.title) added to favorites")
                         }
-                        self?.storageManager.toggleFavorite(recipeId: recipe.id!)
+                        self?.storageManager.toggleFavorite(recipeId: recipe.id)
                         self?.viewDidLoad()
                     },
                     ingridientsCount: recipe.ingredients?.count ?? 0

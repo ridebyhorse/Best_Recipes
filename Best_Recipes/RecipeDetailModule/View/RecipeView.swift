@@ -9,6 +9,8 @@ import UIKit
 
 final class RecipeView: UIView {
     
+    private var onFavTap: (() -> Void)?
+    
     private let scrollView = UIScrollView()
     
     private let contentView = UIView()
@@ -35,6 +37,12 @@ final class RecipeView: UIView {
         label.textColor = .darkGreyApp
         label.font = .custom(font: .regular, size: 14)
         return label
+    }()
+    
+    private lazy var bookmarkButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     private let ratingStack : UIStackView = {
@@ -76,13 +84,23 @@ final class RecipeView: UIView {
         title: String,
         steps: [String],
         rating: String,
-        reviewsCount: String
+        reviewsCount: String,
+        isFavorite: Bool,
+        onFavTap: (() -> Void)?
     ) {
         titleLabel.text = title
         setList(of: steps)
         ratingView.configureView(with: rating)
         reviewsLabel.text = "(\(reviewsCount) Reviews)"
         imageView.update(with: .init(url: image, cornerRadius: 15))
+        
+        let buttonImageName = isFavorite ? "fav" : "fav_disabled"
+        bookmarkButton.setImage(UIImage(imageLiteralResourceName: buttonImageName), for: .normal)
+        self.onFavTap = onFavTap
+    }
+    
+    @objc private func bookmarkButtonTapped() {
+        onFavTap?()
     }
     
     private func setList(of items: [String]) {
@@ -99,6 +117,7 @@ final class RecipeView: UIView {
         contentView.addSubview(titleLabel)
         contentView.addSubview(imageView)
         contentView.addSubview(ratingStack)
+        contentView.addSubview(bookmarkButton)
         
         ratingStack.addArrangedSubview(ratingView)
         ratingStack.addArrangedSubview(reviewsLabel)
@@ -122,6 +141,12 @@ final class RecipeView: UIView {
         
         ratingStack.snp.makeConstraints { $0.top.equalTo(imageView.snp.bottom).offset(20) }
         ratingStack.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(19) }
+        
+        bookmarkButton.snp.makeConstraints {
+            $0.height.width.equalTo(32)
+            $0.top.equalTo(imageView.snp.top).inset(8)
+            $0.trailing.equalTo(imageView.snp.trailing).inset(8)
+        }
         
         instructionsLabel.snp.makeConstraints { $0.top.equalTo(ratingStack.snp.bottom).offset(13) }
         instructionsLabel.snp.makeConstraints { $0.leading.equalToSuperview().inset(19) }

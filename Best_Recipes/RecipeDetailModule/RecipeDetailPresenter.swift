@@ -16,6 +16,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     private var recipe: Recipe?
     
     private let networkManager = NetworkManager.shared
+    private let storageManager = StorageService.shared
     
     @MainActor func activate() {
         loadData()
@@ -33,32 +34,53 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     
     @MainActor private func updateUI() {
 
-        let imageURL = recipe!.image
-        let rating = String(format: "%.1f", recipe!.rating / 20.0)
-        let reviews = String(recipe!.reviewsCount)
+        guard let recipe = recipe else { return }
+        let imageURL = recipe.image
+        let rating = String(format: "%.1f", recipe.rating / 20.0)
+        let reviews = String(recipe.reviewsCount)
         
-        let steps: [String] = recipe?.instructions
+        let steps: [String] = recipe.instructions
             .first?
             .steps
             .compactMap { $0.step } ?? []
         
-        let ingredients: [IngredientViewModel] = recipe?.ingredients?
-            .compactMap {
+        let ingredients: [IngredientViewModel] = recipe.ingredients?
+            .compactMap { ingredient in
                 .init(
-                    title: $0.originalName,
-                    image: URL(string: "https://img.spoonacular.com/ingredients_100x100/" + ($0.image ?? "")),
-                    amount: $0.amount,
-                    unit: $0.unit
+                    id: ingredient.id,
+                    title: ingredient.originalName,
+                    image: URL(string: "https://img.spoonacular.com/ingredients_100x100/" + (ingredient.image ?? "")),
+                    amount: ingredient.amount,
+                    unit: ingredient.unit,
+                    isAvailable: storageManager.isIngredientSaved(ingredient.id),
+                    availableHandler: { [weak self]  in
+                        self?.storageManager.toggleAvailableIngredient(ingredient.id)
+                         self?.updateUI()
+                    }
                 )
+                
             } ?? []
         
+        let isFavorite = storageManager.getFavoriteRecipes()
+            .contains { $0.id == recipe.id }
+        
         view?.update(with: .init(
-            title: recipe?.title ?? "",
+            title: recipe.title,
             image: imageURL,
             rating: rating,
             reviewsCount: reviews,
             instructions: steps,
-            ingredients: ingredients
+            ingredients: ingredients, 
+            isFavorite: isFavorite,
+            favoriteHandler: { [weak self] in
+                if recipe.isFavorite {
+                    print("\(recipe.id!) Recipe \(recipe.title) removed from favorites")
+                } else {
+                    print("\(recipe.id!) Recipe \(recipe.title) added to favorites")
+                }
+                self?.storageManager.toggleFavorite(recipeId: recipe.id)
+                self?.updateUI()
+            }
         ))
     }
 }

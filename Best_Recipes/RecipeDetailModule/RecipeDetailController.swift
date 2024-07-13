@@ -32,7 +32,9 @@ extension RecipeDetailController: RecipeDetailControllerProtocol {
             title: model.title,
             steps: model.instructions,
             rating: model.rating, 
-            reviewsCount: model.reviewsCount
+            reviewsCount: model.reviewsCount, 
+            isFavorite: model.isFavorite,
+            onFavTap: model.favoriteHandler
         )
         
         customView.ingredientsTableView.items = model.ingredients

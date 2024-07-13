@@ -514,7 +514,9 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
                     }
                     ingridientsToSave.append(Ingridient(originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
                 }
-            })
+                ingridientsToSave.append(Ingridient(id: UUID().hashValue, originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
+            }
+        })
 
             let name = Int(Array( self.cookTimeHours)[self.pickerView2.selectedRow(inComponent: 0)]) ?? 0
             let name1 = Int(Array( self.cookTimeMinuts)[self.pickerView2.selectedRow(inComponent: 1)]) ?? 0
