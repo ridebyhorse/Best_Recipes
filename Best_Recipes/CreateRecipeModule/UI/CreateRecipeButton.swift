@@ -13,7 +13,6 @@ final class CreateRecipeButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         config()
     }
     

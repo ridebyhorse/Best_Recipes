@@ -9,6 +9,25 @@ import Foundation
 
 final class SeeAllPresenterImpl: SeeAllPresenter {
     
+    var country: String?
+    var recipesForCountry = [Recipe]() {
+        didSet {
+            seeAllViewModel = .init(
+                    countries: .init(countries.map() { countryName in
+                            .init(headerName: countryName, didSelect: { [weak self ] in
+                                
+                                self?.country = countryName
+                                self?.viewDidLoad()
+                                print(self?.country)
+                                print(self?.recipesForCountry.map({$0.title}))
+                            })
+                    }
+                    ),
+                    recipes: createRecipeCellViewModel(with: recipesForCountry),
+                    mode: mode
+            )
+        }
+    }
     var mode: SeeAllMode
     var detailFlowHandler: ((Int) -> Void)?
     weak var view: (any SeeAllController)?
@@ -18,20 +37,26 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
             view?.update(with: seeAllViewModel)
         }
     }
-    
-    var favorites = [Int]()
+    var countries = [String]()
     
     init(view: any SeeAllController, mode: SeeAllMode) {
         self.view = view
         self.mode = mode
+        if mode == .countries {
+            countries = networkManager.getCountries()
+        }
     }
     
     func viewDidLoad() {
         switch mode {
         case .countries:
             updateSeeAllCountries()
-        default:
-            updateSeeAll()
+        case .recent:
+            updateSeeAllRecent()
+        case .trending:
+            updateSeeAllTrending()
+        case .certainCountry:
+            updateSeeAllCertainCountry()
         }
     }
     
@@ -53,55 +78,62 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
                     },
                     favoriteHandler:  {
                         StorageService.shared.toggleFavorite(recipeId: recipe.id!)
-                        self.favorites.append(recipe.id!)
-                        switch self.mode {
-                        case .countries:
-                            self.updateSeeAllCountries()
-                        default:
-                            self.updateSeeAll()
-                        }
+                        self.updateFavs()
                     },
                     ingridientsCount: recipe.ingredients?.count ?? 0
                 )
         }
-        
-        let favorite = StorageService.shared.getFavoriteRecipes()
-        print(favorite)
-        
-        return updateFavoriteStatus(in: recipeModel, with: self.favorites)
+        let fav = StorageService.shared.getFavoriteRecipes()
+        return updateFavoriteStatus(in: recipeModel, with: fav)
+    }
+    
+    private func updateFavs() {
+        let fav = StorageService.shared.getFavoriteRecipes()
+        guard let seeAllViewModel = seeAllViewModel else { return }
+        let updatedRecipes = updateFavoriteStatus(in: seeAllViewModel.recipes, with: fav)
+        let newModel = SeeAllViewModel.init(countries: seeAllViewModel.countries, recipes: updatedRecipes, mode: seeAllViewModel.mode)
+        self.seeAllViewModel = newModel
     }
     
     private func updateSeeAllCountries() {
-        var recipes = MockData.getMockRecipesMore()!
-        var countries = [String]()
-        recipes.forEach({
-            countries += $0.countries
-        })
-        countries = countries.removingDuplicates()
+        if let country {
+            recipesForCountry = networkManager.getRecipeForCountry(country)
+        } else {
+            recipesForCountry = networkManager.getRecipeForCountry(countries[0])
+        }
         
-        view?.update(
-            with: .init(
-                countries: countries.map() { .init(headerName: $0, didSelect: { print(countries) }) },
-                recipes: createRecipeCellViewModel(with: recipes),
-                mode: mode
-            )
-        )
     }
     
-    private func updateSeeAll() {
-        var recipes = MockData.getMockRecipesMore()!
-        view?.update(
-            with: .init(
+    private func updateSeeAllCertainCountry() {
+        let recipes = networkManager.getRecipeForCountry(country!)
+        seeAllViewModel = .init(
                 countries: [SeeAllCountry](),
                 recipes: createRecipeCellViewModel(with: recipes),
                 mode: mode
-            )
         )
     }
     
-    private func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Int]) -> [RecipesCellViewModel] {
+    private func updateSeeAllTrending() {
+        let recipes = networkManager.getTrendingRecipes()
+        seeAllViewModel = .init(
+                countries: [SeeAllCountry](),
+                recipes: createRecipeCellViewModel(with: recipes),
+                mode: mode
+        )
+    }
+    
+    private func updateSeeAllRecent() {
+        let recipes = StorageService.shared.getRecentRecipes()
+        seeAllViewModel = .init(
+                countries: [SeeAllCountry](),
+                recipes: createRecipeCellViewModel(with: recipes),
+                mode: mode
+        )
+    }
+    
+    func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Recipe]) -> [RecipesCellViewModel] {
         var updatedRecipes = recipes
-        let favoriteIds = Set(favoriteRecipes.map { $0 })
+        let favoriteIds = Set(favoriteRecipes.map { $0.id })
         
         for i in 0..<updatedRecipes.count {
             if favoriteIds.contains(updatedRecipes[i].recipeid) {

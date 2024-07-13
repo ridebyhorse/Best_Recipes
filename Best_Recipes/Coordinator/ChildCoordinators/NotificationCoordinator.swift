@@ -17,6 +17,7 @@ class NotificationCoordinator: CoordinatorProtocol {
         self.rootViewController = UINavigationController()
         self.moduleFactory = moduleFactory
         rootViewController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationBar.tintColor = .black
     }
     
     func start() {

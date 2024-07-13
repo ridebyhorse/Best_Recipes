@@ -17,6 +17,7 @@ class ProfileCoordinator: CoordinatorProtocol {
         rootViewController = UINavigationController()
         rootViewController.navigationBar.prefersLargeTitles = true
         self.moduleFactory = moduleFactory
+        rootViewController.navigationBar.tintColor = .black
     }
     
     func start() {

@@ -19,18 +19,28 @@ class ModuleFactory {
         return view
     }
     
-    func createSeeAllModule(mode: SeeAllMode, detailFlowHandler: ((Int) -> Void)?) -> UIViewController {
+    func createSeeAllModule(mode: SeeAllMode, country: String?, detailFlowHandler: ((Int) -> Void)?) -> UIViewController {
         let view = SeeAllControllerImpl()
-        view.title = mode.rawValue
-        let presenter = SeeAllPresenterImpl(view: view, mode: mode)
-        presenter.detailFlowHandler = detailFlowHandler
-        view.presenter = presenter
+        if mode == .certainCountry {
+            view.title = country ?? "See All"
+            let presenter = SeeAllPresenterImpl(view: view, mode: mode)
+            presenter.country = country ?? "German"
+            presenter.detailFlowHandler = detailFlowHandler
+            view.presenter = presenter
+            
+        } else {
+            view.title = mode.rawValue
+            let presenter = SeeAllPresenterImpl(view: view, mode: mode)
+            presenter.detailFlowHandler = detailFlowHandler
+            view.presenter = presenter
+        }
+        
         return view
     }
     
     func createHomeModule(searchController: UISearchController, flowHandler: HomeNavigationHandler?) -> UIViewController {
         let view = HomeControllerImpl()
-        view.title = "Get amazing recipes for cooking"
+        view.title = "Get amazing recipes"
         let network = NetworkManager.shared
         let storage = StorageService.shared
         let presenter = HomePresenterImpl(view: view, storageService: storage, networkManager: network)

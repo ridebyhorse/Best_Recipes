@@ -13,6 +13,7 @@ protocol SeeAllPresenter: AnyObject  {
     func viewDidLoad()
     var detailFlowHandler: ((Int) -> Void)? { get set }
     var mode: SeeAllMode { get set }
+    var country: String? { get set }
 }
 
 protocol SeeAllController: Configurable {

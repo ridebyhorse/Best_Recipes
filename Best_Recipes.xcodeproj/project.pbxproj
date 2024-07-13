@@ -57,7 +57,6 @@
 		CB0A52D92C3C5F4B00B4FBC9 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28C32B2C3C5F39007B1816 /* SearchProtocol.swift */; };
 		CB0A52DA2C3C5F5200B4FBC9 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28C32A2C3C5F38007B1816 /* SearchViewModel.swift */; };
 		CB411FAA2C404B9E0062F063 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB411FA92C404B9E0062F063 /* BookmarkViewModel.swift */; };
-		CB411FAD2C411D050062F063 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB411FAC2C411D050062F063 /* Assets.xcassets */; };
 		CB66F5392C3C561800705A9A /* MockRecipe.json in Resources */ = {isa = PBXBuildFile; fileRef = 6EC7D6F82C3749A00045313F /* MockRecipe.json */; };
 		CB69B6BC2C426630000A3EE4 /* SeeAllProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB69B6BB2C426630000A3EE4 /* SeeAllProtocol.swift */; };
 		CB69B6C02C426704000A3EE4 /* SeeAllPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB69B6BF2C426704000A3EE4 /* SeeAllPresenterImpl.swift */; };
@@ -66,7 +65,6 @@
 		CB69B6C82C426D9A000A3EE4 /* SeeAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB69B6C72C426D9A000A3EE4 /* SeeAllViewModel.swift */; };
 		CB69B6CC2C426FFF000A3EE4 /* SeeAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB69B6CB2C426FFF000A3EE4 /* SeeAllViewController.swift */; };
 		CB69B6CE2C42826F000A3EE4 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB69B6CD2C42826F000A3EE4 /* ArrayExtension.swift */; };
-		CB69B6D02C42836E000A3EE4 /* SeeAllModule in Resources */ = {isa = PBXBuildFile; fileRef = CB69B6CF2C42836E000A3EE4 /* SeeAllModule */; };
 		CB6C630B2C315E5E00CEE6BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */; };
 		CB6C630D2C315E5E00CEE6BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */; };
 		CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB6C63152C315E5F00CEE6BF /* LaunchScreen.storyboard */; };
@@ -80,6 +78,7 @@
 		CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB6C631F2C316BC700CEE6BF /* Poppins-Regular.ttf */; };
 		CB6C633C2C3182FE00CEE6BF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */; };
 		CB9096CF2C3DD04F00A9B05D /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9096CE2C3DD04400A9B05D /* CellView.swift */; };
+		CBA2CD7D2C4344DE003DA625 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA2CD7C2C4344DE003DA625 /* Assets.xcassets */; };
 		CBCB552E2C36B8FE000BD3F1 /* UnsafeTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */; };
 		CBCB55372C3703DD000BD3F1 /* KeyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */; };
 		CBDA84B92C3C5FB200E61884 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA84B82C3C5FB200E61884 /* SearchViewController.swift */; };
@@ -153,7 +152,6 @@
 		CB28C32A2C3C5F38007B1816 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CB28C32B2C3C5F39007B1816 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		CB411FA92C404B9E0062F063 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
-		CB411FAC2C411D050062F063 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Best_Recipes/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		CB69B6BB2C426630000A3EE4 /* SeeAllProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllProtocol.swift; sourceTree = "<group>"; };
 		CB69B6BF2C426704000A3EE4 /* SeeAllPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllPresenterImpl.swift; sourceTree = "<group>"; };
 		CB69B6C32C426C24000A3EE4 /* SeeAllRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllRecipeView.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 		CB69B6C72C426D9A000A3EE4 /* SeeAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllViewModel.swift; sourceTree = "<group>"; };
 		CB69B6CB2C426FFF000A3EE4 /* SeeAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllViewController.swift; sourceTree = "<group>"; };
 		CB69B6CD2C42826F000A3EE4 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		CB69B6CF2C42836E000A3EE4 /* SeeAllModule */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SeeAllModule; sourceTree = "<group>"; };
 		CB6C63072C315E5E00CEE6BF /* Best_Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Best_Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB6C630A2C315E5E00CEE6BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB6C630C2C315E5E00CEE6BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +174,7 @@
 		CB6C63372C317EB400CEE6BF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CB9096CE2C3DD04400A9B05D /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		CBA2CD7C2C4344DE003DA625 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBCB552D2C36B8FE000BD3F1 /* UnsafeTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeTask.swift; sourceTree = "<group>"; };
 		CBCB55362C3703DD000BD3F1 /* KeyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstant.swift; sourceTree = "<group>"; };
 		CBDA84B82C3C5FB200E61884 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -455,13 +453,12 @@
 				6E4CBCCE2C334B3B008D19FE /* HomeModule */,
 				CB28C3262C3C5F25007B1816 /* SearchModule */,
 				B9B9E1142C347D26003E5439 /* RecipeDetailModule */,
-				CB69B6CF2C42836E000A3EE4 /* SeeAllModule */,
 				CB6C63322C317A0900CEE6BF /* Service */,
 				6E4CBCBC2C3346F1008D19FE /* Base */,
 				CBDE99182C3DD763000201C0 /* AppColor */,
 				CB6C631E2C316BB500CEE6BF /* Font */,
-				CB411FAC2C411D050062F063 /* Assets.xcassets */,
 				CB6C63152C315E5F00CEE6BF /* LaunchScreen.storyboard */,
+				CBA2CD7C2C4344DE003DA625 /* Assets.xcassets */,
 				CB6C63182C315E5F00CEE6BF /* Info.plist */,
 			);
 			path = Best_Recipes;
@@ -675,9 +672,8 @@
 				CB6C63172C315E5F00CEE6BF /* LaunchScreen.storyboard in Resources */,
 				CB6C63392C317F2A00CEE6BF /* Poppins-Bold.ttf in Resources */,
 				CB6C633A2C317F2D00CEE6BF /* Poppins-Regular.ttf in Resources */,
-				CB411FAD2C411D050062F063 /* Assets.xcassets in Resources */,
+				CBA2CD7D2C4344DE003DA625 /* Assets.xcassets in Resources */,
 				CB66F5392C3C561800705A9A /* MockRecipe.json in Resources */,
-				CB69B6D02C42836E000A3EE4 /* SeeAllModule in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +913,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Best_Recipes/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "I'M STEALING YOUR DATA";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
@@ -949,6 +946,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Best_Recipes/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "I'M STEALING YOUR DATA";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
