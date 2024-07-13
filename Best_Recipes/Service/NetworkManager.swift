@@ -20,18 +20,20 @@ class NetworkManager {
         self.networkService = networkService
     }
     
-    func fetchRecipes() {
-        Task {
+    func fetchRecipes() async {
+        var attempts = 3
+        while attempts > 0 {
             do {
                 let result = try await networkService.fetchRecipes()
-                let filteredRecipes = result.filter({ $0.ingredients != nil })
+                let filteredRecipes = result.filter { $0.ingredients != nil }
                 for filteredRecipe in filteredRecipes {
-                    if !recipes.contains(where: {$0.id == filteredRecipe.id}) {
+                    if !recipes.contains(where: { $0.id == filteredRecipe.id }) {
                         recipes.append(filteredRecipe)
                     }
                 }
+                attempts -= 1 // Reduce the attempt count after a successful fetch
             } catch {
-                print("Ошибка при загрузке рецептов: \(error)")
+                print("Ошибка при загрузке рецептов: (error)")
                 networkService.switchCurrentApiKey()
             }
         }
