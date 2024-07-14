@@ -1,7 +1,6 @@
 # Best Recipes
 
-![Best Recipes](Best_Recipes/Resources/Assets.xcassets/12.dataset/12.png)
-
+![Best Recipes](Best_Recipes/Assets.xcassets/12.imageset/12.png)
 <p align="left"> 
 <a href="https://swift.org">
 <img src="https://img.shields.io/badge/Swift-5.9-mediumslateblue" alt="Swift Version 5.9" /></a>
