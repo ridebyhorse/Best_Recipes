@@ -34,7 +34,7 @@
 
 - **Swift / UIKit / UserDefaults**
   
-- **Архитектура**: MVC
+- **Архитектура**: MVP+C
   
 - **Фреймворки**: 
   * SnapKit 
