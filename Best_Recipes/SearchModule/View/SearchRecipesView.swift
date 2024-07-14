@@ -13,7 +13,7 @@ final class SearchRecipesView: CellView, Configurable {
     private let recipeImageView: UIImageView = {
         let recipeImageView = UIImageView()
         recipeImageView.contentMode = .scaleAspectFill
-        recipeImageView.addoverlay(alpha: 0.4)
+        recipeImageView.addoverlay(alpha: 0.25)
         
         return recipeImageView
     }()

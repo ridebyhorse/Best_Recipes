@@ -65,37 +65,7 @@ class ProfileViewController: UIViewController {
         collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: "favouriteRecipeCell")
         
        }
-    
-    private func handlePhotoURL(image: URL?) -> UIImage {
-        let fileManager = FileManager.default
-        let bundleURL = Bundle.main.bundleURL
-        if let url = image?.lastPathComponent {
-            let assetURL = bundleURL.appendingPathComponent(url) // Bundle URL
-            do {
-              let contents = try fileManager.contentsOfDirectory(at: assetURL,
-             includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey],
-             options: .skipsHiddenFiles)
-              for item in contents { // item is the URL of everything in MyBundle imgs or otherwise.
 
-                  let imageRet = UIImage(contentsOfFile: item.path) // Initializing an image
-                  return imageRet! // Adding the image to the icons array
-              }
-            }
-            catch let error as NSError {
-              print(error)
-                return UIImage(named: "AppIcon")!
-            }
-        }
-        return UIImage(named: "Onboarding1")!
-    }
-    private func bestMetadataCollectionMethod(with url: URL) -> CFDictionary? {
-        let options = [kCGImageSourceShouldCache as String: kCFBooleanFalse]
-        guard let data = NSData(contentsOf: url) else { return nil }
-        guard let imgSrc = CGImageSourceCreateWithData(data, options as CFDictionary) else {
-            return nil }
-        let metadata = CGImageSourceCopyPropertiesAtIndex(imgSrc, 0, options as CFDictionary)
-        return metadata
-    }
 }
     
  
@@ -107,8 +77,7 @@ extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favouriteRecipeCell", for: indexPath) as! RecipeCell
-        let image: UIImage = handlePhotoURL(image: favRecipes?[indexPath.row].image ?? URL(string: ""))  // ПОМЕНЯТЬ ИЗОБРАЖЕНИЕ БЛЮДА
-        cell.recipeImageView.image = image
+        cell.recipeImageView.image = UIImage(named: "Onboarding2")
         cell.ratingLabel.text = String(format: "%.1f", favRecipes?[indexPath.row].rating ?? 0 / 20.0)
         cell.titleLabel.text = favRecipes?[indexPath.row].title ?? "My Recipe"
         cell.ingridientsLabel.text = String(favRecipes?[indexPath.row].ingredients?.count ?? 0) + " ingredients"
