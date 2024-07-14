@@ -24,11 +24,7 @@ final class BookmarkControllerImpl: UIViewController {
         view.backgroundColor = .white
         configure()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        presenter?.viewDidLoad()
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.viewDidLoad()

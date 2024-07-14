@@ -512,9 +512,8 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
                             unit.append(char)
                         }
                     }
-                    ingridientsToSave.append(Ingridient(originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
-                }
-                ingridientsToSave.append(Ingridient(id: UUID().hashValue, originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
+                    ingridientsToSave.append(Ingridient(id: UUID().hashValue, originalName: name, amount: Double(stringAmount) ?? 0, unit: unit))
+
             }
         })
 

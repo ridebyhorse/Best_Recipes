@@ -20,7 +20,16 @@ final class SeeAllControllerImpl: UIViewController {
     //MARK: - Private properties
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
-    private var selectedIndexPaths = [Int: IndexPath]()
+    private var selectedIndexPath = IndexPath(row: 0, section: 0) {
+        didSet {
+            if oldValue != selectedIndexPath {
+                collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+                collectionView.deselectItem(at: oldValue, animated: false)
+                print(selectedIndexPath)
+                print(oldValue)
+            }
+        }
+    }
     private var firstLoad = true
     
     override func viewDidLoad() {
@@ -35,13 +44,9 @@ extension SeeAllControllerImpl: SeeAllController {
     
     func update(with model: SeeAllViewModel?) {
         updateCollection(with: model!)
-        if model?.mode == .countries {
-            if firstLoad {
-                let indexPath = IndexPath(row: 0, section: Section.countries.rawValue)
-                selectedIndexPaths[Section.countries.rawValue] = indexPath
-                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                firstLoad = false
-            }
+        if firstLoad {
+            collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+            firstLoad = false
         }
     }
 }
@@ -70,7 +75,6 @@ private extension SeeAllControllerImpl {
         snapshot.appendItems(model.recipes, toSection: .recipes)
         
         dataSource.apply(snapshot, animatingDifferences: false)
-        collectionView.reloadData()
     }
 }
 
@@ -186,19 +190,9 @@ extension SeeAllControllerImpl:  UICollectionViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { return }
         switch section {
         case .countries:
-            let indexPath = IndexPath(item: 0, section: Section.recipes.rawValue)
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            selectedIndexPath = indexPath
         default:
             collectionView.deselectItem(at: indexPath, animated: false)
-        }
-        
-        if let previousIndexPath = selectedIndexPaths[section.rawValue], previousIndexPath != indexPath {
-            collectionView.deselectItem(at: previousIndexPath, animated: false)
-            selectedIndexPaths[section.rawValue] = indexPath
-        } else if let previousIndexPath = selectedIndexPaths[section.rawValue], previousIndexPath == indexPath {
-            return
-        } else {
-            selectedIndexPaths[section.rawValue] = indexPath
         }
     }
     
@@ -206,7 +200,7 @@ extension SeeAllControllerImpl:  UICollectionViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else {  return true }
         switch section {
         case .countries:
-            return indexPath != selectedIndexPaths[indexPath.section]
+            return false
         default: return true
         }
     }

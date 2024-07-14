@@ -18,8 +18,6 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
                                 
                                 self?.country = countryName
                                 self?.viewDidLoad()
-                                print(self?.country)
-                                print(self?.recipesForCountry.map({$0.title}))
                             })
                     }
                     ),
