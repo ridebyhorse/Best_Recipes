@@ -6,7 +6,7 @@
 <img src="https://img.shields.io/badge/Swift-5.9-mediumslateblue" alt="Swift Version 5.9" /></a>
 <a href="https://developer.apple.com/ios/">
 <img src="https://img.shields.io/badge/iOS-17.0%2B-indianred" alt="iOS Version 17.0"/></a>
-<img src="https://img.shields.io/badge/MVC-goldenrod" alt="MVC" />
+<img src="https://img.shields.io/badge/MVC-goldenrod" alt="MVP+C" />
 </p>
 
 ### В разработке участвовали:
