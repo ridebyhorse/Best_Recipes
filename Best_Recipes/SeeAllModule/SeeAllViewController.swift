@@ -44,7 +44,7 @@ extension SeeAllControllerImpl: SeeAllController {
     
     func update(with model: SeeAllViewModel?) {
         updateCollection(with: model!)
-        if firstLoad {
+        if firstLoad && model!.mode == .countries {
             collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
             firstLoad = false
         }

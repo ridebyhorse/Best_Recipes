@@ -419,7 +419,7 @@ class CreateRecipeViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
         nameRecipe.delegate = self
         instructions.delegate = self
-//
+        modalPresentationStyle = .fullScreen
 ////        pickerView1.delegate = self
 //        pickerView1.dataSource = self
 //        pickerView1.isHidden = true

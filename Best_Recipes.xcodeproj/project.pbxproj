@@ -444,7 +444,6 @@
 				B9B9E1222C3486D5003E5439 /* CommonUI */,
 				CB6C632F2C31793D00CEE6BF /* App */,
 				CB6C63312C3179CD00CEE6BF /* Model */,
-				CB6C63302C3179BF00CEE6BF /* Controller */,
 				CB95400D2C41B43D00C20302 /* Onboarding */,
 				CBFA62562C403FBF00DB918A /* BookmarkModule */,
 				CBFA624E2C4009F400DB918A /* TabBar */,
@@ -452,6 +451,7 @@
 				CBFA624D2C4009D500DB918A /* CreateRecipeModule */,
 				6E4CBCCE2C334B3B008D19FE /* HomeModule */,
 				CB28C3262C3C5F25007B1816 /* SearchModule */,
+				CBEFD41D2C43BD2100E85391 /* ProfileModule */,
 				B9B9E1142C347D26003E5439 /* RecipeDetailModule */,
 				CB6C63322C317A0900CEE6BF /* Service */,
 				6E4CBCBC2C3346F1008D19FE /* Base */,
@@ -483,15 +483,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		CB6C63302C3179BF00CEE6BF /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */,
-				CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
 		CB6C63312C3179CD00CEE6BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +499,7 @@
 		CB6C63322C317A0900CEE6BF /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CBEFD41C2C43BD0F00E85391 /* NotificationModule */,
 				CBEDCA132C34953500232A02 /* DIContainer.swift */,
 				CBE872B22C35C815005EB742 /* NetworkManager.swift */,
 				CB6C633B2C3182FE00CEE6BF /* NetworkService.swift */,
@@ -551,6 +543,22 @@
 			);
 			name = AppColor;
 			path = Base/AppColor;
+			sourceTree = "<group>";
+		};
+		CBEFD41C2C43BD0F00E85391 /* NotificationModule */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C63292C3172BE00CEE6BF /* NotificationViewController.swift */,
+			);
+			path = NotificationModule;
+			sourceTree = "<group>";
+		};
+		CBEFD41D2C43BD2100E85391 /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				CB6C632B2C3172FD00CEE6BF /* ProfileViewController.swift */,
+			);
+			path = ProfileModule;
 			sourceTree = "<group>";
 		};
 		CBFA624D2C4009D500DB918A /* CreateRecipeModule */ = {

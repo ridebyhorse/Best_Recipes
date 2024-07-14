@@ -49,10 +49,7 @@ final class BookmarkPresenterImpl: BookmarkPresenter {
     
     func viewDidLoad() {
         recipes = storageManager.getFavoriteRecipes()
-#warning("Убрать if{} с моком после добавления логики добавления в избранное на всех экранах")
-        if recipes.isEmpty {
-            recipes = MockData.getMockRecipesMore()!
-        }
+
         view?.update(
             with: .init(
                 favoriteRecipes: createRecipeCellViewModel(with: recipes)

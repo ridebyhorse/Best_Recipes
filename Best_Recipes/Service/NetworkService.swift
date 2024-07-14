@@ -20,9 +20,9 @@ class NetworkService {
     private let searchByIdUrlString = "https://api.spoonacular.com/recipes/informationBulk?ids="
 
     private init() {
-        Task {
-            try await KeyConstant.loadAPIKeys()
-        }
+//        Task {
+//            try await KeyConstant.loadAPIKeys()
+//        }
     }
     
     func fetchRecipes() async throws -> [Recipe] {

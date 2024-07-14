@@ -25,7 +25,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     @MainActor private func loadData() {
         if let recipeId {
             StorageService.shared.addToRecentRecipes(recipeId: recipeId)
-            self.recipe = networkManager.getRecipeById(recipeId) ?? MockData.getMockRecipes()?.first
+            self.recipe = networkManager.getRecipeById(recipeId) ?? findInFavs(id: recipeId) ?? MockData.getMockRecipes()?.first
         } else {
             self.recipe = MockData.getMockRecipes()?.first
         }
@@ -82,5 +82,13 @@ class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
                 self?.updateUI()
             }
         ))
+    }
+    
+    private func findInFavs(id: Int) -> Recipe? {
+        let favs = storageManager.getFavoriteRecipes()
+        if let index = favs.firstIndex(where: {$0.id == id}) {
+            return favs[index]
+        }
+        return nil
     }
 }
