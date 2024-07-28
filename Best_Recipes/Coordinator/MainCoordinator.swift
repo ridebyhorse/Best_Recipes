@@ -58,6 +58,7 @@ class MainCoordinator: CoordinatorProtocol {
         self.rootViewController = UITabBarController()
         let customTabBar = CustomTabBar()
         let vc = moduleFactory.createRecipeCreationModule()
+        vc.modalPresentationStyle = .fullScreen
         customTabBar.onPlusButtonTap = {[weak self] in
             self?.rootViewController.present(vc, animated: true)}
         rootViewController.setValue(customTabBar, forKey: "tabBar")

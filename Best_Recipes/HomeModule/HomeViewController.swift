@@ -79,6 +79,20 @@ extension HomeControllerImpl: UISearchBarDelegate {
         guard let searchText = searchBar.text else { return }
         searchController.presenter?.searchRecipeByKeyword(searchText)
     }
+    
+}
+
+//MARK: - UISearchControllerDelegate
+extension HomeControllerImpl: UISearchControllerDelegate {
+    
+    func willPresentSearchController(_ searchController: UISearchController) {
+        view.isUserInteractionEnabled = false
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        view.isUserInteractionEnabled = true
+    }
+    
 }
 
 private extension HomeControllerImpl {
@@ -86,7 +100,8 @@ private extension HomeControllerImpl {
         setupViews()
         setupConstraints()
         showLoadingIndicator()
-        searchController!.searchBar.delegate = self
+        searchController?.searchBar.delegate = self
+        searchController?.delegate = self
     }
     
     func setupViews() {

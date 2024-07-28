@@ -20,16 +20,17 @@ final class SeeAllControllerImpl: UIViewController {
     //MARK: - Private properties
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = createDataSource()
-    private var selectedIndexPath = IndexPath(row: 0, section: 0) {
-        didSet {
-            if oldValue != selectedIndexPath {
-                collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
-                collectionView.deselectItem(at: oldValue, animated: false)
-                print(selectedIndexPath)
-                print(oldValue)
-            }
-        }
-    }
+    private var selectedIndexPath = IndexPath(row: 0, section: 0) 
+//    {
+//        didSet {
+//            if oldValue != selectedIndexPath {
+//                collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: [.centeredVertically])
+//                print(selectedIndexPath)
+//                print(oldValue)
+//            }
+//        }
+//    }
+    private var model: SeeAllViewModel?
     private var firstLoad = true
     
     override func viewDidLoad() {
@@ -43,11 +44,19 @@ final class SeeAllControllerImpl: UIViewController {
 extension SeeAllControllerImpl: SeeAllController {
     
     func update(with model: SeeAllViewModel?) {
+        self.model = model
         updateCollection(with: model!)
         if firstLoad && model!.mode == .countries {
             collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
             firstLoad = false
-        }
+        } 
+//        else if !firstLoad && model!.mode == .countries {
+//            let countries = model!.countries.map({$0.headerName})
+//            if let index = countries.firstIndex(of: presenter?.country! ?? "") {
+//                collectionView.selectItem(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: [])
+//            }
+//            collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: [])
+//        }
     }
 }
 
@@ -73,19 +82,18 @@ private extension SeeAllControllerImpl {
         snapshot.appendSections([.countries, .recipes])
         snapshot.appendItems(model.countries, toSection: .countries)
         snapshot.appendItems(model.recipes, toSection: .recipes)
-        
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.applySnapshotUsingReloadData(snapshot)
     }
 }
 
-//MARK: - Create and Configure Priperties
+//MARK: - Create and Configure Properties
 private extension SeeAllControllerImpl {
     func createCollectionView() -> UICollectionView {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
         collectionView.register(SeeAllCountryCell.self, forCellWithReuseIdentifier: String(describing: SeeAllCountryCell.self))
         collectionView.register(SeeAllRecipesCell.self, forCellWithReuseIdentifier: String(describing: SeeAllRecipesCell.self))
         collectionView.delegate = self
-        collectionView.allowsMultipleSelection = true
+        collectionView.allowsMultipleSelection = false
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return collectionView
     }
@@ -97,7 +105,12 @@ private extension SeeAllControllerImpl {
             case .countries:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SeeAllCountryCell.self), for: indexPath) as! SeeAllCountryCell
                 if let item = item as? SeeAllCountry {
-                    cell.update(with: item, didSelectHandler: item.didSelect)
+                    cell.update(with: item, didSelectHandler:  { [weak self] in
+                        if let select = item.didSelect {
+                            select()
+                        }
+                        self?.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                    })
                 }
                 return cell
             case .recipes:
@@ -172,7 +185,7 @@ private extension SeeAllControllerImpl {
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 0
         collectionView.showsVerticalScrollIndicator = false
-//        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         
         return section
     }

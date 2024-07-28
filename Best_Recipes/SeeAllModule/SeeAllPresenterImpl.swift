@@ -15,7 +15,6 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
             seeAllViewModel = .init(
                     countries: .init(countries.map() { countryName in
                             .init(headerName: countryName, didSelect: { [weak self ] in
-                                
                                 self?.country = countryName
                                 self?.viewDidLoad()
                             })
@@ -60,7 +59,6 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
     
     private func createRecipeCellViewModel(with recipes: [Recipe]) -> [RecipesCellViewModel] {
         let recipeModel: [RecipesCellViewModel] = recipes.enumerated().map() { [unowned self] ( index ,recipe) in
-           
                 .init(
                     recipeid: recipe.id!,
                     raiting: recipe.rating,
@@ -83,12 +81,13 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
         }
       
         let fav = StorageService.shared.getFavoriteRecipes()
+        print(recipeModel.count)
         return updateFavoriteStatus(in: recipeModel, with: fav)
     }
     
     private func updateFavs() {
         let fav = StorageService.shared.getFavoriteRecipes()
-        guard let seeAllViewModel = seeAllViewModel else { return }
+        guard let seeAllViewModel else { return }
         let updatedRecipes = updateFavoriteStatus(in: seeAllViewModel.recipes, with: fav)
         let newModel = SeeAllViewModel.init(countries: seeAllViewModel.countries, recipes: updatedRecipes, mode: seeAllViewModel.mode)
         self.seeAllViewModel = newModel
@@ -128,6 +127,7 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
                 recipes: createRecipeCellViewModel(with: recipes),
                 mode: mode
         )
+        print(recipes.count)
     }
     
     func updateFavoriteStatus(in recipes: [RecipesCellViewModel], with favoriteRecipes: [Recipe]) -> [RecipesCellViewModel] {
@@ -141,7 +141,7 @@ final class SeeAllPresenterImpl: SeeAllPresenter {
                 updatedRecipes[i].isFavorite = false
             }
         }
-        
+        print(updatedRecipes)
         return updatedRecipes
     }
 }

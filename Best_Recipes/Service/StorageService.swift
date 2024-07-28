@@ -62,7 +62,7 @@ class StorageService {
         } else {
             let recipe = networkManager.getRecipeById(id)
             networkManager.updateFav(id: id)
-            guard var recipe else { return }
+            guard let recipe else { return }
             addRecipe(forKey: .favoriteRecipiesKey, recipe)
         }
     }
